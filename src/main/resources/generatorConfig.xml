@@ -9,6 +9,7 @@
     <javaClientGenerator targetPackage="com.kcsj.dao" targetProject="src/main/java" type="XMLMAPPER" />
     <!-- <table tableName="student" domainObjectName="Student" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
     -->
-    <table tableName="emp" domainObjectName="Emp" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+    
+    <table tableName="User" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
   </context>
 </generatorConfiguration>
