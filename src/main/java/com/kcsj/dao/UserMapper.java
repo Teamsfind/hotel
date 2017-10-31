@@ -89,4 +89,7 @@ public interface UserMapper {
      */
     public int upworkjob(User user); 
   
+    
+    //查询员工信息(人员安排)
+    public List<User> selectuserForAnPai(); 
 }

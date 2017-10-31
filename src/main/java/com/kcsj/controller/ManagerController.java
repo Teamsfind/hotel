@@ -85,6 +85,18 @@ public class ManagerController {
 	public ModelAndView tolizhi( ){
 		return new ModelAndView("houjsp/lizhi");
 	}
+	@RequestMapping("/tovacation")
+	public ModelAndView tovacation( ){
+		return new ModelAndView("houjsp/vacation");
+	}
+	@RequestMapping("/totravel")
+	public ModelAndView totravel( ){
+		return new ModelAndView("houjsp/travel");
+	}
+	@RequestMapping("/toStaffing")
+	public ModelAndView toStaffing( ){
+		return new ModelAndView("houjsp/Staffing");
+	}
 	
 	/**
 	 	登录验证
@@ -499,7 +511,7 @@ public class ManagerController {
 	}
 	
 	/**
-	 	考勤管理(每个员工所有数据所有考勤)
+	 	考勤管理(单个员工所有数据)
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findUserAttdayAll",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
@@ -510,7 +522,7 @@ public class ManagerController {
 	}
 	
 	/**
-	 	考勤管理(每个员工所有数据所有考勤)
+	 	考勤管理(查询单个员工数据，搜索功能)
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findUserAttday",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
@@ -518,6 +530,80 @@ public class ManagerController {
 			String usernumber = request.getParameter("usernumber");
 			
 			return managerservice.findUserAttday(usernumber);
+	}
+	
+	/**
+	 	休假数据(今日所有休假)
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findvactiondayAll",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
+	public List<AttdData> findvactiondayAll(HttpServletRequest request){
+		
+			return managerservice.findvacationdayAll();
+	}
+	
+	/**
+	 	休假数据(单个员工所有数据)
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findUserVactiondayAll",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
+	public List<AttdData> findUserVactiondayAll(HttpServletRequest request){
+			String usernumber = request.getParameter("usernumber");
+			
+			return managerservice.findUserVacationdayAll(usernumber);
+	}
+	
+	/**
+	 	休假数据(查询单个员工数据，搜索功能)
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findUserVactionday",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
+	public List<AttdData> findUserVactionday(HttpServletRequest request){
+			String usernumber = request.getParameter("usernumber");
+			
+			return managerservice.findUserVacationday(usernumber);
+	}
+	
+		/**
+		 	出差数据(今日所有休假)
+		 */
+		@ResponseBody
+		@RequestMapping(value="/findTraveldayAll",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
+		public List<AttdData> findTraveldayAll(HttpServletRequest request){
+			
+				return managerservice.findTraveldayAll();
+		}
+		
+		/**
+		 	出差数据(单个员工所有数据)
+		 */
+		@ResponseBody
+		@RequestMapping(value="/findUserTraveldayAll",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
+		public List<AttdData> findUserTraveldayAll(HttpServletRequest request){
+				String usernumber = request.getParameter("usernumber");
+				
+				return managerservice.findUserTravelAll(usernumber);
+		}
+		
+		/**
+		 	出差数据(查询单个员工数据，搜索功能)
+		 */
+		@ResponseBody
+		@RequestMapping(value="/findUserTravelday",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
+		public List<AttdData> findUserTravelday(HttpServletRequest request){
+				String usernumber = request.getParameter("usernumber");
+				
+				return managerservice.findUserTravelday(usernumber);
+		}
+		
+	/**
+	 	人员安排(查询所有不在职的员工)
+	 */
+	@ResponseBody
+	@RequestMapping(value="/selectuserForAnPai",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
+	public List<User> selectuserForAnPai(HttpServletRequest request){
+		
+			return managerservice.selectuserForAnPai();
 	}
 }
 

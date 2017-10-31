@@ -352,4 +352,10 @@
     where user_number = #{userNumber,jdbcType=INTEGER}
   </update>
   
+  <!-- 人员安排 -->
+   <select id="selectuserForAnPai" resultMap="BaseResultMap" >
+   
+   select * from user where user_jobtype!='4' and user_jobtype!='1'
+  </select>
+  <!-- 结束 -->
 </mapper>

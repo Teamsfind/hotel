@@ -132,14 +132,11 @@
       	  $.ajax({
         		type : 'post',
         		dataType : 'json',
-        		url : '<%=basePath%>manager/selectAlluser?text=0',
+        		url : '<%=basePath%>manager/selectuserForAnPai',
         		success : function(data) {	
         			var $tbody = $("#appl");
         			$tbody.empty();  
         	            for (var j = 0; j < data.length; j++) { 
-        	            	
-        	            	var unixTimestamp = new Date(data[j].userWorktime) ;
-        	            	var commonTime = unixTimestamp.toLocaleString();
         	            	
         	            	var jbnumber = data[j].userDpt;
         	            	var jbnumber2;
@@ -163,15 +160,13 @@
         	            	
         	            	var  worktype = data[j].userWorktype;
         	            	var worktype2 = "缺勤";
-        	            	if (worktype==1) {
-        	            		worktype2 = "正常";
-							}else if(worktype==2){
+        	            	if(worktype==2){
 								worktype2 = "休假";
 							}else if(worktype==3){
 								worktype2 = "出差";
 							}
         	            	var k = j+1;
-        	            	var table="<tr class='gradeX'><td>"+k+"</td><td><a href='javascript:void(0);' title='员工详细信息' style='color:#0080FF'  id='findmanayuser'  onclick=twoDirectory("+data[j].userNumber+")>"+data[j].userNumber+"</a></td><td>"+jbnumber2+"</td><td>"+data[j].userDptJbn+"</td><td>"+data[j].userUsername+"</td><td>"+sex2+"</td><td>"+commonTime+"</td><td>"+worktype2+"</td></tr>";
+        	            	var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td><a href='javascript:void(0);' title='员工详细信息' style='color:#0080FF'  id='findmanayuser'  onclick=twoDirectory("+data[j].userDpt+")>"+jbnumber2+"</a></td><td>"+data[j].userDptJbn+"</td><td>"+data[j].userUsername+"</td><td>"+sex2+"</td><td>"+worktype2+"</td></tr>";
         	          		
         	            	$tbody.append(table);
         	            }
@@ -219,13 +214,18 @@
             <div class="box sidemenu">
                 <div class="block" id="section-menu">
                     <ul class="section menu">
-                        <li><a class="menuitem">人事档案管理</a>
+                        <li><a class="menuitem">数据统计</a>
                             <ul class="submenu">
-                                <li><a href="<%=basePath %>manager/toruzhi">职员入职</a> </li>	
-                           		<li><a href="<%=basePath %>manager/touserXinxi">职员信息</a> </li>
-                           		<li><a href="<%=basePath %>manager/tolizhi">职员离职</a> </li>
+                                <li><a href="<%=basePath %>manager/tokaoqing">考勤数据</a> </li>	
+                                <li><a href="<%=basePath %>manager/tovacation">休假数据</a> </li>
+                           		<li><a href="<%=basePath %>manager/totravel">出差数据</a> </li>
                             </ul>
-                        </li>                       
+                        </li>
+                         <li><a class="menuitem" >人事调动</a>
+                         	 <ul class="submenu">
+                         	 	<li><a  href="<%=basePath %>manager/toStaffing">人员安排</a></li>
+                         	 </ul>
+                         </li>                   
                     </ul>
                 </div>
             </div>
@@ -233,11 +233,7 @@
         <div class="grid_10">
         	       <div class="box round first grid" >
                 <h2>
-                    	职员信息</h2>
-               
-                <div class="tools">
-    					<center style="font-size: 15px;">搜索:<input type="text" name="Search" id="text2" placeholder="请输入员工姓名或者部门" style="width: 200px;height: 40px"/><input type="button" value="确定" class="Search" style="background:url(<%=basePath %>houCss/img/buttonbg.png) repeat-x;width:96px; height:35px;" " onclick="tofind()"/>
-   				</div></br>
+                    	人事安排</h2>
     			<div>
                    <table class="bordered" cellspacing="0" border="0">
 					<thead>
@@ -248,7 +244,6 @@
 							<th>员工职位</th>
 							<th>员工姓名</th>
 							<th>员工性别</th>
-							<th>员工入职时间</th>
 							<th>员工工作状态</th>
 						</tr>
 					</thead>
@@ -290,7 +285,7 @@
 	                                    <option value="2">试用期</option>
 	                                    <option value="3">正式员工</option>
 	                                </select>
-	                                <span style="color: red">(* 职位状态修改)</span>
+	                                <span style="color: red">(* 员工升职)</span>
 	                       </td>
 						</tr>
 						<tr>

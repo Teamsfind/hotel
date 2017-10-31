@@ -117,19 +117,47 @@
         text-align:right;  
         padding-right:5px;  
     }
-    
    </style>
-   <script type="text/javascript">  
+  <script type="text/javascript">
+
         $(document).ready(function () {
             setupLeftMenu();
-
             $('.datatable').dataTable();
-			setSidebarHeight();
-		
-			setInterval("show()",3500);
+          			setSidebarHeight();
+
         });
-     
+        
+        $(function(){
+            
+      	  $.ajax({
+        		type : 'post',
+        		dataType : 'json',
+        		url : '<%=basePath%>manager/findTraveldayAll',
+        		success : function(data) {	
+        			var $tbody = $("#appl");
+        			$tbody.empty();  
+        			for (var j = 0; j < data.length; j++) { 
+    	            	
+    	            	var unixTimestamp = new Date(data[j].attdTravelBegintime) ;
+    	            	var attdTravelBegintime = unixTimestamp.toLocaleString();
+    	            	
+    	            	var unixTimestamp2 = new Date(data[j].attdTravelEndtime) ;
+    	            	var attdTravelEndtime = unixTimestamp2.toLocaleString();
+    	            	var type = "是";
+    	            	if (attdTravelBegintime=="") {
+    	            		type = "否"
+    					}
+    	            	
+    	            	var k = j+1;
+    	            	var table="<tr class='gradeX'><td>"+k+"</td><td><a href='javascript:void(0);' title='员工历史出差数据' style='color:#0080FF'  id='findmanayuser'  onclick=toremind("+data[j].usernumber+")>"+data[j].usernumber+"</a></td><td>"+data[j].username+"</td><td>"+data[j].attdTravelPlace+"</td><td>"+attdTravelBegintime+"</td><td>"+attdTravelEndtime+"</td><td>"+type+"</td></tr>";
+    	          		
+    	            	$tbody.append(table);
+    	            }
+        		}
+        	});
+      });
     </script>
+
 </head>
 <body>
     <div class="container_12">
@@ -168,74 +196,79 @@
            <div class="grid_2">
             <div class="box sidemenu">
                 <div class="block" id="section-menu">
-                    <ul class="section menu">
-                        <li><a class="menuitem">首页</a>
+                     <ul class="section menu">
+                        <li><a class="menuitem">数据统计</a>
                             <ul class="submenu">
-                                <li><a href="<%=basePath %>manager/tomain">今日消息</a> </li>
-                                <li><a href="<%=basePath %>manager/tohistorymain">历史消息</a> </li>	
-                           	<li><a href="<%=basePath %>manager/toPerson">个人中心</a> </li>
+                                <li><a href="<%=basePath %>manager/tokaoqing">考勤数据</a> </li>	
+                                <li><a href="<%=basePath %>manager/tovacation">休假数据</a> </li>
+                           		<li><a href="<%=basePath %>manager/totravel">出差数据</a> </li>
                             </ul>
-                        </li>                       
-                    </ul>
+                        </li>
+                         <li><a class="menuitem" >人事调动</a>
+                         	 <ul class="submenu">
+                         	 	<li><a  href="<%=basePath %>manager/toStaffing">人员安排</a></li>
+                         	 </ul>
+                         </li>                   
+                    </ul>	
                 </div>
             </div>
         </div>
-     <div class="grid_10">
-            <div class="box round first grid" >
-                <h2>
-                    	个人中心
-                </h2>
+        <div class="grid_10">
+        	  <div class="box round first grid" >
+       				   <h2>
+                    	休假数据  </h2>
+                    	
+                <div class="tools">
+    					<center style="font-size: 15px;">搜索:&nbsp;&nbsp;<input type="text" name="Search" id="text2" placeholder="请输入员工编号" style="width: 200px;height: 40px"/>&nbsp;&nbsp;<input type="button" value="确定" class="Search" style="background:url(<%=basePath %>houCss/img/buttonbg.png) repeat-x;width:96px; height:35px;" " onclick="tofind()"/>
+   				</div></br>
                
-                </br>
+              </br>
     			<div>
                    <table class="bordered" cellspacing="0" border="0">
+					<thead>
 						<tr>
-							<td colspan="10" style="text-align: left">基本信息:&nbsp;&nbsp;&nbsp;&nbsp;<a style="color: red;font-size: 6px;font-family: '宋体'" >只能修改手机号码，其它修改需要数据库管理员修改</a></td>
+							<th>记录条数</th>
+							<th>员工编号</th>
+							<th>员工名字</th>
+							<th>出差地点</th>
+							<th>出差开始时间</th>
+							<th>出差结束时间</th>
+							<th>出差是否结束</th>
 						</tr>
-						<tr>
-							<td colspan="1">&nbsp;&nbsp;工号:</td>
-							<td colspan="4" id="shuru">&nbsp;&nbsp;${sessionScope.manager.managerid}</td>
-							<td colspan="1">&nbsp;&nbsp;姓名:</td>
-							<td colspan="4" id="shuru">&nbsp;&nbsp;${sessionScope.manager.managername}</td>
-						</tr>
-						<tr>
-							<td colspan="1">&nbsp;&nbsp;手机号码:</td>
-							<td colspan="9">&nbsp;&nbsp;<input type="text" value="${sessionScope.phone}" onblur="upPhone()" style="font-size: 22px" id="newphone"></td>
-						</tr>
-						<tr>
-							<td colspan="1">&nbsp;&nbsp;上次登录时间:</td>
-							<td colspan="9" id="shuru">&nbsp;&nbsp;${sessionScope.manager.managerlogintime}</td>
-						</tr>
-					</table>           
-                </div>
-                
-                <div>
-                   <table class="bordered" cellspacing="0" border="0">
-						<tr>
-							<td colspan="10" style="text-align: left">密码修改:</td>
-						</tr>
-						<tr>
-							<td colspan="1">&nbsp;&nbsp;原密码:</td>
-							<td colspan="9">&nbsp;<input type="password" style="height:22px;width:449px" id="oldpassword" onblur="checkoldpassword()">&nbsp;&nbsp;&nbsp;&nbsp;<a id="tipoldpassword"></td>
-							
-						</tr>
-						<tr>
-							<td colspan="1">&nbsp;&nbsp;新密码:</td>
-							<td colspan="9"><input type="password" style="height:22px;width:449px" id="newpassword1">&nbsp;&nbsp;&nbsp;&nbsp;<a id="tipoldpassword"></td>
+					</thead>
+					<tbody id="appl">
 						
-						</tr>
-						<tr>
-							<td colspan="1">&nbsp;&nbsp;新密码确认:</td>
-							<td colspan="9">&nbsp;<input type="password" style="height:22px;width:449px" id="newpassword2" onblur="checknewpassword()">&nbsp;&nbsp;&nbsp;&nbsp;<a id="tipnewpassword"></td>
-						</tr>
-						<tr>
-							<td colspan="10"> <center style="font-size: 15px;"><input type="button" value="确认修改" class="Search" style="background:url(<%=basePath %>houCss/img/buttonbg.png) repeat-x;width:96px; height:35px;" " onclick="uppassword()"/>
-   							</td>
-						</tr>
-					</table>           
+					</tbody>
+					</table>     
                 </div>
-            </div>      
-           </div>
+            </div> 
+        </div>
+        
+             <div class="grid_10" style="display: none" id="shouw2">
+        	       <div class="box round first grid" >
+                <h2>
+                    	员工历史休假记录</h2>
+    			<div>
+                    <table class="bordered" cellspacing="0" border="0">
+					<thead>
+						<tr>
+							<th>记录条数</th>
+							<th>员工名字</th>
+							<th>员工申请理由</th>
+							<th>员工出差地方</th>
+							<th>休假开始时间</th>
+							<th>休假结束时间</th>
+							<th>休假是否结束</th>
+						</tr>
+					</thead>
+					<tbody id="appl2">
+						
+					</tbody>
+					</table>         
+                </div>
+            </div> 
+        </div>
+        
         <div class="clear">
         </div>
     </div>
@@ -246,86 +279,68 @@
             	酒店人事管理系统
         </p>
     </div>
-    
 </body>
 <script type="text/javascript">
-	function checkoldpassword() {
-	
-		var oldpassword = $("#oldpassword").val();
-		
-			$.ajax({
-				type : 'post',
-				dataType : 'json',
-				url : '<%=basePath%>manager/checkoldpassword?managerpassword=' + oldpassword,
-				success : function(data) {	
-					if (data == 1) {
-												
-						$("#tipoldpassword").css('color','green');
-						
-						$("#tipoldpassword").text("✔  密码认证通过");
-					}else{
-						
-						$("#tipoldpassword").css('color','red');
-						
-						$("#tipoldpassword").text("× 原密码不正确");
-					}
-				}
-			});
-	}
-	
-	function checknewpassword() {
-		var newpassword1 = $("#newpassword1").val();
-		
-		var newpassword2 = $("#newpassword2").val();
-	
-		if (newpassword1==newpassword2) {
-			
-			$("#tipnewpassword").css('color','green');
-			
-			$("#tipnewpassword").text("✔  密码可以使用");
-			
-		}else{
-			
-			$("#tipnewpassword").css('color','red');
-			
-			$("#tipnewpassword").text("× 两次输入密码不一样");
-		}
-	}
-	
-	function upPhone() {
-			var newphone = $("#newphone").val();
-		
-			$.ajax({
-				type : 'post',
-				dataType : 'json',
-				url : '<%=basePath%>manager/upPhone?newphone=' + newphone,
-				success : function(data) {	
-					
-					if (data==1) {
-						window.location.href='<%=basePath%>manager/toPerson';	
-					}
-				}
-			});
-	}
-	function uppassword() {
-		var newpassword2 = $("#newpassword2").val();
-	
+	function toremind(userNumber) {
+		var usernumber = userNumber;
+		$("#shouw2").show();
 		$.ajax({
-			type : 'post',
-			dataType : 'json',
-			url : '<%=basePath%>manager/upPassword?newpassword=' + newpassword2,
-			success : function(data) {	
-				
-				if (data==1) {
-					alert("修改成功");
-					window.location.href='<%=basePath%>manager/toPerson';	
-				}
-			}
-		});
+	 		type : 'post',
+	 		dataType : 'json',
+	 		url : '<%=basePath%>manager/findUserTraveldayAll?usernumber=' + usernumber,
+	 		success : function(data) {	
+    			var $tbody = $("#appl2");
+    			$tbody.empty();  
+					for (var j = 0; j < data.length; j++) { 
+	            	
+						var unixTimestamp = new Date(data[j].attdTravelBegintime) ;
+    	            	var attdTravelBegintime = unixTimestamp.toLocaleString();
+    	            	
+    	            	var unixTimestamp2 = new Date(data[j].attdTravelEndtime) ;
+    	            	var attdTravelEndtime = unixTimestamp2.toLocaleString();
+    	            	var type = "是";
+    	            	if (attdTravelBegintime=="") {
+    	            		type = "否"
+    					}
+	            	
+    	            	var k = j+1;
+    	            	var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].username+"</td><td>"+data[j].attdTravelRemark+"</td><td>"+data[j].attdTravelPlace+"</td><td>"+attdTravelBegintime+"</td><td>"+attdTravelEndtime+"</td><td>"+type+"</td></tr>";
+    	          		
+	            	$tbody.append(table);
+	            }
+    		}
+	 	});
 	}
-	function show(){
-		  $("#tipnewpassword").text("");
-		  $("#tipoldpassword").text("");
-	  }
+	
+	function tofind() {
+		$("#shouw2").hide();
+		var text = $("#text2").val();
+		$.ajax({
+	  		type : 'post',
+	  		dataType : 'json',
+	  		url : '<%=basePath%>manager/findUserTravelday?usernumber=' + text,
+	  		success : function(data) {	
+	  			var $tbody = $("#appl");
+	  			$tbody.empty();  
+	  		    for (var j = 0; j < data.length; j++) { 
+	            	
+	  		    	var unixTimestamp = new Date(data[j].attdTravelBegintime) ;
+	            	var attdTravelBegintime = unixTimestamp.toLocaleString();
+	            	
+	            	var unixTimestamp2 = new Date(data[j].attdTravelEndtime) ;
+	            	var attdTravelEndtime = unixTimestamp2.toLocaleString();
+	            	var type = "是";
+	            	if (attdTravelBegintime=="") {
+	            		type = "否"
+					}
+	            	
+	            	var k = j+1;
+	            	var table="<tr class='gradeX'><td>"+k+"</td><td><a href='javascript:void(0);' title='员工历史出差数据' style='color:#0080FF'  id='findmanayuser'  onclick=toremind("+data[j].usernumber+")>"+data[j].usernumber+"</a></td><td>"+data[j].username+"</td><td>"+data[j].attdTravelPlace+"</td><td>"+attdTravelBegintime+"</td><td>"+attdTravelEndtime+"</td><td>"+type+"</td></tr>";
+	          		
+	            	$tbody.append(table);
+	            }
+	  		}
+	  	});
+	}
 </script>
 </html>

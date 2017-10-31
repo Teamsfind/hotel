@@ -74,10 +74,10 @@
         </div>
         <div class="grid_12">
             <ul class="nav main">
-            	<li><a href="<%=basePath %>manager/tomain"><span>首页</span></a> </li>
-                <li><a href="<%=basePath %>manager/toruzhi"><span>人事档案管理</span></a> </li>        
-                <li><a href="<%=basePath %>manager/tokaoqing"><span>考勤管理</span></a> </li>  
-                <li><a href="<%=basePath %>manager/toxinchou"><span>薪酬管理</span></a> </li>         
+            	<li class="ic-dashboard"><a href="<%=basePath %>manager/tomain" ><span>首页</span></a> </li>
+                <li class="ic-form-style"><a href="<%=basePath %>manager/toruzhi" ><span>人事档案管理</span></a> </li>        
+                <li class="ic-charts"><a href="<%=basePath %>manager/tokaoqing" ><span>考勤管理</span></a> </li>  	
+                <li class="ic-grid-tables"><a href="<%=basePath %>manager/toxinchou" ><span>薪酬管理</span></a> </li>         
             </ul>
         </div>
         <div class="clear">

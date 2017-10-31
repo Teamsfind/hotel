@@ -239,6 +239,48 @@ public class ManagerImpl implements ManagerService{
 		return attdao.findUserAttday(usernumber);
 	}
 
+	@Override
+	public List<AttdData> findvacationdayAll() {
+		
+		return attdao.findvacationdayAll();
+	}
+
+	@Override
+	public List<AttdData> findUserVacationdayAll(String usernumber) {
+		
+		return attdao.findUserVacationdayAll(usernumber);
+	}
+
+	@Override
+	public List<AttdData> findUserVacationday(String usernumber) {
+		
+		return attdao.findUserVacationday(usernumber);
+	}
+
+	@Override
+	public List<AttdData> findTraveldayAll() {
+		
+		return attdao.findTraveldayAll();
+	}
+
+	@Override
+	public List<AttdData> findUserTravelAll(String usernumber) {
+		
+		return attdao.findUserTravelAll(usernumber);
+	}
+
+	@Override
+	public List<AttdData> findUserTravelday(String usernumber) {
+		
+		return attdao.findUserTravelday(usernumber);
+	}
+
+	@Override
+	public List<User> selectuserForAnPai() {
+		
+		return userdao.selectuserForAnPai();
+	}
+
 	
 
 }

@@ -151,8 +151,24 @@
 								type = "早退"
 							}
         	            	
+        	            	var usernumber = '"'+data[j].usernumber+'"';
+        	            	var usernumber2 = usernumber.substring(5,7);
+        	            	var jbn ;
+        	            	
+        	            	if (usernumber2=="10") {
+        	            		jbn="采购部";
+        					}else if(usernumber2=="11"){
+        						jbn="市场部";
+        					}else if(usernumber2=="12"){
+        						jbn="后勤部";
+        					}else if(usernumber2=="13"){
+        						jbn="财务部";
+        					}else{
+        						jbn="生产部";
+        					}
+        	            	
         	            	var k = j+1;
-        	            	var table="<tr class='gradeX'><td>"+k+"</td><td><a href='javascript:void(0);' title='员工历史考勤数据' style='color:#0080FF'  id='findmanayuser'  onclick=toremind("+data[j].usernumber+")>"+data[j].usernumber+"</a></td><td>"+data[j].username+"</td><td>"+attdBegintime+"</td><td>"+attdEndtime+"</td><td>"+type+"</td></tr>";
+        	            	var table="<tr class='gradeX'><td>"+k+"</td><td><a href='javascript:void(0);' title='员工历史考勤数据' style='color:#0080FF'  id='findmanayuser'  onclick=toremind("+data[j].usernumber+")>"+data[j].usernumber+"</a></td><td>"+data[j].username+"</td><td>"+jbn+"</td><td>"+attdBegintime+"</td><td>"+attdEndtime+"</td><td>"+type+"</td></tr>";
         	          		
         	            	$tbody.append(table);
         	            }
@@ -188,10 +204,10 @@
         </div>
         <div class="grid_12">
             <ul class="nav main">
-            	<li><a href="<%=basePath %>manager/tomain"><span>首页</span></a> </li>
-                <li><a href="<%=basePath %>manager/toruzhi"><span>人事档案管理</span></a> </li>        
-                <li><a href="<%=basePath %>manager/tokaoqing"><span>考勤管理</span></a> </li>  
-                <li><a href="<%=basePath %>manager/toxinchou"><span>薪酬管理</span></a> </li>         
+            	<li class="ic-dashboard"><a href="<%=basePath %>manager/tomain" ><span>首页</span></a> </li>
+                <li class="ic-form-style"><a href="<%=basePath %>manager/toruzhi" ><span>人事档案管理</span></a> </li>        
+                <li class="ic-charts"><a href="<%=basePath %>manager/tokaoqing" ><span>考勤管理</span></a> </li>  	
+                <li class="ic-grid-tables"><a href="<%=basePath %>manager/toxinchou" ><span>薪酬管理</span></a> </li>         
             </ul>
         </div>
         <div class="clear">
@@ -200,14 +216,18 @@
             <div class="box sidemenu">
                 <div class="block" id="section-menu">
                     <ul class="section menu">
-                        <li><a class="menuitem">考勤管理</a>
+                        <li><a class="menuitem">数据统计</a>
                             <ul class="submenu">
                                 <li><a href="<%=basePath %>manager/tokaoqing">考勤数据</a> </li>	
-                                <li><a>休假数据</a> </li>
-                           		<li><a>出差数据</a> </li>
-                           		<li><a>人员安排</a> </li>
+                                <li><a href="<%=basePath %>manager/tovacation">休假数据</a> </li>
+                           		<li><a href="<%=basePath %>manager/totravel">出差数据</a> </li>
                             </ul>
-                        </li>                    
+                        </li>
+                         <li><a class="menuitem" >人事调动</a>
+                         	 <ul class="submenu">
+                         	 	<li><a  href="<%=basePath %>manager/toStaffing">人员安排</a></li>
+                         	 </ul>
+                         </li>                   
                     </ul>
                 </div>
             </div>
@@ -215,7 +235,7 @@
         <div class="grid_10">
         	  <div class="box round first grid" >
        				   <h2>
-                    	今日考勤  </h2>
+                    	今日考勤</h2>
                     	
                 <div class="tools">
     					<center style="font-size: 15px;">搜索:&nbsp;&nbsp;<input type="text" name="Search" id="text2" placeholder="请输入员工编号" style="width: 200px;height: 40px"/>&nbsp;&nbsp;<input type="button" value="确定" class="Search" style="background:url(<%=basePath %>houCss/img/buttonbg.png) repeat-x;width:96px; height:35px;" " onclick="tofind()"/>
@@ -228,7 +248,8 @@
 						<tr>
 							<th>记录条数</th>
 							<th>员工编号</th>
-							<th>员工名字</th>
+							<th>员工姓名</th>
+							<th>部门</th>
 							<th>上班时间</th>
 							<th>下班时间</th>
 							<th>迟到或者早退</th>
@@ -337,8 +358,24 @@
 						type = "早退"
 					}
 	            	
+	            	var usernumber = '"'+data[j].usernumber+'"';
+	            	var usernumber2 = usernumber.substring(5,7);
+	            	var jbn ;
+	            	
+	            	if (usernumber2=="10") {
+	            		jbn="采购部";
+					}else if(usernumber2=="11"){
+						jbn="市场部";
+					}else if(usernumber2=="12"){
+						jbn="后勤部";
+					}else if(usernumber2=="13"){
+						jbn="财务部";
+					}else{
+						jbn="生产部";
+					}
+	            	
 	            	var k = j+1;
-	            	var table="<tr class='gradeX'><td>"+k+"</td><td><a href='javascript:void(0);' title='员工历史考勤数据' style='color:#0080FF'  id='findmanayuser'  onclick=toremind("+data[j].usernumber+")>"+data[j].usernumber+"</a></td><td>"+data[j].username+"</td><td>"+attdBegintime+"</td><td>"+attdEndtime+"</td><td>"+type+"</td></tr>";
+	            	var table="<tr class='gradeX'><td>"+k+"</td><td><a href='javascript:void(0);' title='员工历史考勤数据' style='color:#0080FF'  id='findmanayuser'  onclick=toremind("+data[j].usernumber+")>"+data[j].usernumber+"</a></td><td>"+data[j].username+"</td><td>"+jbn+"</td><td>"+attdBegintime+"</td><td>"+attdEndtime+"</td><td>"+type+"</td></tr>";
 	          		
 	            	$tbody.append(table);
 	            }

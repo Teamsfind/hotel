@@ -141,18 +141,35 @@
           	            	
           	            	var commonTime = unixTimestamp.toLocaleString();
           	            	var applstatus = data[j].applStatus;
+          	            	
+          	            	var usernumber = '"'+data[j].userNumber+'"';
+          	            	var usernumber2 = usernumber.substring(5,7);
+          	            	var jbn ;
+          	            	
+          	            	if (usernumber2=="10") {
+          	            		jbn="采购部";
+							}else if(usernumber2=="11"){
+								jbn="市场部";
+							}else if(usernumber2=="12"){
+								jbn="后勤部";
+							}else if(usernumber2=="13"){
+								jbn="财务部";
+							}else{
+								jbn="生产部";
+							}
+          	            	
           	            	var k = j+1;
           	            	if (applstatus==0) {
-    							var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a href='javascript:void(0);' title='是否提醒该员工重新申请' style='color:#FF0000'  onclick=toremind("+data[j].userNumber+")>已过期</td></tr>";
+    							var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+jbn+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a href='javascript:void(0);' title='是否提醒该员工重新申请' style='color:#FF0000'  onclick=toremind("+data[j].userNumber+")>已过期</td></tr>";
     		  	          		
     						}else if(applstatus==1){
-    							var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#00BB00'>已同意</td></tr>";
+    							var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+jbn+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#00BB00'>已同意</td></tr>";
     		  	          		
     						}else if(applstatus==2){
-    							var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#0080FF'>已拒绝</td></tr>";
+    							var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+jbn+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#0080FF'>已拒绝</td></tr>";
     		  	          		
     						}else {
-    							var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#E1E100'>已提醒</td></tr>";
+    							var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+jbn+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#E1E100'>已提醒</td></tr>";
     		  	          		
     						}
           	            	$tbody.append(table);
@@ -192,10 +209,10 @@
         </div>
         <div class="grid_12">
             <ul class="nav main">
-            	<li><a href="<%=basePath %>manager/tomain"><span>首页</span></a> </li>
-                <li><a href="<%=basePath %>manager/toruzhi"><span>人事档案管理</span></a> </li>        
-                <li><a href="<%=basePath %>manager/tokaoqing"><span>考勤管理</span></a> </li>  
-                <li><a href="<%=basePath %>manager/toxinchou"><span>薪酬管理</span></a> </li>         
+            	<li class="ic-dashboard"><a href="<%=basePath %>manager/tomain" ><span>首页</span></a> </li>
+                <li class="ic-form-style"><a href="<%=basePath %>manager/toruzhi" ><span>人事档案管理</span></a> </li>        
+                <li class="ic-charts"><a href="<%=basePath %>manager/tokaoqing" ><span>考勤管理</span></a> </li>  	
+                <li class="ic-grid-tables"><a href="<%=basePath %>manager/toxinchou" ><span>薪酬管理</span></a> </li>         
             </ul>
         </div>
         <div class="clear">
@@ -231,6 +248,7 @@
 							<th>记录条数</th>
 							<th>员工编号</th>
 							<th>员工姓名</th>
+							<th>部门</th>
 							<th>申请时间</th>
 							<th>申请原因</th>
 							<th>申请类型</th>
@@ -266,29 +284,45 @@ function tofind() {
   		success : function(data) {	
   			var $tbody = $("#appl");
   			$tbody.empty();  
-  	            for (var j = 0; j < data.length; j++) { 
-  	            	var k
-  	            	var unixTimestamp = new Date(data[j].applTime) ;
-  	            	var commonTime = unixTimestamp.toLocaleString();
-  	            	var table;
-  	            	var applstatus = data[j].applStatus;
-  	            	var k = j+1;
-  	            	if (applstatus==0) {
-						var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a href='javascript:void(0);' title='是否提醒该员工重新申请' style='color:#FF0000'  onclick=toremind("+data[j].userNumber+")>已过期</td></tr>";
-	  	          		
-					}else if(applstatus==1){
-						var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#00BB00'>已同意</td></tr>";
-	  	          		
-					}else if(applstatus==2){
-						var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#0080FF'>已拒绝</td></tr>";
-	  	          		
-					}else {
-						var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#E1E100'>已提醒</td></tr>";
-	  	          		
+  			for (var j = 0; j < data.length; j++) { 
+	            	
+	            	var unixTimestamp = new Date(data[j].applTime) ;
+	            	
+	            	var commonTime = unixTimestamp.toLocaleString();
+	            	var applstatus = data[j].applStatus;
+	            	
+	            	var usernumber = '"'+data[j].userNumber+'"';
+	            	var usernumber2 = usernumber.substring(5,7);
+	            	var jbn ;
+	            	
+	            	if (usernumber2=="10") {
+	            		jbn="采购部";
+					}else if(usernumber2=="11"){
+						jbn="市场部";
+					}else if(usernumber2=="12"){
+						jbn="后勤部";
+					}else if(usernumber2=="13"){
+						jbn="财务部";
+					}else{
+						jbn="生产部";
 					}
-  	            	
-  	            	$tbody.append(table);
-  	            }
+	            	
+	            	var k = j+1;
+	            	if (applstatus==0) {
+					var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+jbn+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a href='javascript:void(0);' title='是否提醒该员工重新申请' style='color:#FF0000'  onclick=toremind("+data[j].userNumber+")>已过期</td></tr>";
+  	          		
+				}else if(applstatus==1){
+					var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+jbn+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#00BB00'>已同意</td></tr>";
+  	          		
+				}else if(applstatus==2){
+					var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+jbn+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#0080FF'>已拒绝</td></tr>";
+  	          		
+				}else {
+					var table="<tr class='gradeX'><td>"+k+"</td><td>"+data[j].userNumber+"</td><td>"+data[j].userName+"</td><td>"+jbn+"</td><td>"+commonTime+"</td><td>"+data[j].applRemark+"</td><td>"+data[j].applType+"</td><td><a style='color:#E1E100'>已提醒</td></tr>";
+  	          		
+				}
+	            	$tbody.append(table);
+	            }
   		}
   	});
 }

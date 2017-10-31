@@ -104,7 +104,42 @@ public interface ManagerService {
     List<AttdData> findUserAttdayAll (String usernumber);
     
     /**
-     * 查找单个员工的考勤信息(考勤管理，当天)
+     * 查找单个员工的考勤信息(查询功能，考勤管理，当天)
      */
     List<AttdData> findUserAttday (String usernumber);
+    
+    /**
+    * 查找员工的休假信息(考勤管理，当天)
+    */
+   List<AttdData> findvacationdayAll ();
+   
+   /**
+    * 查找单个员工的所有休假信息(考勤管理，历史)
+    */
+   List<AttdData> findUserVacationdayAll (String usernumber);
+   
+   /**
+    * 查找单个员工的休假信息(考勤管理，当天，查询功能)
+    */
+   List<AttdData> findUserVacationday (String usernumber);
+   
+   
+   /**
+    * 查找员工的出差信息(考勤管理，当天)
+    */
+   List<AttdData> findTraveldayAll ();
+   
+   /**
+    * 查找单个员工的所有出差信息(考勤管理，历史)
+    */
+   List<AttdData> findUserTravelAll (String usernumber);
+   
+   /**
+    * 查找单个员工的出差信息(考勤管理，当天，查询功能)
+    */
+   List<AttdData> findUserTravelday (String usernumber);
+   
+   
+   //查询员工信息(人员安排)
+   public List<User> selectuserForAnPai(); 
 }

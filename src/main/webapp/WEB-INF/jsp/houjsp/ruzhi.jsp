@@ -303,12 +303,12 @@
         </div>
         <div class="clear">
         </div>
-        <div class="grid_12">
-             <ul class="nav main">
-            	<li><a href="<%=basePath %>manager/tomain"><span>首页</span></a> </li>
-                <li><a href="<%=basePath %>manager/toruzhi"><span>人事档案管理</span></a> </li>        
-                <li><a href="<%=basePath %>manager/tokaoqing"><span>考勤管理</span></a> </li>  
-                <li><a href="<%=basePath %>manager/toxinchou"><span>薪酬管理</span></a> </li>         
+       <div class="grid_12">
+            <ul class="nav main">
+            	<li class="ic-dashboard"><a href="<%=basePath %>manager/tomain" ><span>首页</span></a> </li>
+                <li class="ic-form-style"><a href="<%=basePath %>manager/toruzhi" ><span>人事档案管理</span></a> </li>        
+                <li class="ic-charts"><a href="<%=basePath %>manager/tokaoqing" ><span>考勤管理</span></a> </li>  	
+                <li class="ic-grid-tables"><a href="<%=basePath %>manager/toxinchou" ><span>薪酬管理</span></a> </li>         
             </ul>
         </div>
         <div class="clear">
@@ -397,6 +397,7 @@
                             	</td>
                            		 <td>
                              		<input type="text" id="user_id" name="user_id" readonly="readonly" class="medium"/>
+                             		<span style="color: red">(* 自动填写)</span>
                             	</td>
 	                       </tr>
 	                       <tr>
@@ -424,7 +425,7 @@
 	                            </td>
 	                       </tr>
 	                       <tr>
-	                       		<td>地区</td>
+	                       		<td><label>地区</label></td>
 	                       		<td>省 份：<select id="selProvince" name="selProvince" onchange="provinceChange();"></select>  
 									市  (区)：<select id="selCity" name="selCity"></select>详细地址：<input type="text" class="medium" name="detl" id="detl">
 								</td>
