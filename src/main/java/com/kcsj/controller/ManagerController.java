@@ -16,22 +16,32 @@ public class ManagerController {
 	
 	@RequestMapping("/toindex")
 	public ModelAndView toindex( ){
-		return new ModelAndView("newjsp/index.jsp");
+		return new ModelAndView("newjsp/index");
 	}
 	
 	@RequestMapping("/totop")
 	public ModelAndView totop( ){
-		return new ModelAndView("newjsp/top.jsp");
+		return new ModelAndView("newjsp/top");
 	}
 	
 	@RequestMapping("/tocenter")
 	public ModelAndView tocenter( ){
-		return new ModelAndView("newjsp/center.jsp");
+		return new ModelAndView("newjsp/center");
 	}
 	
 	@RequestMapping("/todown")
 	public ModelAndView todown( ){
-		return new ModelAndView("newjsp/down.jsp");
+		return new ModelAndView("newjsp/down");
+	}
+	
+	@RequestMapping("/toleft")
+	public ModelAndView toleft( ){
+		return new ModelAndView("newjsp/left");
+	}
+	
+	@RequestMapping("/toright")
+	public ModelAndView toright( ){
+		return new ModelAndView("newjsp/right");
 	}
 	
 }
