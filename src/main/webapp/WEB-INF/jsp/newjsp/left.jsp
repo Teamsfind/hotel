@@ -104,6 +104,38 @@
                             </ul>
                         </div>
                     </div><!--panel end-->
+                    <div class="panel panel-primary leftMenu">
+                        <div class="panel-heading" id="collapseListGroupHeading2" data-toggle="collapse" data-target="#collapseListGroup2" role="tab" >
+                            <h4 class="panel-title">
+                             		薪酬管理
+                                <span class="glyphicon glyphicon-chevron-down right"></span>
+                            </h4>
+                        </div>
+                        <div id="collapseListGroup2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading2">
+                            <ul class="list-group">
+                              <li class="list-group-item">
+                                <button class="menu-item-left">
+                                    <span class="glyphicon glyphicon-triangle-right"></span>差旅报销
+                                </button>
+                              </li>
+                              <li class="list-group-item">
+                                <button class="menu-item-left">
+                                    <span class="glyphicon glyphicon-triangle-right"></span>员工奖励
+                                </button>
+                              </li>
+                              <li class="list-group-item">
+                                <button class="menu-item-left">
+                                    <span class="glyphicon glyphicon-triangle-right"></span>
+                                </button>
+                              </li>
+                              <li class="list-group-item">
+                                <button class="menu-item-left">
+                                    <span class="glyphicon glyphicon-triangle-right"></span>员工离职
+                                </button>
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
