@@ -39,14 +39,14 @@
                 <td ><table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
                     <td width="2%"><div align="center"><img src="<%=basePath %>houcss/img/l.gif" width="5" height="7" /></div></td>
-                    <td width="98%" style="font-size:14px; text-align:center;"><span class="STYLE5">HR-人事管理系统</span></td>
+                    <td width="98%" style="font-size:14px; text-align:center;"><span class="STYLE5">HR-酒店人事管理系统</span></td>
                   </tr>
                 </table></td>
                 <td width="80s"><table width="75" border="0" align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <td width="25" height="25" style="cursor:hand" onMouseOver="this.style.backgroundImage='url(<%=basePath %>houcss/img/b.gif)';"onmouseout="this.style.backgroundImage='url()';"><img src="<%=basePath %>houcss/img/zx.gif" width="25" height="25" /></td>
                     <td width="25" style="cursor:hand" onMouseOver="this.style.backgroundImage='url(<%=basePath %>houcss/img/b.gif)';"onmouseout="this.style.backgroundImage='url()';"><img src="<%=basePath %>houcss/img/zd.gif" width="25" height="25" /></td>
-                    <td width="25" style="cursor:hand" onMouseOver="this.style.backgroundImage='url(<%=basePath %>houcss/img/b.gif)';"onmouseout="this.style.backgroundImage='url()';"><img src="<%=basePath %>houcss/img/gb.gif" width="25" height="25" /></td>
+                    <td width="25" style="cursor:hand" onMouseOver="this.style.backgroundImage='url(<%=basePath %>houcss/img/b.gif)';"onmouseout="this.style.backgroundImage='url()';"><img src="<%=basePath %>houcss/img/gb.gif" width="25" height="25" onclick="tologin()"/></td>
                   </tr>
                 </table></td>
               </tr>
@@ -86,16 +86,16 @@
 		  <ul>
 			 <li><a href="#" onfocus="this.blur"><span><table width="184" border="0" align="center" cellpadding="0" cellspacing="0">
                     <tr>
-                      <td width="46" height="40" style="cursor:hand" onmouseover="this.style.backgroundImage='url(<%=basePath %>houcss/img/main_27.gif)';"onmouseout="this.style.backgroundImage='url()';"><div align="center"><img src="<%=basePath %>houcss/img/05.gif" width="30" height="17" /></div></td>
+                      <td width="46" height="40" style="cursor:hand" onmouseover="this.style.backgroundImage='url(<%=basePath %>houcss/img/main_27.gif)';"onmouseout="this.style.backgroundImage='url()';"onclick="window.parent.mainFrame.rightName.location.href='<%=basePath %>manager/toTest' "><div align="center"><img src="<%=basePath %>houcss/img/05.gif" width="30" height="17" /></div></td>
                       <td width="46" style="cursor:hand" onmouseover="this.style.backgroundImage='url(<%=basePath %>houcss/img/main_27.gif)';"onmouseout="this.style.backgroundImage='url()';"><div align="center"><img src="<%=basePath %>houcss/img/06.gif" width="29" height="20" /></div></td>
                       <td width="46" style="cursor:hand" onmouseover="this.style.backgroundImage='url(<%=basePath %>houcss/img/main_27.gif)';"onmouseout="this.style.backgroundImage='url()';"><div align="center"><img src="<%=basePath %>houcss/img/07.gif" width="28" height="27" /></div></td>
                       <td width="46" style="cursor:hand" onmouseover="this.style.backgroundImage='url(<%=basePath %>houcss/img/main_27.gif)';"onmouseout="this.style.backgroundImage='url()';"><div align="center"><img src="<%=basePath %>houcss/img/08.gif" width="31" height="27" /></div></td>
                     </tr>
                     <tr>
-                      <td height="18"><div align="center" class="STYLE5"> 信封</div></td>
+                      <td height="18"><div align="center" class="STYLE5">信封</div></td>
                       <td><div align="center" class="STYLE5">邮件</div></td>
                       <td><div align="center" class="STYLE5">自定义</div></td>
-                      <td><div align="center" class="STYLE5">联系人</div></td>
+                      <td><div align="center" class="STYLE5">员工</div></td>
                     </tr>
                   </table>
 			 </span><em></em></a></li>
@@ -107,5 +107,11 @@
     </table></td>
   </tr>
 </table>
+<script type="text/javascript">
+		function tologin() {
+			window.top.location.href="<%=basePath%>manager/tologin";
+		}
+
+</script>
 </body>
 </html>

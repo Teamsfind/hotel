@@ -37,43 +37,11 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="panel-group table-responsive" role="tablist">
-                	<div class="panel panel-primary leftMenu">
-                        <div class="panel-heading" id="collapseListGroupHeading2" data-toggle="collapse" data-target="#collapseListGroup2" role="tab" >
-                            <h4 class="panel-title">
-                             		人事档案管理
-                                <span class="glyphicon glyphicon-chevron-down right"></span>
-                            </h4>
-                        </div>
-                        <div id="collapseListGroup2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading2">
-                            <ul class="list-group">
-                              <li class="list-group-item">
-                                <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>职员入职
-                                </button>
-                              </li>
-                              <li class="list-group-item">
-                                <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>职员转正
-                                </button>
-                              </li>
-                              <li class="list-group-item">
-                                <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>员工档案
-                                </button>
-                              </li>
-                              <li class="list-group-item">
-                                <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>员工离职
-                                </button>
-                              </li>
-                            </ul>
-                        </div>
-                    </div> 
-                    <div class="panel panel-primary leftMenu">
+                	 <div class="panel panel-primary leftMenu">
                         <!-- 利用data-target指定要折叠的分组列表 -->
                         <div class="panel-heading" id="collapseListGroupHeading1" data-toggle="collapse" data-target="#collapseListGroup1" role="tab" >
                             <h4 class="panel-title">
-                                	考勤管理
+                                	人事档案管理
                                 <span class="glyphicon glyphicon-chevron-up right"></span>
                             </h4>
                         </div>
@@ -82,32 +50,32 @@
                             <ul class="list-group">
                               <li class="list-group-item">
                                 <!-- 利用data-target指定URL -->
-                                <button class="menu-item-left" data-target="test2.html">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>考勤数据
+                                <button class="menu-item-left" >
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">职员入职</a>
                                 </button>
                               </li>
                               <li class="list-group-item">
                                 <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>休假数据
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">职员转正</a>
                                 </button>
                               </li>
                               <li class="list-group-item">
                                 <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>差旅数据
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">员工档案</a>
                                 </button>
                               </li>
                               <li class="list-group-item">
                                 <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>人员安排
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">员工离职</a>
                                 </button>
                               </li>
                             </ul>
                         </div>
                     </div><!--panel end-->
-                    <div class="panel panel-primary leftMenu">
+                	<div class="panel panel-primary leftMenu">
                         <div class="panel-heading" id="collapseListGroupHeading2" data-toggle="collapse" data-target="#collapseListGroup2" role="tab" >
                             <h4 class="panel-title">
-                             		薪酬管理
+                             		考勤管理
                                 <span class="glyphicon glyphicon-chevron-down right"></span>
                             </h4>
                         </div>
@@ -115,22 +83,54 @@
                             <ul class="list-group">
                               <li class="list-group-item">
                                 <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>差旅报销
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">考勤数据</a>
                                 </button>
                               </li>
                               <li class="list-group-item">
                                 <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>员工奖励
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">休假数据</a>
                                 </button>
                               </li>
                               <li class="list-group-item">
                                 <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">差旅数据</a>
                                 </button>
                               </li>
                               <li class="list-group-item">
                                 <button class="menu-item-left">
-                                    <span class="glyphicon glyphicon-triangle-right"></span>员工离职
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">人员安排</a>
+                                </button>
+                              </li>
+                            </ul>
+                        </div>
+                    </div> 
+                    <div class="panel panel-primary leftMenu">
+                        <div class="panel-heading" id="collapseListGroupHeading3" data-toggle="collapse" data-target="#collapseListGroup3" role="tab" >
+                            <h4 class="panel-title">
+                             		薪酬管理
+                                <span class="glyphicon glyphicon-chevron-down right"></span>
+                            </h4>
+                        </div>
+                        <div id="collapseListGroup3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading3">
+                            <ul class="list-group">
+                              <li class="list-group-item">
+                                <button class="menu-item-left">
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">差旅报销</a>
+                                </button>
+                              </li>
+                              <li class="list-group-item">
+                                <button class="menu-item-left">
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">员工奖励</a>
+                                </button>
+                              </li>
+                              <li class="list-group-item">
+                                <button class="menu-item-left">
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">职员汇总薪酬</a>
+                                </button>
+                              </li>
+                              <li class="list-group-item">
+                                <button class="menu-item-left">
+                                    <span class="glyphicon glyphicon-triangle-right"></span><a href="<%=basePath %>manager/#" target="rightName">部门薪酬汇总</a>
                                 </button>
                               </li>
                             </ul>

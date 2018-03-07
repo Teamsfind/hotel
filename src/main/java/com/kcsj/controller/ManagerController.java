@@ -1,16 +1,27 @@
 package com.kcsj.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.kcsj.pojo.Manager;
+import com.kcsj.service.ManagerService;
+import com.kcsj.util.MD5;
 
 @Controller
 @RequestMapping("/manager")
 public class ManagerController {
+	
+	@Resource
+	private ManagerService managerservice;
 	
 	public HttpSession session;
 	
@@ -44,5 +55,30 @@ public class ManagerController {
 		return new ModelAndView("newjsp/right");
 	}
 	
+	@RequestMapping("/tologin")
+	public ModelAndView tologin( ){
+		return new ModelAndView("newjsp/login");
+	}
+	
+	@RequestMapping("/toTest")
+	public ModelAndView toTest( ){
+		return new ModelAndView("newjsp/Test");
+	}
+	
+	@RequestMapping("/tochecklogin")
+	@ResponseBody
+	public int tochecklogin(String login,String pwd,HttpServletRequest request){
+		int msg = -1;
+		Manager m = new Manager();
+		m.setManagerid(login);
+		m.setManagerpassword(MD5.MD5Encode(pwd));
+		List<Manager> list = managerservice.findAllManager(m);
+		
+		if (list!=null && !list.isEmpty()) {
+			msg = 1;
+		}
+		
+		return msg;
+	}
 }
 

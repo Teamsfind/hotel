@@ -19,6 +19,7 @@
 .STYLE3 {font-size: 12px}
 .STYLE4 {color: #000000; font-size: 12px; }
 -->
+.a{width:130px;height:30px}
 </style>
 </head>
 
@@ -31,17 +32,30 @@
         <td width="10" ><img src="<%=basePath %>houcss/img/main_65.gif" width="2"  /></td>
         <td width="82" class="STYLE1"  style="padding-top:3px;"><div align="center" class="STYLE2">角色：管理员</div></td>
         <td width="2"><img src="<%=basePath %>houcss/img/main_65.gif" width="2"  /></td>
-        <td width="86" class="STYLE1"  style="padding-top:3px;"><div align="center" class="STYLE2">短信:1</div></td>
-      </tr>
+        </tr>
     </table></td>
     <td width="240" background="<%=basePath %>houcss/img/main_69.gif" style="border-top: solid 1px #000;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td width="9" height="25"><img src="<%=basePath %>houcss/img/main_68.gif" width="9" height="25" /></td>
-        <td><span class="STYLE4" style="padding-left:15px;">日期：2008年12月2日 星期二</span></td>
+        <td><span class="STYLE4" style="padding-left:15px;"><a id="showtime"></a></span></td>
         <td width="15"><img src="<%=basePath %>houcss/img/main_71.gif" width="15" height="25" /></td>
       </tr>
     </table></td>
   </tr>
 </table>
 </body>
+	<script type="text/javascript">
+	 window.onload = function() {
+	  var show = document.getElementById("showtime");
+	  setInterval(function() {
+	   var time = new Date();
+	   // 程序计时的月从0开始取值后+1
+	   var m = time.getMonth() + 1;
+	   var t = time.getFullYear() + " 年 " + m + " 月 "
+	     + time.getDate() + " 日  " + time.getHours() + ":"
+	     + time.getMinutes() + ":" + time.getSeconds();
+	   show.innerHTML = t;
+	  }, 1000);
+	 };
+</script>
 </html>

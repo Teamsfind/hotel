@@ -41,7 +41,7 @@ document.all("frmTitle").style.display=""
 	浏览器不支持嵌入式框架，或被配置为不显示嵌入式框架。</iframe></td>
     <td width="4"  style=" cursor:hand" onclick=switchSysBar()><SPAN class=navPoint 
 id=switchPoint title=关闭/打开左栏><img src="<%=basePath %>houcss/img/main_60.gif" width="4" height="54"  name="img1" id="img1"/></SPAN></td>
-    <td ><iframe name="I1" height="550%" width="100%" src="<%=basePath %>manager/toright.do" border="0" frameborder="0" scrolling="no"> 浏览器不支持嵌入式框架，或被配置为不显示嵌入式框架。</iframe></td>
+    <td ><iframe name="rightName" height="550%" width="100%" src="<%=basePath %>manager/toright.do" border="0" frameborder="0" scrolling="no"> 浏览器不支持嵌入式框架，或被配置为不显示嵌入式框架。</iframe></td>
   </tr>
 </table>
 </body>
