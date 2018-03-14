@@ -1,5 +1,7 @@
 package com.kcsj.dao;
 
+import java.util.List;
+
 import com.kcsj.pojo.User;
 
 public interface UserMapper {
@@ -50,4 +52,10 @@ public interface UserMapper {
      * @mbggenerated Tue Mar 06 22:26:40 CST 2018
      */
     int updateByPrimaryKey(User record);
+    
+    //查找所有员工
+    public List<User> FindAllUser( );
+    
+    //模糊查找员工
+    public List<User> FindAllUserByUidUname(String  text);
 }

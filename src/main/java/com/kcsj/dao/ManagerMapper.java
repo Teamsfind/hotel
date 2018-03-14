@@ -56,5 +56,5 @@ public interface ManagerMapper {
     /*
      * 根据username和password查找manager所有信息
      */
-    List<Manager> selectManagerByUsernamePassword(Manager m);
+    Manager selectManagerByUsernamePassword(Manager m);
 }

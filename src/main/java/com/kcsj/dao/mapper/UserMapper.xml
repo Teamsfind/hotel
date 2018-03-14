@@ -296,4 +296,12 @@
       user_edu = #{userEdu,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
+  
+  <select id="FindAllUser" resultMap="BaseResultMap">
+  		select * from user;
+  </select>
+  
+  <select id="FindAllUserByUidUname" resultMap="BaseResultMap" parameterType="java.lang.String">
+  		select * from user where user_number = #{text,jdbcType=VARCHAR} ;
+  </select>
 </mapper>

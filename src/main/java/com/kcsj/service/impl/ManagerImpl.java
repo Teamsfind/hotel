@@ -18,9 +18,9 @@ public class ManagerImpl implements ManagerService{
 	private ManagerMapper managerdao;
 
 	@Override
-	public List<Manager> findAllManager(Manager m) {
-		List<Manager> list = managerdao.selectManagerByUsernamePassword(m);
-		return list;
+	public Manager findAllManager(Manager m) {
+		Manager manager = managerdao.selectManagerByUsernamePassword(m);
+		return manager;
 	}
 	
 	

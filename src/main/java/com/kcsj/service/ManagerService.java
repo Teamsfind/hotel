@@ -12,7 +12,7 @@ public interface ManagerService {
 	 /**
      *管理员登录验证
      */
-    public List<Manager> findAllManager(Manager m); 
+    public Manager findAllManager(Manager m); 
     
     
 }
