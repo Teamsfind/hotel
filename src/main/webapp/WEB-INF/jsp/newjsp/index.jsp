@@ -14,7 +14,7 @@
 	<meta name="description" content="Xenon Boostrap Admin Panel" />
 	<meta name="author" content="" />
 	
-	<title>Xenon - Data Tables</title>
+	<title>酒店人事管理系统</title>
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
 	<link rel="stylesheet" href="<%=basePath%>assets/css/fonts/linecons/css/linecons.css">
@@ -40,11 +40,11 @@
 				<header class="logo-env">
 					<!-- logo -->
 					<div class="logo">
-						<a href="dashboard-1.html" class="logo-expanded">
+						<a href="<%=basePath%>manager/toindex" class="logo-expanded">
 							<img src="<%=basePath%>assets/images/logo@2x.png" width="80" alt="" />
 						</a>
 						
-						<a href="dashboard-1.html" class="logo-collapsed">
+						<a href="<%=basePath%>manager/toindex" class="logo-collapsed">
 							<img src="<%=basePath%>assets/images/logo-collapsed@2x.png" width="40" alt="" />
 						</a>
 					</div>
@@ -70,85 +70,85 @@
 				</header>
 				<ul id="main-menu" class="main-menu">
 					<li>
-						<a href="dashboard-1.html">
+						<a href="#">
 							<i class="linecons-cog"></i>
 							<span class="title">人事档案管理</span>
 						</a>
 						<ul>
 							<li>
-								<a href="dashboard-4.html">
+								<a href="<%=basePath%>manager/toRuZhiUser">
 									<span class="title">职员入职</span>
 								</a>
 							</li>
 							<li>
-								<a href="dashboard-1.html">
+								<a href="<%=basePath%>manager/toUpdateUser">
 									<span class="title">职员转正</span>
 								</a>
 							</li>
 							<li>
-								<a href="dashboard-2.html">
+								<a href="<%=basePath%>manager/toLookUser">
 									<span class="title">职员档案</span>
 								</a>
 							</li>
 							<li>
-								<a href="dashboard-3.html">
+								<a href="<%=basePath%>manager/toDeleteUser">
 									<span class="title">员工离职</span>
 								</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						<a href="ui-panels.html">
+						<a href="#">
 							<i class="linecons-note"></i>
 							<span class="title">考勤管理</span>
 						</a>
 						<ul>
 							<li>
-								<a href="ui-panels.html">
+								<a href="<%=basePath%>manager/toKaoQingUser">
 									<span class="title">考勤数据</span>
 								</a>
 							</li>
 							<li>
-								<a href="ui-buttons.html">
+								<a href="<%=basePath%>manager/toChuChaiUser">
 									<span class="title">出差数据</span>
 								</a>
 							</li>
 							<li>
-								<a href="ui-tabs-accordions.html">
+								<a href="<%=basePath%>manager/toXiuJiaUser">
 									<span class="title">休假数据</span>
 								</a>
 							</li>
 							<li>
-								<a href="ui-modals.html">
+								<a href="<%=basePath%>manager/toAnPaiUser">
 									<span class="title">人员安排</span>
 								</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						<a href="ui-widgets.html">
+						<a href="#">
 							<i class="linecons-star"></i>
 							<span class="title">薪酬管理</span>
 						</a>
 						<ul>
 							<li>
-								<a href="mailbox-main.html">
+								<a href="<%=basePath%>manager/toBaoXiaoUser">
 								<span class="title">差旅报销</span>
 								<span class="label label-success pull-right">5</span>
 								</a>
 							</li>
 							<li>
-								<a href="mailbox-main.html">
+								<a href="<%=basePath%>manager/toJiangLiUser">
 									<span class="title">员工奖励</span>
 								</a>
 							</li>
 							<li>
-								<a href="mailbox-compose.html">
+								<a href="<%=basePath%>manager/toGeRenUser">
 									<span class="title">职员汇总薪酬</span>
 								</a>
 							</li>
 							<li>
-								<a href="mailbox-message.html">
+								<a href="<%=basePath%>manager/toBuMenUser">
 									<span class="title">部门汇总薪酬</span>
 								</a>
 							</li>
@@ -173,68 +173,34 @@
 					<li class="dropdown hover-line">
 						<a href="#" data-toggle="dropdown">
 							<i class="fa-envelope-o"></i>
-							<span >15</span>
+							<span >${messagesize}</span>
 						</a>
 						<ul class="dropdown-menu messages">
 							<li>
 								<ul class="dropdown-menu-list list-unstyled ps-scrollbar">
-								
-									<li class="active"><!-- "active" class means message is unread -->
-										<a href="#">
-											<span class="line">
-												<strong>Luc Chartier</strong>
-												<span class="light small">- yesterday</span>
-											</span>
-											
-											<span class="line desc small">
-												This ain’t our first item, it is the best of the rest.
-											</span>
-										</a>
-									</li>
-									
-									<li class="active">
-										<a href="#">
-											<span class="line">
-												<strong>Salma Nyberg</strong>
-												<span class="light small">- 2 days ago</span>
-											</span>
-											
-											<span class="line desc small">
-												Oh he decisively impression attachment friendship so if everything. 
-											</span>
-										</a>
-									</li>
-									
-									<li>
-										<a href="#">
-											<span class="line">
-												Hayden Cartwright
-												<span class="light small">- a week ago</span>
-											</span>
-											
-											<span class="line desc small">
-												Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
-											</span>
-										</a>
-									</li>
-									
-									<li>
-										<a href="#">
-											<span class="line">
-												Sandra Eberhardt
-												<span class="light small">- 16 days ago</span>
-											</span>
-											
-											<span class="line desc small">
-												On so attention necessary at by provision otherwise existence direction.
-											</span>
-										</a>
-									</li>
+									<c:forEach items='${message}' var="i" begin="0" end='1'>  
+				               			<li class="active"><!-- "active" class means message is unread -->
+											<a href="#">
+												<span class="line">
+													<strong>${i.userNumber} - ${i.userName} </strong>
+													<span class="light small">- ${i.applTime}</span>
+												</span>
+												
+												<span class="line desc small">
+													申请原因：${i.applRemark}
+												</span>
+												<span style="position:relative;left: 150">
+													<button type="button" class="btn btn-success">同意</button>
+													&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
+												</span>
+											</a>
+										</li>
+			           				</c:forEach>
 								</ul>	
 							</li>
 							<li class="external">
-								<a href="blank-sidebar.html">
-									<span>All Messages</span>
+								<a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});">
+									<span >All Messages</span>
 									<i class="fa-link-ext"></i>
 								</a>
 							</li>
@@ -244,110 +210,40 @@
 					<li class="dropdown hover-line">
 						<a href="#" data-toggle="dropdown">
 							<i class="fa-bell-o"></i>
-							<span>7</span>
+							<span>${infosize} </span>
 						</a>
 							
 						<ul class="dropdown-menu notifications">
 							<li class="top">
 								<p class="small">
 									<a href="#" class="pull-right">Mark all Read</a>
-									You have <strong>3</strong> new notifications.
+									You have <strong>${infosize}</strong> new notifications.
 								</p>
 							</li>
-							
 							<li>
 								<ul class="dropdown-menu-list list-unstyled ps-scrollbar">
-									<li class="active notification-success">
-										<a href="#">
-											<i class="fa-user"></i>
-											
-											<span class="line">
-												<strong>New user registered</strong>
-											</span>
-											
-											<span class="line small time">
-												30 seconds ago
-											</span>
-										</a>
-									</li>
-									
-									<li class="active notification-secondary">
-										<a href="#">
-											<i class="fa-lock"></i>
-											
-											<span class="line">
-												<strong>Privacy settings have been changed</strong>
-											</span>
-											
-											<span class="line small time">
-												3 hours ago
-											</span>
-										</a>
-									</li>
-									
-									<li class="notification-primary">
-										<a href="#">
-											<i class="fa-thumbs-up"></i>
-											
-											<span class="line">
-												<strong>Someone special liked this</strong>
-											</span>
-											
-											<span class="line small time">
-												2 minutes ago
-											</span>
-										</a>
-									</li>
-									
-									<li class="notification-danger">
-										<a href="#">
-											<i class="fa-calendar"></i>
-											
-											<span class="line">
-												John cancelled the event
-											</span>
-											
-											<span class="line small time">
-												9 hours ago
-											</span>
-										</a>
-									</li>
-									
-									<li class="notification-info">
-										<a href="#">
-											<i class="fa-database"></i>
-											
-											<span class="line">
-												The server is status is stable
-											</span>
-											
-											<span class="line small time">
-												yesterday at 10:30am
-											</span>
-										</a>
-									</li>
-									
-									<li class="notification-warning">
-										<a href="#">
-											<i class="fa-envelope-o"></i>
-											
-											<span class="line">
-												New comments waiting approval
-											</span>
-											
-											<span class="line small time">
-												last week
-											</span>
-										</a>
-									</li>
+									<c:forEach items='${info}' var="i" begin="0" end='1'>  
+				               			<li class="active"><!-- "active" class means message is unread -->
+											<a href="#">
+												<span class="line">
+													<strong>${i.userNumber} - ${i.userName} </strong>
+													<span class="light small">- ${i.applTime}</span>
+												</span>
+												
+												<span class="line desc small">
+													提示信息：${i.applRemark}
+												</span>
+											</a>
+										</li>
+			           				</c:forEach> 
 								</ul>
 							</li>
 							
 							<li class="external">
-								<a href="#">
-									<span>View all notifications</span>
+								<a href="javascript:;" onclick="jQuery('#modal-7').modal('show', {backdrop: 'static'});">
+									<span >View all notifications</span>
 									<i class="fa-link-ext"></i>
-								</a>
+								</a>	
 							</li>
 						</ul>
 					</li>
@@ -360,7 +256,7 @@
 					
 					<li class="search-form"><!-- You can add "always-visible" to show make the search input visible -->
 						
-						<form method="get" action="extra-search.html">
+						<form method="get" action="#">
 							<input type="text" name="s" class="form-control search-field" placeholder="Type to search..." />
 							
 							<button type="submit" class="btn btn-link">
@@ -374,7 +270,7 @@
 						<a href="#" data-toggle="dropdown">
 							<img src="<%=basePath%>assets/images/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
 							<span>
-								Arlind Nushi
+								${manager.managername}
 								<i class="fa-angle-down"></i>
 							</span>
 						</a>
@@ -384,12 +280,6 @@
 								<a href="#edit-profile">
 									<i class="fa-edit"></i>
 									New Post
-								</a>
-							</li>
-							<li>
-								<a href="#settings">
-									<i class="fa-wrench"></i>
-									Settings
 								</a>
 							</li>
 							<li>
@@ -405,7 +295,7 @@
 								</a>
 							</li>
 							<li class="last">
-								<a href="extra-lockscreen.html">
+								<a href="<%=basePath%>manager/tologin">
 									<i class="fa-lock"></i>
 									Logout
 								</a>
@@ -426,11 +316,11 @@
 					
 								<ol class="breadcrumb bc-1">
 									<li>
-							<a href="dashboard-1.html"><i class="fa-home"></i>Home</a>
+							<a href="#"><i class="fa-home"></i>Home</a>
 						</li>
 								<li>
 						
-										<a href="tables-basic.html">Tables</a>
+										<a href="#">Tables</a>
 								</li>
 							<li class="active">
 						
@@ -473,7 +363,7 @@
 					<table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead>
 							 <tr>
-								
+								<th>记录条数</th>
 								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>员工上班时间</th>
@@ -483,7 +373,7 @@
 					
 						<tfoot>
 							 <tr>
-								
+								<th>记录条数</th>
 								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>员工上班时间</th>
@@ -492,11 +382,12 @@
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${list}' var="list">  
+							<c:forEach items='${list}' var="i" varStatus="k">  
 				                <tr>  
-				                    <td>${list.userNumber }</td> 
-				                    <td>${list.userUsername }</td>
-				                    <td>${list.userBirth }</td>
+				                	<td>${k.count}</td> 
+				                    <td>${i.userNumber }</td> 
+				                    <td>${i.userUsername }</td>
+				                    <td>${i.userBirth }</td>
 				                    <td><input type='button' value='同意'></td> 
 				                </tr>  
 			           		</c:forEach>  
@@ -512,9 +403,10 @@
 				
 					<!-- Add your copyright text here -->
 					<div class="footer-text">
-						&copy; 2014 
-						<strong>Xenon</strong> 
-						theme by <a href="http://laborator.co" target="_blank">Laborator</a>
+						&copy; 2018 
+						<strong>酒店人事管理系统</strong> 
+						theme by <a href="http://laborator.co" target="_blank">Dengfw&nbsp;&nbsp;&nbsp;&nbsp;</a>
+						<a id="showtime"> </a>
 					</div>
 					
 					
@@ -524,7 +416,20 @@
 						<a href="#" rel="go-top">
 							<i class="fa-angle-up"></i>
 						</a>
-						
+						<script type="text/javascript">
+							window.onload = function() {
+								var show = document.getElementById("showtime");
+									setInterval(function() {
+									var time = new Date();
+									   // 程序计时的月从0开始取值后+1
+									var m = time.getMonth() + 1;
+									var t = time.getFullYear() + " 年 " + m + " 月 "
+									+ time.getDate() + " 日  " + time.getHours() + ":"
+									  + time.getMinutes() + ":" + time.getSeconds();
+									show.innerHTML = t;
+									}, 1000);
+							 };
+						</script>
 					</div>
 					
 				</div>
@@ -533,7 +438,94 @@
 		</div>
 	</div>
 	
-
+	<div class="modal fade" id="modal-6">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">All Messages(${messagesize})</h4>
+				</div>
+				
+				<div class="modal-body">
+					<c:forEach items='${message}' var="i" begin="0">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="field-2" class="control-label">${i.userNumber} - ${i.userName}</label>
+								</div>	
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="field-2" class="control-label">- ${i.applTime}</label>
+								</div>	
+							</div>
+						</div>
+						<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="field-2" class="control-label">申请原因</label>
+								<textarea class="form-control autogrow" id="field-7">${i.applRemark}</textarea>
+							<span style="position:relative;left: 400">
+									<button type="button" class="btn btn-success">同意</button>
+									&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
+							</span>
+							</div>	
+						</div>
+						</div>
+					</c:forEach>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modal-7">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">View all notifications(${infosize})</h4>
+				</div>
+				
+				<div class="modal-body">
+					<c:forEach items='${info}' var="i" begin="0">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="field-2" class="control-label">${i.userNumber} - ${i.userName}</label>
+								</div>	
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="field-2" class="control-label">- ${i.applTime}</label>
+								</div>	
+							</div>
+						</div>
+						<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="field-2" class="control-label">提示信息</label>
+								<textarea class="form-control autogrow" id="field-7">${i.applRemark}</textarea>
+								
+							</div>	
+							
+						</div>
+						</div>
+					</c:forEach>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- Imported styles on this page -->
 	<link rel="stylesheet" href="<%=basePath%>assets/js/datatables/dataTables.bootstrap.css">
 
