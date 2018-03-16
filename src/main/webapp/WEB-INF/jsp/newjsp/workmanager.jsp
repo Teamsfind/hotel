@@ -185,10 +185,16 @@
 													<strong>${i.userNumber} - ${i.userName} </strong>
 													<span class="light small">- ${i.applTime}</span>
 												</span>
-												
-												<span class="line desc small">
-													申请原因：${i.applRemark}
-												</span>
+												<c:if test="${not empty i.applRemark}">
+													<span class="line desc small">
+														申请原因：${i.applRemark}
+													</span>
+												</c:if>
+												<c:if test="${i.applRemark==''}">
+													<span class="line desc small">
+														申请原因：暂无
+													</span>
+												</c:if>
 												<span style="position:relative;left: 150">
 													<button type="button" class="btn btn-success">同意</button>
 													&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
@@ -229,10 +235,16 @@
 													<strong>${i.userNumber} - ${i.userName} </strong>
 													<span class="light small">- ${i.applTime}</span>
 												</span>
-												
-												<span class="line desc small">
-													提示信息：${i.applRemark}
-												</span>
+												<c:if test="${not empty i.applRemark}">
+													<span class="line desc small">
+														提示信息：${i.applRemark}
+													</span>
+												</c:if>
+												<c:if test="${i.applRemark==''}">
+													<span class="line desc small">
+														提示信息：暂无
+													</span>
+												</c:if>
 											</a>
 										</li>
 			           				</c:forEach> 
@@ -308,94 +320,92 @@
 			<div class="page-title">
 				
 				<div class="title-env">
-					<h1 class="title">DataTable</h1>
-					<p class="description">Dynamic table variants with pagination and other controls</p>
+					<h1 class="title">工作计划安排表</h1>
+					<p class="description">详细的记录一天工作计划安排，提高管理效率</p>
 				</div>
 				
 					<div class="breadcrumb-env">
-					
-								<ol class="breadcrumb bc-1">
-									<li>
-							<a href="#"><i class="fa-home"></i>Home</a>
-						</li>
-								<li>
-						
-										<a href="#">Tables</a>
-								</li>
-							<li class="active">
-						
-										<strong>Data Tables</strong>
-								</li>
-								</ol>
-								
+						<ol class="breadcrumb bc-1">
+							<li>
+							 <a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
+							</li>
+						</ol>
 				</div>
-					
 			</div>
 			
-			<!-- Basic Setup -->
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Basic Setup</h3>
-					
-					<div class="panel-options">
-						<a href="#" data-toggle="panel">
-							<span class="collapse-icon">&ndash;</span>
-							<span class="expand-icon">+</span>
-						</a>
-						<a href="#" data-toggle="remove">
-							&times;
-						</a>
+			<script type="text/javascript">
+			// Calendar Initialization
+			jQuery(document).ready(function($)
+			{
+				
+				// Calendar Initialization
+				$('#calendar').fullCalendar({
+					header: {
+						left: 'title',
+						center: '',
+						right: 'month,agendaWeek,agendaDay prev,next'
+					},
+					buttonIcons: {
+						prev: 'prev fa-angle-left',
+						next: 'next fa-angle-right',
+					},
+					defaultDate: '2018-03-2',
+					editable: true,
+					eventLimit: true,
+					events:  [
+						{
+							title: '开会',
+							start: '2018-03-15'
+						},
+						{
+							title: '休息',
+							start: '2018-03-16T20:00:00',
+							end: '2018-03-17T20:00:00'
+						},
+						{
+							title: '休息2',
+							start: '2018-03-17T20:00:00',
+							end: '2018-03-18T20:00:00'
+						},
+						{
+							title: '检查今天工作是否出错',
+							url: '<%=basePath%>manager/toHistory',
+							start: '2018-03-19'
+						}
+					],
+					droppable: true,
+					drop: function(date) {
+						
+						var $event = $(this).find('a'),
+							eventObject = {
+								title: $event.find('.badge').text(),
+								start: date,
+								className: $event.data('event-class')
+							};
+						
+						$('#calendar').fullCalendar('renderEvent', eventObject, true);
+						
+						// Remove event from list
+						$(this).remove();
+					}
+				});
+				
+				// Draggable Events
+				$("#events-list li").draggable({
+					revert: true,
+					revertDuration: 50,
+					zIndex: 999
+				});
+			});
+			</script>
+			
+			<section class="calendar-env">
+				<div class="col-sm-12 calendar-right">
+					<div class="calendar-main">
+						<div id="calendar"></div>
 					</div>
 				</div>
-				<div class="panel-body">
-					
-					<script type="text/javascript">
-					jQuery(document).ready(function($)
-					{
-						$("#example-1").dataTable({
-							aLengthMenu: [
-								[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]
-							]
-						});
-					});
-					</script>
-					
-					<table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
-						<thead>
-							 <tr>
-								<th>记录条数</th>
-								<th>员工工号</th>
-								<th>员工姓名</th>
-								<th>员工上班时间</th>
-								<th>操作2</th>
-							</tr>
-						</thead>
-					
-						<tfoot>
-							 <tr>
-								<th>记录条数</th>
-								<th>员工工号</th>
-								<th>员工姓名</th>
-								<th>员工上班时间</th>
-								<th>操作2</th>
-							</tr>
-						</tfoot>
-					
-						<tbody >
-							<c:forEach items='${list}' var="i" varStatus="k">  
-				                <tr>  
-				                	<td>${k.count}</td> 
-				                    <td>${i.userNumber }</td> 
-				                    <td>${i.userUsername }</td>
-				                    <td>${i.userBirth }</td>
-				                    <td><input type='button' value='同意'></td> 
-				                </tr>  
-			           		</c:forEach>  
-						</tbody>
-					</table>
-					
-				</div>
-			</div>
+			</section>
 			
 		<footer class="main-footer sticky footer-type-1">
 				
@@ -462,14 +472,34 @@
 							</div>
 						</div>
 						<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12" >
 							<div class="form-group">
-								<label for="field-2" class="control-label">申请原因</label>
-								<textarea class="form-control autogrow" id="field-7">${i.applRemark}</textarea>
-							<span style="position:relative;left: 400">
-									<button type="button" class="btn btn-success">同意</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
-							</span>
+								<c:if test="${not empty i.applRemark}">
+									<label for="field-2" class="control-label">申请原因</label>
+									<textarea class="form-control autogrow" id="field-7" readonly="readonly">${i.applRemark}</textarea>
+								</c:if>
+								<c:if test="${i.applRemark==''}">
+									<label for="field-2" class="control-label" readonly="readonly">申请原因</label>
+									<textarea class="form-control autogrow" id="field-7" readonly="readonly">暂无</textarea>
+								</c:if>
+								<c:if test="${i.applStatus=='0'}">
+									<span style="position:relative;left: 400">
+										<button type="button" class="btn btn-success">同意</button>
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
+									</span>
+								</c:if>
+								<c:if test="${i.applStatus=='1'}">
+									<span style="position:relative;left: 450">
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success" readonly="readonly">已同意</button>
+										
+									</span>
+								</c:if>
+								<c:if test="${i.applStatus=='2'}">
+									<span style="position:relative;left: 450">
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" readonly="readonly">以拒绝</button>
+										
+									</span>
+								</c:if>
 							</div>	
 						</div>
 						</div>
@@ -509,11 +539,15 @@
 						<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="field-2" class="control-label">提示信息</label>
-								<textarea class="form-control autogrow" id="field-7">${i.applRemark}</textarea>
-								
+								<c:if test="${not empty i.applRemark}">
+									<label for="field-2" class="control-label">提示信息</label>
+									<textarea class="form-control autogrow" id="field-7" readonly="readonly">${i.applRemark}</textarea>
+								</c:if>
+								<c:if test="${i.applRemark==''}">
+									<label for="field-2" class="control-label">提示信息</label>
+									<textarea class="form-control autogrow" id="field-7" readonly="readonly">暂无</textarea>
+								</c:if>
 							</div>	
-							
 						</div>
 						</div>
 					</c:forEach>
@@ -528,7 +562,7 @@
 	
 	<!-- Imported styles on this page -->
 	<link rel="stylesheet" href="<%=basePath%>assets/js/datatables/dataTables.bootstrap.css">
-
+	<link rel="stylesheet" href="<%=basePath%>assets/js/fullcalendar/fullcalendar.min.css">
 	<!-- Bottom Scripts -->
 	<script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
 	<script src="<%=basePath%>assets/js/TweenMax.min.js"></script>
@@ -537,13 +571,15 @@
 	<script src="<%=basePath%>assets/js/xenon-api.js"></script>
 	<script src="<%=basePath%>assets/js/xenon-toggles.js"></script>
 	<script src="<%=basePath%>assets/js/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="<%=basePath%>assets/js/moment.min.js"></script>
 
 
 	<!-- Imported scripts on this page -->
 	<script src="<%=basePath%>assets/js/datatables/dataTables.bootstrap.js"></script>
 	<script src="<%=basePath%>assets/js/datatables/yadcf/jquery.dataTables.yadcf.js"></script>
 	<script src="<%=basePath%>assets/js/datatables/tabletools/dataTables.tableTools.min.js"></script>
-
+	<script src="<%=basePath%>assets/js/fullcalendar/fullcalendar.min.js"></script>
+	<script src="<%=basePath%>assets/js/jquery-ui/jquery-ui.min.js"></script>
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="<%=basePath%>assets/js/xenon-custom.js"></script>

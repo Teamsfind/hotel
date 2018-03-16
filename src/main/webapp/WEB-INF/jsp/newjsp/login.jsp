@@ -212,7 +212,7 @@
 	                                            //登录成功
 	                                           ErroAlert("登陆成功<br /><br />欢迎回来");
 												//跳转操作
-	                                           window.location.href='<%=basePath%>manager/toindex';
+	                                           window.location.href='<%=basePath%>manager/toWorkManager';
 	                                        } else {
 	                                        	ErroAlert("账号名或密码或验证码有误");
 	                                        }

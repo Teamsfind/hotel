@@ -53,6 +53,14 @@ public class ManagerController {
 		return new ModelAndView("newjsp/login");
 	}
 	
+	@RequestMapping("/toWorkManager")
+	public ModelAndView toWorkManager(HttpServletRequest request ){
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		return new ModelAndView("newjsp/workmanager");
+	}
+	
 	/*
 	 * 登录
 	 */
