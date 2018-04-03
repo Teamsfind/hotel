@@ -330,99 +330,240 @@
 				</ul>
 			</nav>
 			<div class="page-title">
-				
 				<div class="title-env">
-					<h1 class="title">工作计划安排表</h1>
-					<p class="description">详细的记录一天工作计划安排，提高管理效率</p>
+					<h1 class="title">职员入职</h1>
+					<p class="description">记录每个新员工的基本信息</p>
 				</div>
-				
-					<div class="breadcrumb-env">
+				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
 							<li>
-							 <a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
+							 	<a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
+							</li>
+							<li>
+								人事档案管理
+							</li>
+							<li class="active">
+								<strong>职员入职</strong>
 							</li>
 						</ol>
 				</div>
 			</div>
-			
-			<script type="text/javascript">
-			// Calendar Initialization
-			jQuery(document).ready(function($)
-			{
-				var data = [
-					{
-						title: '开会',
-						url: '',
-						start: '2018-03-15',
-						end: ''
-					},
-					{
-						title: '休息',
-						url: '',
-						start: '2018-03-16T20:00:00',
-						end: '2018-03-17T20:00:00'
-					},
-					{
-						title: '休息2',
-						url: '',
-						start: '2018-03-17T20:00:00',
-						end: '2018-03-18T19:00:00'
-					},
-					{
-						title: '检查今天工作是否出错',
-						url: '<%=basePath%>manager/toHistory',
-						start: '2018-03-19',
-						end: ''
-					}
-				]
-				// Calendar Initialization
-				$('#calendar').fullCalendar({
-					header: {
-						left: 'title',
-						center: '',
-						right: 'month,agendaWeek,agendaDay prev,next'
-					},
-					buttonIcons: {
-						prev: 'prev fa-angle-left',
-						next: 'next fa-angle-right',
-					},
-					defaultDate: '2018-03-16',
-					editable: true,
-					eventLimit: true,
-					events:  data,
-					droppable: true,
-					drop: function(date) {
-						
-						var $event = $(this).find('a'),
-							eventObject = {
-								title: $event.find('.badge').text(),
-								start: date,
-								className: $event.data('event-class')
-							};
-						
-						$('#calendar').fullCalendar('renderEvent', eventObject, true);
-						
-						// Remove event from list
-						$(this).remove();
-					}
-				});
-				
-				// Draggable Events
-				$("#events-list li").draggable({
-					revert: true,
-					revertDuration: 50,
-					zIndex: 999
-				});
-			});
-			</script>
-			
-			<section class="calendar-env">
-				<div class="col-sm-12 calendar-right">
-					<div class="calendar-main">
-						<div id="calendar"></div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<form  class="form-horizontal" method="post"  action="<%=basePath %>manager/toCheckRuZhiUser" onsubmit="return check()">
+								<div class="form-group">
+										<label class="col-sm-2 control-label" for="field-1">员工姓名</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control"  id="username" name="username">
+										</div>
+								</div>
+								<div class="form-group" id="tip1">
+										<label class="col-sm-2 control-label" for="field-2">员工身份证</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" id="idCard" name="idCard" onblur="checkid()" maxlength="18" >
+										</div>
+										<div class="col-sm-2">
+											<span class="label label-success" id="idCardsuccess"></span>
+											<span class="label label-danger" id="idCarderror"></span>
+										</div>
+								</div>
+								<div class="form-group" id="tip2">
+										<label class="col-sm-2 control-label" for="field-3">员工银行工资卡</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control"  id="bankidCard" name="bankidCard" onblur="checkbankid()" maxlength="19">
+										</div>
+										<div class="col-sm-2">
+											<span class="label label-success" id="bankidCardsuccess"></span>
+											<span class="label label-danger" id="bankidCarderror"></span>
+										</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">性别</label>
+										<div class="col-sm-8">
+											<div class="form-block">
+												<label>
+													<input type="radio" name="radio1" class="cbr" value="1" checked>
+													男
+												</label>
+												<br />
+												<label>
+													<input type="radio" name="radio1" class="cbr" value="1">
+													女 
+												</label>
+											</div>
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">部门职位</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="select1" name="select1">
+												<option value="10">采购部</option>
+			                                    <option value="11">市场部</option>
+			                                    <option value="12">后勤部</option>
+			                                    <option value="13">财务部</option>
+			                                    <option value="14">生产部</option>
+											</select>
+										</div>
+										<div class="col-sm-4">
+											<select class="form-control" id="select2" name="select2" onblur="productid()">
+												<option value="普通员工">普通员工</option>
+			                               		<option value="部门经理">部门经理</option>
+			                                	<option value="组长">组长</option>
+											</select>
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">员工工号</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" placeholder="自动填写" id="user_id" name="user_id" readonly="readonly">
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">教育背景</label>
+										<div class="col-sm-8">
+											<select class="form-control" id="select3" name="select3">
+												<option value="博士">博士</option>
+			                                    <option value="硕士">硕士</option>
+			                                   	<option value="本科">本科</option>
+			                                    <option value="高中">高中</option>
+			                                    <option value="初中">初中</option>
+											</select>
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">入职状态</label>
+										<div class="col-sm-8">
+											<select class="form-control" id="select4" name="select4">
+												<option value="1">实习期</option>
+			                                    <option value="2">试用期</option>
+											</select>
+										</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">电话号码</label>
+										<div class="col-sm-8">
+											<div class="input-group input-group-sm input-group-minimal">
+												<span class="input-group-addon">
+													<i class="linecons-mobile"></i>
+												</span>
+												<input type="text" class="form-control" id="user_phone" name="user_phone"  maxlength="11" onblur="checkphone()"/>
+											</div>
+										</div>
+										<div class="col-sm-2">
+											<span class="label label-success" id="user_phonesuccess"></span>
+											<span class="label label-danger" id="#user_phoneerror"></span>
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">地址</label>
+										<div class="col-sm-8">
+											<div class="input-group input-group-sm input-group-minimal">
+												<span class="input-group-addon">
+													<i class="linecons-location"></i>
+												</span>
+												<input type="text" class="form-control" placeholder="Current city" id="city" name="city">
+											</div>
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">生日</label>
+										<div class="col-sm-8">
+											<div class="input-group input-group-sm input-group-minimal">
+												<span class="input-group-addon">
+													<i class="fa-calendar"></i>
+												</span>
+												<input type="text" class="form-control" data-mask="date" id="datebirth" name="datebirth"/>
+											</div>
+										</div>
+								</div>
+								<div class="form-group">
+									<center>
+										<div class="input-group">
+											<input type="submit" value="确定" >
+											<input type="reset" value="重置" >
+										</div>
+										<div>
+											<span class="label label-danger" id="subeerror"></span>
+										</div>
+									</center>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
-			</section>
+			</div>
+		<script type="text/javascript">
+			function productid() {
+				var dpt = jQuery("#select1  option:selected").text();
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					url : '<%=basePath%>manager/autusernumber?userDpt=' + dpt,
+					success : function(data) {	
+						if (data != "") {
+							$("#user_id").val(data);
+						}
+					}
+				});
+			}	
+		
+			function  checkid() {
+				var idCard = $("#idCard").val();
+				if(!(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(idCard))){ 
+					$("#idCardsuccess").html("");
+					$("#idCarderror").html("× 身份证格式有误，请重填"); 
+				}else {
+					$("#idCarderror").html(""); 
+					$("#idCardsuccess").html("✔ 身份证格式正确，可以使用");
+				} 
+			}
+	
+			function  checkbankid() {
+				var bankidCard = $("#bankidCard").val();
+				if(!(/^([1-9]{1})(\d{14}|\d{18})$/.test(bankidCard))){ 
+					$("#bankidCardsuccess").html("");
+					$("#bankidCarderror").html("× 银行卡位数不正确，请仔细填写"); 
+				}else {
+					$("#bankidCarderror").html("");
+					$("#bankidCardsuccess").html("✔ 银行卡位数正确，可以使用");
+				} 
+			}
+			
+			function  checkphone() {
+				var user_phone = $("#user_phone").val();
+				if(!(/^1[34578]\d{9}$/.test(user_phone))){ 
+					$("#user_phonesuccess").html("");
+				  	$("#user_phoneerror").html("× 手机号码格式有误，请重填");
+				}else {
+					$("#user_phoneerror").html("");
+					$("#user_phonesuccess").html("✔ 手机号码格式正确，可以使用");
+				} 
+			}
+			
+			function check() {
+				var username = $("#username").val();
+				var idCard = $("#idCard").val();
+				var bankidCard = $("#bankidCard").val();
+				var sex = $("input[name='radio1']:checked").val();
+				var dpt = jQuery("#select1  option:selected").text();
+				var jbn = jQuery("#select2  option:selected").text();
+				var usernumber = $("#user_id").val();
+				var edu = jQuery("#select3  option:selected").text();
+				var jobtype = jQuery("#select4  option:selected").text();
+				var user_phone = $("#user_phone").val();
+				var city = $("#city").val();
+				var date_picker = $("#datebirth").val();
+				if (usernumber!=""&&bankidCard!=""&&username!=""&&idCard!=""&&user_phone!=""&&city!=""&&date_picker!=""&&jobtype!="") {
+					return true;
+				}else {
+					$('#subeerror').html("");
+					$('#subeerror').html('× 提交的数据不能为空，请仔细检查');
+					return false;
+				}
+			}
+		</script>
 			
 		<footer class="main-footer sticky footer-type-1">
 				
@@ -432,7 +573,7 @@
 					<div class="footer-text">
 						&copy; 2018 
 						<strong>酒店人事管理系统</strong> 
-						theme by <a href="http://laborator.co" target="_blank">Dengfw&nbsp;&nbsp;&nbsp;&nbsp;</a>
+						theme by <a >Dengfw&nbsp;&nbsp;&nbsp;&nbsp;</a>
 						<a id="showtime"> </a>
 					</div>
 					
@@ -640,6 +781,8 @@
 	<script src="<%=basePath%>assets/js/datatables/tabletools/dataTables.tableTools.min.js"></script>
 	<script src="<%=basePath%>assets/js/fullcalendar/fullcalendar.min.js"></script>
 	<script src="<%=basePath%>assets/js/jquery-ui/jquery-ui.min.js"></script>
+	<script src="<%=basePath%>assets/js/inputmask/jquery.inputmask.bundle.js"></script>
+	<script src="<%=basePath%>assets/js/tocify/jquery.tocify.min.js"></script>
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="<%=basePath%>assets/js/xenon-custom.js"></script>

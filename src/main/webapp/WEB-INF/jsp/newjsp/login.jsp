@@ -206,11 +206,12 @@
 	                                        $('.authent').hide();
 	                                        $('.login').removeClass('test');
 	                                        	var data2 = JSON.stringify(data);
-	                                        	
 	                                        if (data2 != -1) {
-	                                      
 	                                            //登录成功
-	                                           ErroAlert("登陆成功<br /><br />欢迎回来");
+		                                       var index2 = layer.alert('登陆成功<br /><br />欢迎回来', { icon: 6, time: 4000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });  
+													layer.style(index2, {
+														color: '#777'
+													}); 
 												//跳转操作
 	                                           window.location.href='<%=basePath%>manager/toWorkManager';
 	                                        } else {

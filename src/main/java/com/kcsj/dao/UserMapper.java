@@ -58,4 +58,14 @@ public interface UserMapper {
     
     //模糊查找员工
     public List<User> FindAllUserByUidUname(String  text);
+    
+    /*
+     * 自动生成员工编号
+     */
+    public int autousernumber(int dpt );
+    
+    /*
+     *员工新增
+     */
+    public int insertuser(User u);
 }

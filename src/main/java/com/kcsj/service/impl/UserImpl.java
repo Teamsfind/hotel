@@ -30,6 +30,32 @@ public class UserImpl implements UserService{
 		return userdao.FindAllUserByUidUname(text);
 	}
 
+	@Override
+	public String autousernumber(int m) {
+		int dpt = userdao.autousernumber(m)+1;
+		if (dpt<10) {
+			return "2017"+m+"00"+dpt;
+			
+		}else if (dpt>=10&&dpt<100) {
+			
+			return "2017"+m+"0"+dpt;
+		}else {
+			
+			return "2017"+m+dpt;
+		}
+	}
+
+	@Override
+	public boolean insertuser(User u) {
+		
+		int t = userdao.insertuser(u);
+		
+		if (t==1) {
+			return true;
+		}else
+			
+		return false;
+	}
 	
 	
 	

@@ -14,4 +14,14 @@ public interface UserService {
      
 	//模糊查找员工
     public List<User> FindAllUserByUidUname(String  text);
+    
+    /*
+     * 自动生成员工编号
+     */
+    public String autousernumber(int dpt );
+    
+    /*
+     * 员工新增
+     */
+    public boolean insertuser(User u);
 }
