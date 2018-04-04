@@ -10,7 +10,7 @@ public interface OpertionService {
 	 * @param o
 	 * @return
 	 */
-	public boolean inserOpretion(Opertion o);
+	public int inserOpretion(Opertion o);
     
 	//根据管理员id查找
 	public List<Opertion> findAllOpertionBymanagerid(String managerid);

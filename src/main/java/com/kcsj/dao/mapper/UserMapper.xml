@@ -298,7 +298,7 @@
   </update>
   
   <select id="FindAllUser" resultMap="BaseResultMap">
-  		select * from user;
+  		select * from user where user_jobtype != '4';
   </select>
   
   <select id="FindAllUserByUidUname" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -323,4 +323,20 @@
       #{userBankcard,jdbcType=DOUBLE}, #{userAddress,jdbcType=VARCHAR}, 
       now(), #{userJobtype,jdbcType=INTEGER}, '1', #{userEdu,jdbcType=VARCHAR})
   </insert>
+  
+  <select id="CheckIdCard" resultMap="BaseResultMap">
+  		select * from user where  user_idCard = #{userIdcard,jdbcType=VARCHAR};
+  </select>
+  
+  <select id="updatauserByUser_number" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  		select * from user where user_jobtype != '4' and user_number= #{userNumber,jdbcType=INTEGER};
+  </select>
+  
+  <update id="updataUserByUser_number" parameterType="com.kcsj.pojo.User">
+  		update user
+    set 
+      user_jobtype = #{userJobtype,jdbcType=INTEGER}
+      
+    where user_number = #{userNumber,jdbcType=INTEGER}
+  </update>
 </mapper>

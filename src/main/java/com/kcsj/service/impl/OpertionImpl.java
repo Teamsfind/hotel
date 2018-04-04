@@ -19,13 +19,9 @@ public class OpertionImpl implements OpertionService{
 	private  OpertionMapper opretiondao;
 	
 	@Override
-	public boolean inserOpretion(Opertion o) {
+	public int inserOpretion(Opertion o) {
 		// TODO Auto-generated method stub
-		int i = opretiondao.insert(o);
-		if (i==1) {
-			return true;
-		}
-			return false;
+			return opretiondao.insert(o);
 	}
 
 	@Override

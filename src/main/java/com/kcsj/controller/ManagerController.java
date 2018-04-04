@@ -2,9 +2,7 @@ package com.kcsj.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.Manager;
 import com.kcsj.pojo.Opertion;
+import com.kcsj.pojo.Recard;
 import com.kcsj.pojo.User;
 import com.kcsj.service.ApplService;
 import com.kcsj.service.ManagerService;
 import com.kcsj.service.OpertionService;
+import com.kcsj.service.RecardService;
 import com.kcsj.service.UserService;
 import com.kcsj.util.MD5;
 
@@ -38,6 +39,8 @@ public class ManagerController {
 	private ApplService applservice;
 	@Resource
 	private OpertionService opretionservice;
+	@Resource
+	private RecardService recardservice;
 	
 	public HttpSession session;
 	
@@ -110,8 +113,7 @@ public class ManagerController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/autusernumber")
-	public String upPassword(HttpServletRequest request){		
-		String msg = null;
+	public String upPassword(HttpServletRequest request){	
 		int userDpt = 0;
 		
 		String  userDptnamae = request.getParameter("userDpt");
@@ -179,7 +181,7 @@ public class ManagerController {
 		 user.setUserAddress(address);
 		 user.setUserBirth(date);;
 		 
-		 boolean flag = userservice.insertuser(user);
+		userservice.insertuser(user);
 		 
 		
 		 String opretion_type = "员工新增";
@@ -188,26 +190,115 @@ public class ManagerController {
 		 o.setManagerId(m.getManagerid());
 		 o.setOperatingType(opretion_type);
 		 
-		 boolean flag2 = opretionservice.inserOpretion(o);
+		 opretionservice.inserOpretion(o);
 		
 		return new ModelAndView("newjsp/ruzhiuser");
 	}
 	
 	/*
-	 * 模糊查找所有员工
+	 * 员工入职：判断是否有该员工
 	 */
-	@RequestMapping(value="/toFindAllUserByUidUname")
 	@ResponseBody
-	public Map<String, Object>  toFindAllUserByUidUname(HttpServletRequest request){
-		Map<String, Object> result=new HashMap<String, Object>(); 
-		String text = request.getParameter("text");
+	@RequestMapping(value="/CheckIdCard")
+	public String CheckIdCard(HttpServletRequest request){	
 		
-		List list = userservice.FindAllUserByUidUname(text);
-		result.put("status", "success");
-		result.put("totals", list.size());
-		result.put("data", list);
-		return result;
+		String  idcard = request.getParameter("idCard");
+		
+		return userservice.CheckIdCard(idcard);
 	}
+	
+	/*
+	 * 员工转正
+	 */
+	@RequestMapping("/toUpdateUser")
+	public ModelAndView  toUpdateUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<updateUser> list = userservice.updatauser();
+		session.setAttribute("updatelist", list);
+		
+		return new ModelAndView("newjsp/updateuser");
+	}
+	
+	/*
+	 * 员工转正:查找单个员工信息
+	 */
+	@ResponseBody
+	@RequestMapping("/toFindUpdateUser")
+	public updateUser toFindUpdateUser(HttpServletRequest request ){
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		List<updateUser> list = userservice.updatauser();
+		session.setAttribute("updatelist", list);
+		
+		int usernumber = Integer.valueOf(request.getParameter("user_id"));
+		
+		return userservice.updatauserByUser_number(usernumber);
+	}
+	
+	/*
+	 * 员工转正:确认修改员工信息
+	 */
+	@ResponseBody
+	@RequestMapping("/toSureUpdateUser")
+	public updateUser toSureUpdateUser(HttpServletRequest request ){
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		List<updateUser> list = userservice.updatauser();
+		session.setAttribute("updatelist", list);
+		
+		int usernumber = Integer.valueOf(request.getParameter("user_number"));
+		
+		int jobtype = Integer.valueOf(request.getParameter("user_jobtype"));
+		
+		String reason = request.getParameter("reason");
+		
+		//分三步
+		//1  修改员工职位状态
+			User u = new User();
+			u.setUserNumber(usernumber);
+			u.setUserJobtype(jobtype);
+			userservice.updataUserByUser_number(u);
+		//2 增加员工职位改动记录
+			Recard re = new Recard();
+			re.setRecardManagerid(m.getManagerid());
+			re.setRecardReason(reason);
+			re.setRecardUsernumber(usernumber);
+			 recardservice.inserRecard(re);
+		//3 管理员操作留痕
+			 String opretion_type = "给员工转正";
+			 Opertion o = new Opertion();
+			 o.setManagerName(m.getManagername());
+			 o.setManagerId(m.getManagerid());
+			 o.setOperatingType(opretion_type);
+			 opretionservice.inserOpretion(o);
+			
+		return userservice.updatauserByUser_number(usernumber);
+	}
+	
+	/*
+	 * 职员档案
+	 */
+	@RequestMapping("/toLookUser")
+	public ModelAndView  toLookUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<updateUser> list = userservice.updatauser();
+		session.setAttribute("lookuserlist", list);
+		
+		return new ModelAndView("newjsp/lookuser");
+	}
+	
 	/**
 	 * 
 	 * 刷新邮件和消息

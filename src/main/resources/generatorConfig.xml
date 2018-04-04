@@ -8,7 +8,7 @@
     <sqlMapGenerator targetPackage="com.kcsj.dao.mapper" targetProject="src/main/java" />
     <javaClientGenerator targetPackage="com.kcsj.dao" targetProject="src/main/java" type="XMLMAPPER" />
    
-   <table tableName="Opertion" domainObjectName="Opertion" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> 
+   <table tableName="Recard" domainObjectName="Recard" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> 
     
   </context>
 </generatorConfiguration>

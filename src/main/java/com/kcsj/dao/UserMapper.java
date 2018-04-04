@@ -2,6 +2,7 @@ package com.kcsj.dao;
 
 import java.util.List;
 
+import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.User;
 
 public interface UserMapper {
@@ -68,4 +69,19 @@ public interface UserMapper {
      *员工新增
      */
     public int insertuser(User u);
+    
+    /*
+     * 员工新增：判断该员工是否入职
+     */
+    public User CheckIdCard(String idcard);
+    
+    /*
+     * 职员转正:查询单个员工
+     */
+    public User updatauserByUser_number(int usernumber);
+    
+    /*
+     * 职员转正:修改员工职位状态
+     */
+    public int updataUserByUser_number(User u);
 }
