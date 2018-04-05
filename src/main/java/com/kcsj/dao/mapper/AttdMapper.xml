@@ -257,12 +257,38 @@
   	<select id="findattdayAll" resultType="com.kcsj.entitl.preAttdData" >
 	  	SELECT u.user_username as username,a.user_number as usernumber,u.user_dpt as userdpt,u.user_dpt_jbn as userdptjob,a.attd_begintime as attdBegintime,a.attd_endtime as attdEndtime
 	  	FROM attd a,user u
-	  	WHERE  to_days(attd_begintime) =to_days(now()) and a.user_number=u.user_number  order by attdBegintime   
+	  	WHERE  a.attd_begintime !='' and to_days(attd_begintime) =to_days(now()) and a.user_number=u.user_number  order by attdBegintime   
   	</select>
   	
-  	<select id="findUserAttdayAll" resultType="com.kcsj.entitl.AttdData" parameterType="java.lang.String">
+  	<select id="findUserAttdayAll" resultType="com.kcsj.entitl.preAttdData" parameterType="java.lang.String">
 	  	SELECT a.user_number as usernumber,u.user_username as username,u.user_dpt as userdpt,u.user_dpt_jbn as userdptjob,a.attd_begintime as attdBegintime,a.attd_endtime as attdEndtime
 	  	FROM attd a,user u
-	  	WHERE  to_days(attd_begintime) !=to_days(now()) and a.user_number=u.user_number  and a.user_number= #{usernumber,jdbcType=VARCHAR} order by attdBegintime  desc
+	  	WHERE  a.attd_begintime !='' and a.user_number=u.user_number  and a.user_number= #{usernumber,jdbcType=VARCHAR} order by attdBegintime  desc
+  	</select>
+  	
+  	<!-- 休假信息 -->
+  	<select id="findvacationdayAll" resultType="com.kcsj.entitl.preAttdData" >
+	  	SELECT u.user_username as username,a.user_number as usernumber,u.user_dpt as userdpt,user_dpt_jbn as userdptjob,a.attd_vaction_remark as attdVactionRemark,a.attd_vaction_begintime as attdVactionBegintime,a.attd_vaction_endtime as attdVactionEndtime
+	  	FROM attd a,user u
+	  	WHERE  attd_vaction_begintime !='' and to_days(attd_vaction_begintime) =to_days(now()) and a.user_number=u.user_number  order by attdVactionBegintime   
+  	</select>
+  	
+  	<select id="findUserVacationdayAll" resultType="com.kcsj.entitl.preAttdData" parameterType="java.lang.String">
+	  	SELECT u.user_username as username,a.user_number as usernumber,u.user_dpt as userdpt,user_dpt_jbn as userdptjob,a.attd_vaction_remark as attdVactionRemark,a.attd_vaction_begintime as attdVactionBegintime,a.attd_vaction_endtime as attdVactionEndtime
+	  	FROM attd a,user u
+	  	WHERE  attd_vaction_begintime !='' and a.user_number=u.user_number  and a.user_number= #{usernumber,jdbcType=VARCHAR} order by attdVactionBegintime  desc
+  	</select>
+  	
+  	<!-- 出差信息 -->
+  	<select id="findTraveldayAll" resultType="com.kcsj.entitl.preAttdData" >
+	  	SELECT u.user_username as username,a.user_number as usernumber,u.user_dpt as userdpt,user_dpt_jbn as userdptjob,a.attd_travel_begintime as attdTravelBegintime,a.attd_travel_endtime as attdTravelEndtime,a.attd_travel_place as attdTravelPlace,a.attd_travel_remark as attdTravelRemark
+	  	FROM attd a,user u
+	  	WHERE   attd_travel_begintime !='' and to_days(attd_travel_begintime) =to_days(now()) and a.user_number=u.user_number  order by attdTravelBegintime   
+  	</select>
+  	
+  	<select id="findUserTravelAll" resultType="com.kcsj.entitl.preAttdData" parameterType="java.lang.String">
+	  	SELECT u.user_username as username,a.user_number as usernumber,u.user_dpt as userdpt,user_dpt_jbn as userdptjob,a.attd_travel_begintime as attdTravelBegintime,a.attd_travel_endtime as attdTravelEndtime,a.attd_travel_place as attdTravelPlace,a.attd_travel_remark as attdTravelRemark
+	  	FROM attd a,user u
+	  	WHERE  attd_travel_begintime !='' and a.user_number=u.user_number  and a.user_number= #{usernumber,jdbcType=VARCHAR} order by attdTravelBegintime  desc
   	</select>
 </mapper>

@@ -68,4 +68,7 @@ public interface ApplMapper {
      *拒绝appl
      */
     public int refuseappl(int usernumber); 
+    
+    //更改员工工作状态：查找worktype
+    Appl findAllApplByusernumber(int usernumber);
 }

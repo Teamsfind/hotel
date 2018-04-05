@@ -355,4 +355,12 @@
       
     where user_number = #{uid} or user_idCard = #{uid}
   </update>
+  
+  <update id="SurelizhiUserAndUpUser" parameterType="com.kcsj.entitl.UpAppl">
+  		update user
+    set 
+      user_worktype = #{applType,jdbcType=INTEGER}
+      
+    where user_number = #{userNumber,jdbcType=INTEGER}
+  </update>
 </mapper>

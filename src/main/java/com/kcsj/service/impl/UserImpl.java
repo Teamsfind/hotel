@@ -8,8 +8,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.kcsj.dao.ApplMapper;
 import com.kcsj.dao.UserMapper;
+import com.kcsj.entitl.UpAppl;
 import com.kcsj.entitl.updateUser;
+import com.kcsj.pojo.Appl;
 import com.kcsj.pojo.User;
 import com.kcsj.service.UserService;
 
@@ -19,6 +22,8 @@ public class UserImpl implements UserService{
 	
 	@Resource
 	private UserMapper userdao;
+	@Resource
+	private ApplMapper appldao;
 
 	@Override
 	public List<User> FindAllUser() {
@@ -156,6 +161,23 @@ public class UserImpl implements UserService{
 	public int SurelizhiUser(String uid) {
 		// TODO Auto-generated method stub
 		return userdao.SurelizhiUser(uid);
+	}
+
+	@Override
+	public int SurelizhiUserAndUpUser(int user_number) {
+		Appl app1 = appldao.findAllApplByusernumber(user_number);
+		UpAppl app2 = new UpAppl();
+		app2.setUserNumber(app1.getUserNumber());
+		
+		if (app1.getApplType().equals("请假")) {
+			app2.setApplType(2);
+		}else if(app1.getApplType().equals("出差")){
+			app2.setApplType(3);
+		}else if(app1.getApplType().equals("休假")){
+			app2.setApplType(2);
+		}
+		
+		return userdao.SurelizhiUserAndUpUser(app2);
 	}
 	
 	

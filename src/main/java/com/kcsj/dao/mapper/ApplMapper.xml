@@ -212,4 +212,8 @@
 
   </update>
   
+   <select id="findAllApplByusernumber" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * from appl where  user_number  =#{usernumber,jdbcType=INTEGER} and appl_status ='0' ORDER BY appl_time DESC
+  </select>
+  
 </mapper>

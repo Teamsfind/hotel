@@ -63,4 +63,24 @@ public interface AttdMapper {
      * 考勤数据：查找单个员工的所有考勤信息(考勤管理，历史)
      */
     List<preAttdData> findUserAttdayAll (String usernumber);
+    
+    /**
+     * 查找员工的休假信息(考勤管理，当天)
+     */
+    List<preAttdData> findvacationdayAll ();
+    
+    /**
+     * 查找单个员工的所有休假信息(考勤管理，历史)
+     */
+    List<preAttdData> findUserVacationdayAll (String usernumber);
+    
+    /**
+     * 查找员工的出差信息(考勤管理，当天)
+     */
+    List<preAttdData> findTraveldayAll ();
+    
+    /**
+     * 查找单个员工的所有出差信息(考勤管理，历史)
+     */
+    List<preAttdData> findUserTravelAll (String usernumber);
 }

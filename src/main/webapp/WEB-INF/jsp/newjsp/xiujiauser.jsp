@@ -331,8 +331,8 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">考勤数据</h1>
-					<p class="description">记载每个员工的上班情况，方便及时安排工作调动，提高管理效率</p>
+					<h1 class="title">休假数据</h1>
+					<p class="description">记载每个员工的休假情况，方便及时安排工作调动，提高管理效率</p>
 				</div>
 				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
@@ -343,7 +343,7 @@
 								考勤管理
 							</li>
 							<li class="active">
-								<strong>考勤数据</strong>
+								<strong>休假数据</strong>
 							</li>
 						</ol>
 				</div>
@@ -351,7 +351,7 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">所有员工考勤数据(早上9:30上班，下午5:30下班)</h3>
+					<h3 class="panel-title">所有员工休假数据</h3>
 					
 					<div class="panel-options">
 						<a href="#" data-toggle="panel">
@@ -383,36 +383,36 @@
 								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>所属部门</th>
-								<th>上班时间</th>
-								<th>下班时间</th>
-								<th>考勤</th>
+								<th>休假开始时间</th>
+								<th>休假结束时间</th>
+								<th>休假理由</th>
 								<th>操作</th>
 							</tr>
 						</thead>
 					
 						<tfoot>
-							 <tr>
+							  <tr>
 								<th>记录条数</th>
 								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>所属部门</th>
-								<th>上班时间</th>
-								<th>下班时间</th>
-								<th>考勤</th>
+								<th>休假开始时间</th>
+								<th>休假结束时间</th>
+								<th>休假理由</th>
 								<th>操作</th>
 							</tr>
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${AttdDatalist}' var="i" varStatus="k">  
+							<c:forEach items='${VacDatalist}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
 				                    <td>${i.usernumber }</td> 
 				                    <td>${i.username }</td>
 				                    <td>${i.userdpt }---${i.userdptjob }</td>
-				                    <td>${i.attdBegintime }</td>
-				                    <td>${i.attdEndtime }</td>
-				                    <td>${i.atttype }</td>
+				                    <td>${i.attdVactionBegintime }</td>
+				                    <td>${i.attdVactionEndtime }</td>
+				                    <td>${i.attdVactionRemark }</td>
 				                    <td><input type='button' value='更多' onclick="FindUserByUid(${i.usernumber })"></td> 
 				                </tr>  
 			           		</c:forEach>  
@@ -428,9 +428,9 @@
 				$.ajax({
 					type : 'post',
 					dataType : 'json',
-					url : '<%=basePath%>manager/toKaoQingUserHistory?user_id=' + date,
+					url : '<%=basePath%>manager/toXiuJiaUserHistory?user_id=' + date,
 					error : function(data) {	
-						window.location.href='<%=basePath%>manager/toKaoQingUserHistorymore';
+						window.location.href='<%=basePath%>manager/toXiuJiaUserHistorymore';
 					}
 				});
 				

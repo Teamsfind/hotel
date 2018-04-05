@@ -109,6 +109,7 @@ public class ManagerController {
 	public void sureappl(HttpServletRequest request){	
 		int  usernumber = Integer.valueOf(request.getParameter("usernumber"));
 		
+		userservice.SurelizhiUserAndUpUser(usernumber);
 		applservice.agreeappl(usernumber);
 	}
 	
@@ -412,29 +413,170 @@ public class ManagerController {
 		session = request.getSession();
 		Manager m = (Manager) session.getAttribute("manager");
 		Refreshmessage(m.getManagerid());
-		// to 刷新员工表格
+		// to 刷新考勤表格
 		List<AttdData> list = attdservice.findattdayAll();
 		
 		session.setAttribute("AttdDatalist", list);
-		
+		//管理员操作留痕
+		 String opretion_type = "查看考勤数据";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 
+		 opretionservice.inserOpretion(o);
 		return new ModelAndView("newjsp/kaoqinguser");
 	}
 	
 	/*
 	 * 考勤数据:查询单个员工的历史考勤
 	 */
+	@RequestMapping("/toKaoQingUserHistorymore")
+	public ModelAndView  toKaoQingUserHistorymore(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		return new ModelAndView("newjsp/morekaoqinguser");
+	}
+	
+	/*
+	 * 考勤数据:查询单个员工的历史考勤
+	 */
 	@RequestMapping("/toKaoQingUserHistory")
-	public ModelAndView  toKaoQingUserHistory(HttpServletRequest request ){
+	public void  toKaoQingUserHistory(HttpServletRequest request ){
 		//to 刷新邮件
 		session = request.getSession();
 		Manager m = (Manager) session.getAttribute("manager");
 		Refreshmessage(m.getManagerid());
 		// to 刷新员工表格
-		List<AttdData> list = attdservice.findattdayAll();
+		List<AttdData> list = attdservice.findUserAttdayAll(request.getParameter("user_id"));
+		session.setAttribute("moreAttdDatalist", list);
+		User u = new User();
+		try {
+			u = userservice.LiZhiUserByUid(request.getParameter("user_id"));
+		} catch (Exception e) {
+			u=null;
+		}
+		session.setAttribute("AttdDatalistname", u.getUserUsername());
+	}
+	
+	/*
+	 * 休假数据
+	 */
+	@RequestMapping("/toXiuJiaUser")
+	public ModelAndView  toXiuJiaUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新休假表格
+		List<AttdData> list = attdservice.findvacationdayAll();
+		//管理员操作留痕
+		 String opretion_type = "查看休假数据";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 
+		 opretionservice.inserOpretion(o);
 		
-		session.setAttribute("AttdDatalist", list);
+		session.setAttribute("VacDatalist", list);
 		
-		return new ModelAndView("newjsp/kaoqinguser");
+		return new ModelAndView("newjsp/xiujiauser");
+	}
+	
+	/*
+	 * 休假数据:查询单个员工的历史休假
+	 */
+	@RequestMapping("/toXiuJiaUserHistorymore")
+	public ModelAndView  toXiuJiaUserHistorymore(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		return new ModelAndView("newjsp/morexiujiauser");
+	}
+	
+	/*
+	 * 休假数据:查询单个员工的休假
+	 */
+	@RequestMapping("/toXiuJiaUserHistory")
+	public void  toXiuJiaUserHistory(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<AttdData> list = attdservice.findUserVacationdayAll(request.getParameter("user_id"));
+		session.setAttribute("moreVacDatalist", list);
+		User u = new User();
+		try {
+			u = userservice.LiZhiUserByUid(request.getParameter("user_id"));
+		} catch (Exception e) {
+			u=null;
+		}
+		session.setAttribute("VacDatalistname", u.getUserUsername());
+	}
+	
+	/*
+	 * 出差数据
+	 */
+	@RequestMapping("/toChuChaiUser")
+	public ModelAndView  toChuChaiUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新休假表格
+		List<AttdData> list = attdservice.findTraveldayAll();
+		//管理员操作留痕
+		 String opretion_type = "查看出差数据";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 
+		 opretionservice.inserOpretion(o);
+		session.setAttribute("TraDatalist", list);
+		
+		return new ModelAndView("newjsp/chuchaiuser");
+	}
+	
+	/*
+	 * 出差数据:查询单个员工的历史休假
+	 */
+	@RequestMapping("/toChuChaiUserHistorymore")
+	public ModelAndView  toChuChaiUserHistorymore(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		return new ModelAndView("newjsp/morechuchaiuser");
+	}
+	
+	/*
+	 * 出差数据:查询单个员工的休假
+	 */
+	@RequestMapping("/toChuChaiUserHistory")
+	public void  toChuChaiUserHistory(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<AttdData> list = attdservice.findUserTravelAll(request.getParameter("user_id"));
+		session.setAttribute("moreTraDatalist", list);
+		User u = new User();
+		try {
+			u = userservice.LiZhiUserByUid(request.getParameter("user_id"));
+		} catch (Exception e) {
+			u=null;
+		}
+		session.setAttribute("TraDatalistname", u.getUserUsername());
 	}
 	
 	/**

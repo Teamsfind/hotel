@@ -2,6 +2,7 @@ package com.kcsj.service;
 
 import java.util.List;
 
+import com.kcsj.entitl.UpAppl;
 import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.User;
 
@@ -60,4 +61,9 @@ public interface UserService {
      * 职员离职:通过usernumber，修改员工职位状态
      */
     public int SurelizhiUser(String uid);
+    
+    /*
+     *  :通过usernumber和worktype，修改员工职位状态
+     */
+    public int SurelizhiUserAndUpUser(int user_number);
 }

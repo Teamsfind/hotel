@@ -351,7 +351,7 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">所有员工考勤数据(早上9:30上班，下午5:30下班)</h3>
+					<h3 class="panel-title">${AttdDatalistname} -- 员工的所有考勤数据(早上9:30上班，下午5:30下班)</h3>
 					
 					<div class="panel-options">
 						<a href="#" data-toggle="panel">
@@ -381,8 +381,6 @@
 							 <tr>
 								<th>记录条数</th>
 								<th>员工工号</th>
-								<th>员工姓名</th>
-								<th>所属部门</th>
 								<th>上班时间</th>
 								<th>下班时间</th>
 								<th>考勤</th>
@@ -394,8 +392,6 @@
 							 <tr>
 								<th>记录条数</th>
 								<th>员工工号</th>
-								<th>员工姓名</th>
-								<th>所属部门</th>
 								<th>上班时间</th>
 								<th>下班时间</th>
 								<th>考勤</th>
@@ -404,16 +400,14 @@
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${AttdDatalist}' var="i" varStatus="k">  
+							<c:forEach items='${moreAttdDatalist}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
 				                    <td>${i.usernumber }</td> 
-				                    <td>${i.username }</td>
-				                    <td>${i.userdpt }---${i.userdptjob }</td>
 				                    <td>${i.attdBegintime }</td>
 				                    <td>${i.attdEndtime }</td>
 				                    <td>${i.atttype }</td>
-				                    <td><input type='button' value='更多' onclick="FindUserByUid(${i.usernumber })"></td> 
+				                    <td><input type='button' value='返回' onclick="FindUserByUid()"></td> 
 				                </tr>  
 			           		</c:forEach>  
 						</tbody>
@@ -423,17 +417,9 @@
 			</div>
 		
 		<script type="text/javascript">
-			function FindUserByUid(date) {
+			function FindUserByUid() {
 				
-				$.ajax({
-					type : 'post',
-					dataType : 'json',
-					url : '<%=basePath%>manager/toKaoQingUserHistory?user_id=' + date,
-					error : function(data) {	
-						window.location.href='<%=basePath%>manager/toKaoQingUserHistorymore';
-					}
-				});
-				
+				window.location.href='<%=basePath%>manager/toKaoQingUser';
 			}
 		</script>
 		<footer class="main-footer sticky footer-type-1">
