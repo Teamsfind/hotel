@@ -34,17 +34,8 @@ public class UserImpl implements UserService{
 
 	@Override
 	public String autousernumber(int m) {
-		int dpt = userdao.autousernumber(m)+1;
-		if (dpt<10) {
-			return "2017"+m+"00"+dpt;
-			
-		}else if (dpt>=10&&dpt<100) {
-			
-			return "2017"+m+"0"+dpt;
-		}else {
-			
-			return "2017"+m+dpt;
-		}
+		String dpt = String.valueOf(userdao.autousernumber(m)+1) ;
+		return dpt;
 	}
 
 	@Override
@@ -147,6 +138,24 @@ public class UserImpl implements UserService{
 	public int updataUserByUser_number(User u) {
 		
 		return userdao.updataUserByUser_number(u);
+	}
+
+	@Override
+	public User lookuserByUid(int uid) {
+		// TODO Auto-generated method stub
+		return userdao.lookuserByUid(uid);
+	}
+
+	@Override
+	public User LiZhiUserByUid(String uid) {
+		// TODO Auto-generated method stub
+		return userdao.LiZhiUserByUid(uid);
+	}
+
+	@Override
+	public int SurelizhiUser(String uid) {
+		// TODO Auto-generated method stub
+		return userdao.SurelizhiUser(uid);
 	}
 	
 	

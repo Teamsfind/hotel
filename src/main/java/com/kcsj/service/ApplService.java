@@ -12,4 +12,14 @@ public interface ApplService {
     
     //消息查找（appl_type="请示"）
     List<Appl> findAllApplByApp_type2(String managerid);
+    
+    /**
+     *同意appl
+     */
+    public int agreeappl(int usernumber); 
+    
+    /**
+     *拒绝appl
+     */
+    public int refuseappl(int usernumber); 
 }

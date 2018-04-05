@@ -185,14 +185,33 @@
 													<strong>${i.userNumber} - ${i.userName} </strong>
 													<span class="light small">- ${i.applTime}</span>
 												</span>
+												<c:if test="${not empty i.applRemark}">
+													<span class="line desc small">
+														申请原因：${i.applRemark}
+													</span>
+												</c:if>
+												<c:if test="${i.applRemark==''}">
+													<span class="line desc small">
+														申请原因：暂无
+													</span>
+												</c:if>
+												<c:if test="${i.applStatus=='0'}">
+													<span style="position:relative;left: 150">
+														<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
+														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
+													</span>
+												</c:if>
+													<c:if test="${i.applStatus=='1'}">
+													<span style="position:relative;left: 200">
+													&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success disabled" >已同意</button>
 												
-												<span class="line desc small">
-													申请原因：${i.applRemark}
+													</span>
+												</c:if>
+												<c:if test="${i.applStatus=='2'}">
+													<span style="position:relative;left: 200">
+													&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger disabled" >以拒绝</button>
 												</span>
-												<span style="position:relative;left: 150">
-													<button type="button" class="btn btn-success">同意</button>
-													&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
-												</span>
+												</c:if>
 											</a>
 										</li>
 			           				</c:forEach>
@@ -229,10 +248,16 @@
 													<strong>${i.userNumber} - ${i.userName} </strong>
 													<span class="light small">- ${i.applTime}</span>
 												</span>
-												
-												<span class="line desc small">
-													提示信息：${i.applRemark}
-												</span>
+												<c:if test="${not empty i.applRemark}">
+													<span class="line desc small">
+														提示信息：${i.applRemark}
+													</span>
+												</c:if>
+												<c:if test="${i.applRemark==''}">
+													<span class="line desc small">
+														提示信息：暂无
+													</span>
+												</c:if>
 											</a>
 										</li>
 			           				</c:forEach> 
@@ -283,7 +308,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="<%=basePath%>manager/toHistory">
+								<a href="javascript:;" onclick="jQuery('#modal-8').modal('show', {backdrop: 'static'});">
 									<i class="fa-user"></i>
 									历史足迹
 								</a>
@@ -303,39 +328,30 @@
 						</ul>
 					</li>
 				</ul>
-				
 			</nav>
 			<div class="page-title">
-				
 				<div class="title-env">
-					<h1 class="title">DataTable</h1>
-					<p class="description">Dynamic table variants with pagination and other controls</p>
+					<h1 class="title">考勤数据</h1>
+					<p class="description">记载每个员工的上班情况，方便及时安排工作调动，提高管理效率</p>
 				</div>
-				
-					<div class="breadcrumb-env">
-					
-								<ol class="breadcrumb bc-1">
-									<li>
-							<a href="#"><i class="fa-home"></i>Home</a>
-						</li>
-								<li>
-						
-										<a href="#">Tables</a>
-								</li>
+				<div class="breadcrumb-env">
+						<ol class="breadcrumb bc-1">
+							<li>
+							 	<a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
+							</li>
+							<li>
+								考勤管理
+							</li>
 							<li class="active">
-						
-										<strong>Data Tables</strong>
-								</li>
-								</ol>
-								
+								<strong>考勤数据</strong>
+							</li>
+						</ol>
 				</div>
-					
 			</div>
-			
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Basic Setup</h3>
+					<h3 class="panel-title">所有员工考勤数据(早上9:30上班，下午5:30下班)</h3>
 					
 					<div class="panel-options">
 						<a href="#" data-toggle="panel">
@@ -366,8 +382,11 @@
 								<th>记录条数</th>
 								<th>员工工号</th>
 								<th>员工姓名</th>
-								<th>员工上班时间</th>
-								<th>操作2</th>
+								<th>所属部门</th>
+								<th>上班时间</th>
+								<th>下班时间</th>
+								<th>考勤</th>
+								<th>操作</th>
 							</tr>
 						</thead>
 					
@@ -376,19 +395,25 @@
 								<th>记录条数</th>
 								<th>员工工号</th>
 								<th>员工姓名</th>
-								<th>员工上班时间</th>
-								<th>操作2</th>
+								<th>所属部门</th>
+								<th>上班时间</th>
+								<th>下班时间</th>
+								<th>考勤</th>
+								<th>操作</th>
 							</tr>
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${list}' var="i" varStatus="k">  
+							<c:forEach items='${AttdDatalist}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
-				                    <td>${i.userNumber }</td> 
-				                    <td>${i.userUsername }</td>
-				                    <td>${i.userBirth }</td>
-				                    <td><input type='button' value='同意'></td> 
+				                    <td>${i.usernumber }</td> 
+				                    <td>${i.username }</td>
+				                    <td>${i.userdpt }---${i.userdptjob }</td>
+				                    <td>${i.attdBegintime }</td>
+				                    <td>${i.attdEndtime }</td>
+				                    <td>${i.atttype }</td>
+				                    <td><input type='button' value='更多' onclick="FindUserByUid(${i.usernumber })"></td> 
 				                </tr>  
 			           		</c:forEach>  
 						</tbody>
@@ -396,7 +421,19 @@
 					
 				</div>
 			</div>
-			
+		
+		<script type="text/javascript">
+			function FindUserByUid(date) {
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					url : '<%=basePath%>manager/toLookUserByuserId?user_id=' + date,
+					success : function(data) {	
+					}
+				});
+				
+			}
+		</script>
 		<footer class="main-footer sticky footer-type-1">
 				
 				<div class="footer-inner">
@@ -405,7 +442,7 @@
 					<div class="footer-text">
 						&copy; 2018 
 						<strong>酒店人事管理系统</strong> 
-						theme by <a href="http://laborator.co" target="_blank">Dengfw&nbsp;&nbsp;&nbsp;&nbsp;</a>
+						theme by <a >Dengfw&nbsp;&nbsp;&nbsp;&nbsp;</a>
 						<a id="showtime"> </a>
 					</div>
 					
@@ -462,14 +499,34 @@
 							</div>
 						</div>
 						<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12" >
 							<div class="form-group">
-								<label for="field-2" class="control-label">申请原因</label>
-								<textarea class="form-control autogrow" id="field-7">${i.applRemark}</textarea>
-							<span style="position:relative;left: 400">
-									<button type="button" class="btn btn-success">同意</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
-							</span>
+								<c:if test="${not empty i.applRemark}">
+									<label for="field-2" class="control-label">申请原因</label>
+									<textarea class="form-control autogrow" id="field-7" readonly="readonly">${i.applRemark}</textarea>
+								</c:if>
+								<c:if test="${i.applRemark==''}">
+									<label for="field-2" class="control-label" readonly="readonly">申请原因</label>
+									<textarea class="form-control autogrow" id="field-7" readonly="readonly">暂无</textarea>
+								</c:if>
+								<c:if test="${i.applStatus=='0'}">
+									<span style="position:relative;left: 400">
+										<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
+									</span>
+								</c:if>
+								<c:if test="${i.applStatus=='1'}">
+									<span style="position:relative;left: 450">
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success disabled" >已同意</button>
+										
+									</span>
+								</c:if>
+								<c:if test="${i.applStatus=='2'}">
+									<span style="position:relative;left: 450">
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger disabled" >以拒绝</button>
+										
+									</span>
+								</c:if>
 							</div>	
 						</div>
 						</div>
@@ -482,7 +539,29 @@
 			</div>
 		</div>
 	</div>
-	
+	<script type="text/javascript">
+		function sure(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toKaoQingUser';
+				}
+			});
+		}
+		
+		function refuse(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toKaoQingUser';
+				}
+			});
+		}
+	</script>
 	<div class="modal fade" id="modal-7">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -509,11 +588,15 @@
 						<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="field-2" class="control-label">提示信息</label>
-								<textarea class="form-control autogrow" id="field-7">${i.applRemark}</textarea>
-								
+								<c:if test="${not empty i.applRemark}">
+									<label for="field-2" class="control-label">提示信息</label>
+									<textarea class="form-control autogrow" id="field-7" readonly="readonly">${i.applRemark}</textarea>
+								</c:if>
+								<c:if test="${i.applRemark==''}">
+									<label for="field-2" class="control-label">提示信息</label>
+									<textarea class="form-control autogrow" id="field-7" readonly="readonly">暂无</textarea>
+								</c:if>
 							</div>	
-							
 						</div>
 						</div>
 					</c:forEach>
@@ -525,10 +608,53 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="modal-8">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">历史足迹</h4>
+				</div>
+				
+				<div class="modal-body">
+					<c:forEach items='${history}' var="i" begin="0">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="field-2" class="control-label">${i.managerName}</label>
+								</div>	
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="field-2" class="control-label">- ${i.operatingTime}</label>
+								</div>	
+							</div>
+						</div>
+						<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<c:if test="${not empty i.operatingType}">
+									<label for="field-2" class="control-label">提示信息</label>
+									<textarea class="form-control autogrow" id="field-8" readonly="readonly">${i.operatingType}</textarea>
+								</c:if>
+							</div>	
+						</div>
+						</div>
+					</c:forEach>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>	
 	
 	<!-- Imported styles on this page -->
 	<link rel="stylesheet" href="<%=basePath%>assets/js/datatables/dataTables.bootstrap.css">
-
+	<link rel="stylesheet" href="<%=basePath%>assets/js/fullcalendar/fullcalendar.min.css">
 	<!-- Bottom Scripts -->
 	<script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
 	<script src="<%=basePath%>assets/js/TweenMax.min.js"></script>
@@ -537,13 +663,17 @@
 	<script src="<%=basePath%>assets/js/xenon-api.js"></script>
 	<script src="<%=basePath%>assets/js/xenon-toggles.js"></script>
 	<script src="<%=basePath%>assets/js/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="<%=basePath%>assets/js/moment.min.js"></script>
 
 
 	<!-- Imported scripts on this page -->
 	<script src="<%=basePath%>assets/js/datatables/dataTables.bootstrap.js"></script>
 	<script src="<%=basePath%>assets/js/datatables/yadcf/jquery.dataTables.yadcf.js"></script>
 	<script src="<%=basePath%>assets/js/datatables/tabletools/dataTables.tableTools.min.js"></script>
-
+	<script src="<%=basePath%>assets/js/fullcalendar/fullcalendar.min.js"></script>
+	<script src="<%=basePath%>assets/js/jquery-ui/jquery-ui.min.js"></script>
+	<script src="<%=basePath%>assets/js/inputmask/jquery.inputmask.bundle.js"></script>
+	<script src="<%=basePath%>assets/js/tocify/jquery.tocify.min.js"></script>
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="<%=basePath%>assets/js/xenon-custom.js"></script>

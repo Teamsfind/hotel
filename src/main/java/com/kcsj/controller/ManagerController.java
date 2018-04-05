@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kcsj.entitl.AttdData;
 import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.Manager;
 import com.kcsj.pojo.Opertion;
 import com.kcsj.pojo.Recard;
 import com.kcsj.pojo.User;
 import com.kcsj.service.ApplService;
+import com.kcsj.service.AttdService;
 import com.kcsj.service.ManagerService;
 import com.kcsj.service.OpertionService;
 import com.kcsj.service.RecardService;
@@ -41,6 +43,8 @@ public class ManagerController {
 	private OpertionService opretionservice;
 	@Resource
 	private RecardService recardservice;
+	@Resource
+	private AttdService attdservice;
 	
 	public HttpSession session;
 	
@@ -95,6 +99,27 @@ public class ManagerController {
 		Manager m = (Manager) session.getAttribute("manager");
 		Refreshmessage(m.getManagerid());
 		return new ModelAndView("newjsp/workmanager");
+	}
+	
+	/*
+	 * 同意申请
+	 */
+	@ResponseBody
+	@RequestMapping(value="/sureappl")
+	public void sureappl(HttpServletRequest request){	
+		int  usernumber = Integer.valueOf(request.getParameter("usernumber"));
+		
+		applservice.agreeappl(usernumber);
+	}
+	
+	/*
+	 * 拒绝申请
+	 */
+	@ResponseBody
+	@RequestMapping(value="/refuseappl")
+	public void refuseappl(HttpServletRequest request){	
+		int  usernumber = Integer.valueOf(request.getParameter("usernumber"));
+		applservice.refuseappl(usernumber);
 	}
 	
 	/*
@@ -189,7 +214,7 @@ public class ManagerController {
 		 o.setManagerName(m.getManagername());
 		 o.setManagerId(m.getManagerid());
 		 o.setOperatingType(opretion_type);
-		 
+		 o.setUserNumber(usernumber);
 		 opretionservice.inserOpretion(o);
 		
 		return new ModelAndView("newjsp/ruzhiuser");
@@ -278,10 +303,12 @@ public class ManagerController {
 			 o.setManagerName(m.getManagername());
 			 o.setManagerId(m.getManagerid());
 			 o.setOperatingType(opretion_type);
+			 o.setUserNumber(usernumber);
 			 opretionservice.inserOpretion(o);
 			
 		return userservice.updatauserByUser_number(usernumber);
 	}
+	
 	
 	/*
 	 * 职员档案
@@ -299,12 +326,123 @@ public class ManagerController {
 		return new ModelAndView("newjsp/lookuser");
 	}
 	
+	/*
+	 * 职员档案:根据员工工号，查找员工相关信息
+	 */
+	@ResponseBody
+	@RequestMapping("/toLookUserByuserId")
+	public User  toLookUserByuserId(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<updateUser> list = userservice.updatauser();
+		session.setAttribute("lookuserlist", list);
+		
+		int usernumber = Integer.valueOf(request.getParameter("user_id"));
+		
+		return userservice.lookuserByUid(usernumber);
+	}
+	
+	/*
+	 * 员工离职
+	 */
+	@RequestMapping("/toDeleteUser")
+	public ModelAndView toDeleteUser(HttpServletRequest request ){
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		return new ModelAndView("newjsp/lizhiuser");
+	}
+	
+	/*
+	 * 员工离职：判断是否有该员工
+	 */
+	@ResponseBody
+	@RequestMapping(value="/CheckuserByUserNumber")
+	public User CheckuserByUserNumber(HttpServletRequest request){	
+		User u = new User();
+		String  idcard = request.getParameter("idCard");
+		
+		try {
+			u = userservice.LiZhiUserByUid(idcard);
+		} catch (Exception e) {
+			u=null;
+		}
+		
+		return u;
+	}
+	
+	/*
+	 * 员工离职：修改员工职位状态
+	 */
+	@ResponseBody
+	@RequestMapping(value="/toSurelizhiUser")
+	public ModelAndView toSurelizhiUser(HttpServletRequest request){	
+	
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		String  usernumber = request.getParameter("username");
+		//修改员工职位状态
+		userservice.SurelizhiUser(usernumber);
+		//操作留痕
+		String opretion_type = "员工离职";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 
+		 User u = new User();
+		 u = userservice.LiZhiUserByUid(usernumber);
+		 o.setUserNumber(u.getUserNumber());
+		 opretionservice.inserOpretion(o);
+		 
+		 return new ModelAndView("newjsp/lizhiuser");
+	}
+	
+	/*
+	 * 考勤数据
+	 */
+	@RequestMapping("/toKaoQingUser")
+	public ModelAndView  toKaoQingUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<AttdData> list = attdservice.findattdayAll();
+		
+		session.setAttribute("AttdDatalist", list);
+		
+		return new ModelAndView("newjsp/kaoqinguser");
+	}
+	
+	/*
+	 * 考勤数据:查询单个员工的历史考勤
+	 */
+	@RequestMapping("/toKaoQingUserHistory")
+	public ModelAndView  toKaoQingUserHistory(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<AttdData> list = attdservice.findattdayAll();
+		
+		session.setAttribute("AttdDatalist", list);
+		
+		return new ModelAndView("newjsp/kaoqinguser");
+	}
+	
 	/**
 	 * 
 	 * 刷新邮件和消息
 	 */
 	public void Refreshmessage(String login){
-		
+		session.setMaxInactiveInterval(600);
 		session.setAttribute("message", applservice.findAllApplByApp_type1(login));
 		session.setAttribute("messagesize", applservice.findAllApplByApp_type1(login).size());
 		session.setAttribute("info", applservice.findAllApplByApp_type2(login));

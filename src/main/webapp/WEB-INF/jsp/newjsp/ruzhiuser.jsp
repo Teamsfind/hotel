@@ -197,8 +197,8 @@
 												</c:if>
 												<c:if test="${i.applStatus=='0'}">
 													<span style="position:relative;left: 150">
-														<button type="button" class="btn btn-success">同意</button>
-														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
+														<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
+														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
 													</span>
 												</c:if>
 													<c:if test="${i.applStatus=='1'}">
@@ -359,7 +359,7 @@
 											<input type="text" class="form-control"  id="username" name="username">
 										</div>
 								</div>
-								<div class="form-group" id="tip1">
+								<div class="form-group">
 										<label class="col-sm-2 control-label" for="field-2">员工身份证</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control" id="idCard" name="idCard" onblur="checkid()" maxlength="18" >
@@ -369,7 +369,7 @@
 											<span class="label label-danger" id="idCarderror"></span>
 										</div>
 								</div>
-								<div class="form-group" id="tip2">
+								<div class="form-group">
 										<label class="col-sm-2 control-label" for="field-3">员工银行工资卡</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control"  id="bankidCard" name="bankidCard" onblur="checkbankid()" maxlength="19">
@@ -389,7 +389,7 @@
 												</label>
 												<br />
 												<label>
-													<input type="radio" name="radio1" class="cbr" value="1">
+													<input type="radio" name="radio1" class="cbr" value="2">
 													女 
 												</label>
 											</div>
@@ -656,8 +656,8 @@
 								</c:if>
 								<c:if test="${i.applStatus=='0'}">
 									<span style="position:relative;left: 400">
-										<button type="button" class="btn btn-success">同意</button>
-										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
+										<button type="button" class="btn btn-success" onclick="sure(${i.userNumber})">同意</button>
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
 									</span>
 								</c:if>
 								<c:if test="${i.applStatus=='1'}">
@@ -684,7 +684,52 @@
 			</div>
 		</div>
 	</div>
-	
+	<script type="text/javascript">
+		function sure(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toWorkManager';
+				}
+			});
+		}
+		
+		function refuse(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toWorkManager';
+				}
+			});
+		}
+	</script>
+	<script type="text/javascript">
+		function sure(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toRuZhiUser';
+				}
+			});
+		}
+		
+		function refuse(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toRuZhiUser';
+				}
+			});
+		}
+	</script>
 	<div class="modal fade" id="modal-7">
 		<div class="modal-dialog">
 			<div class="modal-content">

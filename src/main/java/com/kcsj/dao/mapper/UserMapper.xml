@@ -306,7 +306,7 @@
   </select>
   
   <select id="autousernumber" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-  		select count(user_id) from user where user_dpt = #{userDpt,jdbcType=INTEGER}
+  		select max(user_number) from user where user_dpt = #{userDpt,jdbcType=INTEGER}
   </select>
   
   <insert id="insertuser" parameterType="com.kcsj.pojo.User">
@@ -338,5 +338,21 @@
       user_jobtype = #{userJobtype,jdbcType=INTEGER}
       
     where user_number = #{userNumber,jdbcType=INTEGER}
+  </update>
+  
+  <select id="lookuserByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * from user where  user_number = #{userNumber,jdbcType=INTEGER};
+  </select>
+  
+  <select id="LiZhiUserByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+  		select * from user where  user_number = #{uid} or user_idCard = #{uid};
+  </select>
+  
+  <update id="SurelizhiUser" parameterType="java.lang.String">
+  		update user
+    set 
+      user_jobtype = '4'
+      
+    where user_number = #{uid} or user_idCard = #{uid}
   </update>
 </mapper>

@@ -2,7 +2,6 @@ package com.kcsj.dao;
 
 import java.util.List;
 
-import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.User;
 
 public interface UserMapper {
@@ -84,4 +83,19 @@ public interface UserMapper {
      * 职员转正:修改员工职位状态
      */
     public int updataUserByUser_number(User u);
+    
+    /*
+     * 职员档案:通过员工工号，查找相关信息
+     */
+    public User lookuserByUid(int uid);
+    
+    /*
+     * 职员离职:通过员工工号或者员工身份证，查找相关信息
+     */
+    public User LiZhiUserByUid(String uid);
+    
+    /*
+     * 职员离职:通过usernumber，修改员工职位状态
+     */
+    public int SurelizhiUser(String uid);
 }

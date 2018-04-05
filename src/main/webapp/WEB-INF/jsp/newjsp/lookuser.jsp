@@ -197,8 +197,8 @@
 												</c:if>
 												<c:if test="${i.applStatus=='0'}">
 													<span style="position:relative;left: 150">
-														<button type="button" class="btn btn-success">同意</button>
-														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
+														<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
+														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
 													</span>
 												</c:if>
 													<c:if test="${i.applStatus=='1'}">
@@ -331,8 +331,8 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">员工转正</h1>
-					<p class="description">根据员工的表现，决定员工是否转正</p>
+					<h1 class="title">职员档案</h1>
+					<p class="description">记载员工的详细信息，方便及时联系员工和查找员工相关信息</p>
 				</div>
 				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
@@ -343,7 +343,7 @@
 								人事档案管理
 							</li>
 							<li class="active">
-								<strong>职员转正</strong>
+								<strong>职员档案</strong>
 							</li>
 						</ol>
 				</div>
@@ -410,7 +410,7 @@
 				                    <td>${i.userDpt }-${i.userDptJbn }</td>
 				                    <td>${i.userWorktype }</td>
 				                    <td>${i.userJobtype }</td>
-				                    <td><input type='button' value='编辑' onclick="FindUserByUid(${i.userNumber })"></td> 
+				                    <td><input type='button' value='更多' onclick="FindUserByUid(${i.userNumber })"></td> 
 				                </tr>  
 			           		</c:forEach>  
 						</tbody>
@@ -424,22 +424,41 @@
 				$.ajax({
 					type : 'post',
 					dataType : 'json',
-					url : '<%=basePath%>manager/toFindUpdateUser?user_id=' + date,
+					url : '<%=basePath%>manager/toLookUserByuserId?user_id=' + date,
 					success : function(data) {	
-						if (data !=null) {
-							$("#user_number").val(data.userNumber);
-							$("#user_name").val(data.userUsername);
-							$("#user_dpt").val(data.userDpt);
-							$("#user_job").val(data.userDptJbn);
-							var jobtype = data.userJobtype;
-							if (jobtype=="实习期") {
-								$("#select4").val("1");
-							}else if (jobtype=="试用期") {
-								$("#select4").val("2");
+						if (data!=null) {
+		        			
+		        			var unixTimestamp = new Date(data.userWorktime) ;
+	     	            	var commonTime = unixTimestamp.getFullYear();
+	     	            	var commonTimefull = unixTimestamp.toLocaleString();
+	     	            	var myDate = new Date();
+	     	            	var mytime=myDate.getFullYear();
+	     	            
+	     	            	var chayear = mytime-commonTime
+	     	            	$("#user_worktime2").val(commonTimefull);
+	     	            	$("#user_worktime").val(chayear+"年");
+	     	            	
+	     	            	var unixTimestamp2 = new Date(data.userBirth) ;
+	     	            	var commonTime2 = unixTimestamp2.toLocaleString();
+	     	            	$("#user_birth").val(commonTime2);
+	     	            	
+	     	            	
+	     	            	$("#user_phone").val(data.userPhone);
+	     	            	$("#user_address").val(data.userAddress);
+	     	            	if (data.userDangerphone==null) {
+	     	            		$("#user_dangerphone").val("该员工暂未填写");
 							}else{
-								$("#select4").val("3");
+								$("#user_dangerphone").val(data.userDangerphone);
 							}
-							jQuery('#modal-9').modal('show', {backdrop: 'static'});
+	     	            	
+	     	            	$("#user_edu").val(data.userEdu);
+	     	            	$("#user_idcard").val(data.userIdcard);
+	     	            	if (data.userNikename==null) {
+	     	            		$("#user_nichen").val("该员工暂未填写");
+							}else{
+								$("#user_nichen").val(data.userNikename);
+							}
+	     	            	jQuery('#modal-9').modal('show', {backdrop: 'static'});
 						}
 					}
 				});
@@ -523,8 +542,8 @@
 								</c:if>
 								<c:if test="${i.applStatus=='0'}">
 									<span style="position:relative;left: 400">
-										<button type="button" class="btn btn-success">同意</button>
-										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
+										<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
 									</span>
 								</c:if>
 								<c:if test="${i.applStatus=='1'}">
@@ -551,7 +570,29 @@
 			</div>
 		</div>
 	</div>
-	
+	<script type="text/javascript">
+		function sure(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toLookUser';
+				}
+			});
+		}
+		
+		function refuse(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toLookUser';
+				}
+			});
+		}
+	</script>
 	<div class="modal fade" id="modal-7">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -642,109 +683,114 @@
 		</div>
 	</div>	
 	
-	<!-- Modal 6 (Long Modal)-->
+	<!-- Modal 9 (Long Modal)-->
 	<div class="modal fade" id="modal-9">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">职员转正</h4>
+					<h4 class="modal-title">职员拓展信息</h4>
 				</div>
 				
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group">
-								<label for="field-1" class="control-label">员工工号</label>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="field-1" class="control-label">昵称</label>
+										
+										<input type="text" class="form-control" id="user_nichen" disabled="disabled">
+									</div>	
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="field-2" class="control-label">身份证号码</label>
 								
-								<input type="text" class="form-control" id="user_number" disabled="disabled">
-							</div>	
-							
-						</div>
+										<input type="text" class="form-control" id="user_idcard" disabled="disabled">
+									</div>	
 						
+								</div>
+							</div>
+						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="field-2" class="control-label">员工姓名</label>
-								
-								<input type="text" class="form-control" id="user_name" disabled="disabled">
+								<center>
+									<img src="<%=basePath%>assets/images/user-4.png" alt="员工图片" class="img-circle img-inline userpic-32" width="100" />
+								</center>
 							</div>	
+							
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-1" class="control-label">手机号码</label>
+										
+								<input type="text" class="form-control" id="user_phone" disabled="disabled">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-2" class="control-label">生日</label>
+								
+								<input type="text" class="form-control" id="user_birth" disabled="disabled">
+							</div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">第二联系人电话</label>
+								
+								<input type="text" class="form-control" id="user_dangerphone" disabled="disabled">
+							</div>	
+							
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">家庭地址</label>
+								
+								<input type="text" class="form-control" id="user_address" disabled="disabled">
+							</div>	
+							
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">学历</label>
+								
+								<input type="text" class="form-control" id="user_edu" disabled="disabled">
+							</div>	
+							
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">入职时间</label>
+								
+								<input type="text" class="form-control" id="user_worktime2" disabled="disabled">
+							</div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">工龄</label>
+								
+								<input type="text" class="form-control" id="user_worktime" disabled="disabled">
+							</div>	
+						</div>
 						
-						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="field-4" class="control-label">部门</label>
-								
-								<input type="text" class="form-control" id="user_dpt" disabled="disabled">
-							</div>	
-							
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="field-4" class="control-label">职位</label>
-								
-								<input type="text" class="form-control" id="user_job" disabled="disabled">
-							</div>	
-							
-						</div>
-						<div class="col-md-4">
-							
-							<div class="form-group">
-								<label for="field-6" class="control-label">职位状态</label>
-								
-								<select class="form-control" id="select4" name="select4">
-										<option value="1" >实习期</option>
-			                            <option value="2" >试用期</option>
-			                            <option value="3" >正式员工</option>
-								</select>
-							</div>	
-						</div>
-					</div>
-				
-					<div class="row">
-						<div class="col-md-12">
-							
-							<div class="form-group no-margin">
-								<label for="field-7" class="control-label">转正理由</label>
-								
-								<textarea class="form-control autogrow" id="reason"></textarea>
-							</div>	
-							
-						</div>
-					</div>
-					
 				</div>
 				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-info popover-red" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="确认员工职位状态是否更改" data-original-title="提示" onclick="saveJobtype()">Save changes</button>
 				</div>
-				
-				<script type="text/javascript">
-					function saveJobtype() {
-						var usernumber = $("#user_number").val();
-						alert(usernumber);
-						var select4 = document.getElementById("select4").value;
-						alert(select4);
-						var reason = document.getElementById("reason").value; 
-						alert(reason);
-						$.ajax({
-							type : 'post',
-							dataType : 'json',
-							url : '<%=basePath%>manager/toSureUpdateUser?user_number=' + usernumber +'&user_jobtype='+ select4 +'&reason=' +reason,
-							success : function(data) {	
-								if (data !=null) {
-									window.location.href='<%=basePath%>manager/toUpdateUser';
-								
-								}
-							}
-						});
-							
-					}
-				</script>
-				
 			</div>
 		</div>
 	</div>

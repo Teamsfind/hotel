@@ -28,6 +28,7 @@
 
 	<script src="<%=basePath%>assets/js/jquery-1.11.1.min.js"></script>
 
+
 </head>
 <body class="page-body">
 
@@ -197,8 +198,8 @@
 												</c:if>
 												<c:if test="${i.applStatus=='0'}">
 													<span style="position:relative;left: 150">
-														<button type="button" class="btn btn-success" onclick="sure(${i.userNumber})">同意</button>
-														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="refuse(${i.userNumber})">拒绝</button>
+														<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
+														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
 													</span>
 												</c:if>
 													<c:if test="${i.applStatus=='1'}">
@@ -330,99 +331,245 @@
 				</ul>
 			</nav>
 			<div class="page-title">
-				
 				<div class="title-env">
-					<h1 class="title">工作计划安排表</h1>
-					<p class="description">详细的记录一天工作计划安排，提高管理效率</p>
+					<h1 class="title">职员离职</h1>
+					<p class="description">当员工提出离职申请时，通过该功能实现员工离职</p>
 				</div>
-				
-					<div class="breadcrumb-env">
+				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
 							<li>
-							 <a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
+							 	<a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
+							</li>
+							<li>
+								人事档案管理
+							</li>
+							<li class="active">
+								<strong>职员离职</strong>
 							</li>
 						</ol>
 				</div>
 			</div>
-			
-			<script type="text/javascript">
-			// Calendar Initialization
-			jQuery(document).ready(function($)
-			{
-				var data = [
-					{
-						title: '开会',
-						url: '',
-						start: '2018-03-15',
-						end: ''
-					},
-					{
-						title: '休息',
-						url: '',
-						start: '2018-03-16T20:00:00',
-						end: '2018-03-17T20:00:00'
-					},
-					{
-						title: '休息2',
-						url: '',
-						start: '2018-03-17T20:00:00',
-						end: '2018-03-18T19:00:00'
-					},
-					{
-						title: '检查今天工作是否出错',
-						url: '<%=basePath%>manager/toHistory',
-						start: '2018-03-19',
-						end: ''
-					}
-				]
-				// Calendar Initialization
-				$('#calendar').fullCalendar({
-					header: {
-						left: 'title',
-						center: '',
-						right: 'month,agendaWeek,agendaDay prev,next'
-					},
-					buttonIcons: {
-						prev: 'prev fa-angle-left',
-						next: 'next fa-angle-right',
-					},
-					defaultDate: '2018-03-16',
-					editable: true,
-					eventLimit: true,
-					events:  data,
-					droppable: true,
-					drop: function(date) {
-						
-						var $event = $(this).find('a'),
-							eventObject = {
-								title: $event.find('.badge').text(),
-								start: date,
-								className: $event.data('event-class')
-							};
-						
-						$('#calendar').fullCalendar('renderEvent', eventObject, true);
-						
-						// Remove event from list
-						$(this).remove();
-					}
-				});
-				
-				// Draggable Events
-				$("#events-list li").draggable({
-					revert: true,
-					revertDuration: 50,
-					zIndex: 999
-				});
-			});
-			</script>
-			
-			<section class="calendar-env">
-				<div class="col-sm-12 calendar-right">
-					<div class="calendar-main">
-						<div id="calendar"></div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<form  class="form-horizontal" method="post"  action="<%=basePath %>manager/toSurelizhiUser" onsubmit="return check()">
+								<div class="form-group">
+										<label class="col-sm-2 control-label" for="field-1">员工工号或者员工身份证</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control"  id="username" name="username" onblur="checkid()">
+										</div>
+										<div class="col-sm-2">
+											<span class="label label-success" id="idCardsuccess"></span>
+											<span class="label label-danger" id="idCarderror"></span>
+										</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">性别</label>
+										<div class="col-sm-8">
+											<div class="form-block">
+												<label>
+													<input type="radio" name="radio1" id="r1" readonly="readonly" value="1">
+													男
+												</label>
+												<br />
+												<label>
+													<input type="radio" name="radio1" id="r2" readonly="readonly" value="2">
+													女 
+												</label>
+											</div>
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">部门职位</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="select1" name="select1" readonly="readonly">
+												<option value="10">采购部</option>
+			                                    <option value="11">市场部</option>
+			                                    <option value="12">后勤部</option>
+			                                    <option value="13">财务部</option>
+			                                    <option value="14">生产部</option>
+											</select>
+										</div>
+										<div class="col-sm-4">
+											<select class="form-control" id="select2" name="select2" readonly="readonly">
+												<option value="普通员工">普通员工</option>
+			                               		<option value="部门经理">部门经理</option>
+			                                	<option value="组长">组长</option>
+											</select>
+										</div>
+								</div>	
+								<div class="form-group">
+									<label class="col-sm-2 control-label">电话号码</label>
+										<div class="col-sm-8">
+											<div class="input-group input-group-sm input-group-minimal">
+												<span class="input-group-addon">
+													<i class="linecons-mobile"></i>
+												</span>
+												<input type="text" class="form-control" id="user_phone" name="user_phone"  maxlength="11" readonly="readonly"/>
+											</div>
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">地址</label>
+										<div class="col-sm-8">
+											<div class="input-group input-group-sm input-group-minimal">
+												<span class="input-group-addon">
+													<i class="linecons-location"></i>
+												</span>
+												<input type="text" class="form-control" placeholder="Current city" id="city" name="city" readonly="readonly">
+											</div>
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">在职状态</label>
+										<div class="col-sm-8">
+											<div class="input-group input-group-sm input-group-minimal">
+												<input type="text" class="form-control"  id="workjobtype" name="workjobtype" readonly="readonly">
+											</div>
+										</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">离职材料是否交完</label>
+										<div class="col-sm-8">
+											<div class="form-block">
+												<label>
+													<input type="radio" name="radio2"  class="cbr" value="1" >
+													是
+												</label>
+												<br />
+												<label>
+													<input type="radio" name="radio2"  class="cbr" value="0" checked>
+													否
+												</label>
+											</div>
+										</div>
+								</div>
+								<div class="form-group">
+									<center>
+										<div class="input-group">
+											<input type="submit" value="确定" >
+											<input type="reset" value="重置" onclick="deletetip()">
+										</div>
+										<div>
+											<span class="label label-danger" id="subeerror"></span>
+										</div>
+									</center>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
-			</section>
+			</div>
+		<script type="text/javascript">
+			
+			function  checkid() {
+				var idCard = $("#username").val();
+				if(!(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(idCard))&&!(/^[1-9]\d{8}$/.test(idCard))){ 
+					$('#subeerror').html("");
+					$("#idCardsuccess").html("");
+					$("#idCarderror").html("× 身份证或者员工工号格式有误，请重填"); 
+				}else {
+					$('#subeerror').html("");
+					$("#idCardsuccess").html("✔");
+					$("#idCarderror").html(""); 
+					$.ajax({
+						type : 'post',
+						dataType : 'json',
+						url : '<%=basePath%>manager/CheckuserByUserNumber?idCard=' + idCard,
+						success : function(data) {	
+							if (data !=null||data!="") {
+								var sex = data.userSex;
+								var sex2 = $("#r1").val();
+								var sex3 = $("#r2").val();
+								if (sex==sex2) {
+									$("#r1").attr("checked",true);
+								}else if(sex==sex3){
+									$("#r2").attr("checked",true);
+								}
+								
+								var userDptnamae = data.userDpt;
+								
+								if (userDptnamae==10) {
+									 $("#select1").val(10);
+									
+								}else if(userDptnamae==11){
+									$("#select1").val(11);
+									
+								}else if(userDptnamae==12){
+									$("#select1").val(12);
+									
+								}else if(userDptnamae==13){
+									$("#select1").val(13);
+									
+								}else if(userDptnamae==14){
+									$("#select1").val(14);
+								}
+								
+								var userDptJbn = data.userDptJbn;
+								
+								if (userDptJbn=="普通员工") {
+									$("#select2").val("普通员工");
+								}else if (userDptJbn=="组长") {
+									$("#select2").val("组长");
+								}else{
+									$("#select2").val("部门经理");
+								}
+								
+								$("#user_phone").val(data.userPhone);
+								$("#city").val(data.userAddress);
+								
+								var userJobtype = data.userJobtype;
+								if (userJobtype==1) {
+									$("#workjobtype").val("实习期");
+								}else if(userJobtype==2){
+									$("#workjobtype").val("试用期");
+								}else if(userJobtype==3){
+									$("#workjobtype").val("正式员工");
+								}else{
+									$("#workjobtype").val("已离职");
+								}
+							}
+			            },
+			            error : function(data) {	
+								$('#subeerror').html("");
+								$("#idCardsuccess").html(""); 
+								$("#idCarderror").html("× 查不到该员工信息，请重新输入");
+						}
+					});
+				} 
+			}
+			
+			function deletetip() {
+				$("#idCardsuccess").html("");
+				$("#idCarderror").html(""); 
+				$('#subeerror').html("");
+				$('#subeerror').html('');
+			}
+			
+			function check() {
+				var username = $("#username").val();
+				var workjobtype = $("#workjobtype").val();
+				var cailiao = $("input[name='radio2']:checked").val();
+				if(username==""){
+					$('#subeerror').html("");
+					$('#subeerror').html('× 还未查询员工信息');
+					return false;
+				}else{
+					if (workjobtype=="已离职") {
+						$('#subeerror').html("");
+						$('#subeerror').html('× 该员工已经离职');
+						return false;
+					}else if(cailiao=="0"){
+						$('#subeerror').html("");
+						$('#subeerror').html('× 该员工的离职材料未交');
+						return false;
+					}else{
+						return true;
+					}
+				}
+			}
+		</script>
 			
 		<footer class="main-footer sticky footer-type-1">
 				
@@ -432,7 +579,7 @@
 					<div class="footer-text">
 						&copy; 2018 
 						<strong>酒店人事管理系统</strong> 
-						theme by <a href="http://laborator.co" target="_blank">Dengfw&nbsp;&nbsp;&nbsp;&nbsp;</a>
+						theme by <a >Dengfw&nbsp;&nbsp;&nbsp;&nbsp;</a>
 						<a id="showtime"> </a>
 					</div>
 					
@@ -501,8 +648,8 @@
 								</c:if>
 								<c:if test="${i.applStatus=='0'}">
 									<span style="position:relative;left: 400">
-										<button type="button" class="btn btn-success" onclick="sure(${i.userNumber})">同意</button>
-										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="refuse(${i.userNumber})">拒绝</button>
+										<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
 									</span>
 								</c:if>
 								<c:if test="${i.applStatus=='1'}">
@@ -536,7 +683,7 @@
 				dataType : 'json',
 				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
 				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toWorkManager';
+					window.location.href='<%=basePath%>manager/toDeleteUser';
 				}
 			});
 		}
@@ -547,7 +694,7 @@
 				dataType : 'json',
 				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
 				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toWorkManager';
+					window.location.href='<%=basePath%>manager/toDeleteUser';
 				}
 			});
 		}
@@ -662,6 +809,8 @@
 	<script src="<%=basePath%>assets/js/datatables/tabletools/dataTables.tableTools.min.js"></script>
 	<script src="<%=basePath%>assets/js/fullcalendar/fullcalendar.min.js"></script>
 	<script src="<%=basePath%>assets/js/jquery-ui/jquery-ui.min.js"></script>
+	<script src="<%=basePath%>assets/js/inputmask/jquery.inputmask.bundle.js"></script>
+	<script src="<%=basePath%>assets/js/tocify/jquery.tocify.min.js"></script>
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="<%=basePath%>assets/js/xenon-custom.js"></script>

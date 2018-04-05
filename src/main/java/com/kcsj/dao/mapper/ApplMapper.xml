@@ -173,4 +173,43 @@
   <select id="findAllApplByApp_type2" parameterType="java.lang.String" resultMap="BaseResultMap">
   		select * from appl where appl_type="提示" and  appl_managerid  =#{managerid,jdbcType=VARCHAR} ORDER BY appl_time DESC
   </select>
+  
+  <update id="agreeappl"  parameterType="java.lang.Integer" >
+
+   
+
+    update appl
+
+        
+
+    set appl_status = '1'  
+
+    
+
+    where (appl_type="休假" or appl_type="出差" or appl_type="请假") and user_number = #{userNumber,jdbcType=INTEGER}
+
+ 
+
+  </update>
+
+  
+
+   <update id="refuseappl"  parameterType="java.lang.Integer" >
+
+   
+
+    update appl 
+
+       
+
+    set appl_status = '2' 
+
+     
+
+    where (appl_type="休假" or appl_type="出差" or appl_type="请假") and user_number = #{userNumber,jdbcType=INTEGER}
+
+ 
+
+  </update>
+  
 </mapper>

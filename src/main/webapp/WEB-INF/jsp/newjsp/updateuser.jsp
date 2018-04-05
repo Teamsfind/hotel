@@ -197,8 +197,8 @@
 												</c:if>
 												<c:if test="${i.applStatus=='0'}">
 													<span style="position:relative;left: 150">
-														<button type="button" class="btn btn-success">同意</button>
-														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
+														<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
+														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
 													</span>
 												</c:if>
 													<c:if test="${i.applStatus=='1'}">
@@ -523,8 +523,8 @@
 								</c:if>
 								<c:if test="${i.applStatus=='0'}">
 									<span style="position:relative;left: 400">
-										<button type="button" class="btn btn-success">同意</button>
-										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">拒绝</button>
+										<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
 									</span>
 								</c:if>
 								<c:if test="${i.applStatus=='1'}">
@@ -551,7 +551,29 @@
 			</div>
 		</div>
 	</div>
-	
+	<script type="text/javascript">
+		function sure(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toUpdateUser';
+				}
+			});
+		}
+		
+		function refuse(date){
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toUpdateUser';
+				}
+			});
+		}
+	</script>
 	<div class="modal fade" id="modal-7">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -725,11 +747,11 @@
 				<script type="text/javascript">
 					function saveJobtype() {
 						var usernumber = $("#user_number").val();
-						alert(usernumber);
+						
 						var select4 = document.getElementById("select4").value;
-						alert(select4);
+						
 						var reason = document.getElementById("reason").value; 
-						alert(reason);
+						
 						$.ajax({
 							type : 'post',
 							dataType : 'json',
