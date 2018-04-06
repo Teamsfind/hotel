@@ -41,6 +41,12 @@ public class ApplImpl implements ApplService{
 		return appldao.refuseappl(usernumber);
 	}
 
+	@Override
+	public int UpApplByUid(int uid) {
+		
+		return appldao.UpApplByUid(uid);
+	}
+
 	
 	
 }

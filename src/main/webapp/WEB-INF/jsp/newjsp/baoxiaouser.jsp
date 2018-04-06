@@ -331,8 +331,8 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">休假数据</h1>
-					<p class="description">记载每个员工的休假情况，方便及时安排工作调动，提高管理效率</p>
+					<h1 class="title">差旅报销</h1>
+					<p class="description">记录每个员工的出差报销申请，方便及时通过审核，提高员工出差满意度</p>
 				</div>
 				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
@@ -340,10 +340,10 @@
 							 	<a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
 							</li>
 							<li>
-								考勤管理
+								薪酬管理
 							</li>
 							<li class="active">
-								<strong>休假数据</strong>
+								<strong>差旅报销</strong>
 							</li>
 						</ol>
 				</div>
@@ -351,7 +351,7 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">${VacDatalistname} -- 员工的所有休假数据</h3>
+					<h3 class="panel-title">所有员工出差报销申请</h3>
 					
 					<div class="panel-options">
 						<a href="#" data-toggle="panel">
@@ -379,14 +379,14 @@
 					<table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead>
 							 <tr>
-								<tr>
 								<th>记录条数</th>
 								<th>员工工号</th>
-								<th>休假开始时间</th>
-								<th>休假结束时间</th>
-								<th>休假理由</th>
+								<th>员工姓名</th>
+								<th>所属部门</th>
+								<th>报销内容</th>
+								<th>报销时间</th>
+								<th>报销金额</th>
 								<th>操作</th>
-							</tr>
 							</tr>
 						</thead>
 					
@@ -394,22 +394,28 @@
 							 <tr>
 								<th>记录条数</th>
 								<th>员工工号</th>
-								<th>休假开始时间</th>
-								<th>休假结束时间</th>
-								<th>休假理由</th>
+								<th>员工姓名</th>
+								<th>所属部门</th>
+								<th>报销内容</th>
+								<th>报销时间</th>
+								<th>报销金额</th>
 								<th>操作</th>
 							</tr>
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${moreVacDatalist}' var="i" varStatus="k">  
+							<c:forEach items='${Travelcost}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
-				                    <td>${i.usernumber }</td> 
-				                   	<td>${i.attdVactionBegintime }</td>
-				                    <td>${i.attdVactionEndtime }</td>
-				                    <td>${i.attdVactionRemark }</td>
-				                    <td><input type='button' value='返回' onclick="FindUserByUid()"></td> 
+				                    <td>${i.userNumber }</td> 
+				                    <td>${i.userName }</td>
+				                    <td>${i.userDpt }---${i.userDptJbn }</td>
+				                    <td>${i.travelcostType }</td>
+				                    <td>${i.travelcostTime }</td>
+				                    <td>${i.travelcostCost }</td>
+				                    <td><input type='button' value='通过' onclick="sureTravel(${i.userNumber })">
+				                    	<input type='button' value='拒绝' onclick="refuseTravel(${i.userNumber })">
+				                    </td> 
 				                </tr>  
 			           		</c:forEach>  
 						</tbody>
@@ -419,9 +425,31 @@
 			</div>
 		
 		<script type="text/javascript">
-			function FindUserByUid() {
+			function sureTravel(date) {
 				
-				window.location.href='<%=basePath%>manager/toXiuJiaUser';
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					data:{"user_id":date,"type":1},
+					url : '<%=basePath%>manager/toCheckBaoXiaoUser',
+					error : function(data) {	
+						window.location.href='<%=basePath%>manager/toBaoXiaoUser';
+					}
+				});
+				
+			}
+			function refuseTravel(date) {
+				
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					data:{"user_id":date,"type":0},
+					url : '<%=basePath%>manager/toCheckBaoXiaoUser',
+					error : function(data) {	
+						window.location.href='<%=basePath%>manager/toBaoXiaoUser';
+					}
+				});
+				
 			}
 		</script>
 		<footer class="main-footer sticky footer-type-1">

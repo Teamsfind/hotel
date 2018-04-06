@@ -2,8 +2,10 @@ package com.kcsj.service;
 
 import java.util.List;
 
-import com.kcsj.entitl.UpAppl;
+import com.kcsj.entitl.AnPaiUser;
+import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.updateUser;
+import com.kcsj.pojo.Travelcost;
 import com.kcsj.pojo.User;
 
 public interface UserService {
@@ -14,8 +16,7 @@ public interface UserService {
 	 */
 	public List<User> FindAllUser( );
      
-	//模糊查找员工
-    public List<User> FindAllUserByUidUname(String  text);
+
     
     /*
      * 自动生成员工编号
@@ -66,4 +67,31 @@ public interface UserService {
      *  :通过usernumber和worktype，修改员工职位状态
      */
     public int SurelizhiUserAndUpUser(int user_number);
+    
+    /*
+     * 人员安排：查找员工请假、休假、出差、缺勤成功的人
+     */
+    public List<AnPaiUser> findApplByApp_type1();
+    
+    /*
+     * 人员安排：查找该部门的其它人
+     */
+    public List<AnPaiUser> findUserByUser_dpt(String uid);
+    
+    /*
+     * 人员安排：修改员工的工作状态
+     */
+    public int UpUserWorktypeByUsernumber(int uid);
+    
+    /*
+     * 差旅报销：刷新申请
+     */
+    public List<TravelcostNew> FindCountTravelCost();
+    
+    /*
+     * 差旅报销：修改状态
+     */
+    public int UpTravelCost(int uid,int type);
+    
+   
 }

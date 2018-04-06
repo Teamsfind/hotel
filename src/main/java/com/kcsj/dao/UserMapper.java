@@ -2,6 +2,7 @@ package com.kcsj.dao;
 
 import java.util.List;
 
+import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.UpAppl;
 import com.kcsj.pojo.User;
 
@@ -57,8 +58,6 @@ public interface UserMapper {
     //查找所有员工
     public List<User> FindAllUser( );
     
-    //模糊查找员工
-    public List<User> FindAllUserByUidUname(String  text);
     
     /*
      * 自动生成员工编号
@@ -104,4 +103,16 @@ public interface UserMapper {
      *  :通过usernumber和worktype，修改员工职位状态
      */
     public int SurelizhiUserAndUpUser(UpAppl ap);
+    
+    /*
+     * 人员安排：查找该部门的其它人
+     */
+    public List<User> findUserByUser_dpt(int dpt);
+    
+    /*
+     * 人员安排：修改员工的工作状态
+     */
+    public int UpUserWorktypeByUsernumber(int uid);
+    
+    
 }

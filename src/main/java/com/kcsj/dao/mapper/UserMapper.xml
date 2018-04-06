@@ -363,4 +363,16 @@
       
     where user_number = #{userNumber,jdbcType=INTEGER}
   </update>
+  
+   <select id="findUserByUser_dpt" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * from user where  user_dpt = #{userDpt,jdbcType=INTEGER} and user_worktype ='2';
+  </select>
+  
+  <update id="UpUserWorktypeByUsernumber" parameterType="java.lang.Integer">
+  		update user
+    set 
+      user_worktype = '1'
+      
+    where user_number = #{uid,jdbcType=INTEGER}
+  </update>
 </mapper>

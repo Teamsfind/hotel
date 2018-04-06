@@ -135,7 +135,7 @@
 							<li>
 								<a href="<%=basePath%>manager/toBaoXiaoUser">
 								<span class="title">差旅报销</span>
-								<span class="label label-success pull-right">5</span>
+								<span class="label label-success pull-right">${travelcostcount}</span>
 								</a>
 							</li>
 							<li>

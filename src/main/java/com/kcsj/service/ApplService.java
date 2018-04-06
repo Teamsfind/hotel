@@ -22,4 +22,9 @@ public interface ApplService {
      *拒绝appl
      */
     public int refuseappl(int usernumber); 
+    
+    /*
+     * 人员安排；修改员工appl_jijue
+     */
+    int UpApplByUid(int uid);
 }

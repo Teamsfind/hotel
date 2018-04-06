@@ -331,8 +331,8 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">休假数据</h1>
-					<p class="description">记载每个员工的休假情况，方便及时安排工作调动，提高管理效率</p>
+					<h1 class="title">人员安排</h1>
+					<p class="description">查看员工是否在岗，方便及时安排工作调动，提高管理效率</p>
 				</div>
 				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
@@ -343,7 +343,7 @@
 								考勤管理
 							</li>
 							<li class="active">
-								<strong>休假数据</strong>
+								<strong>人员安排</strong>
 							</li>
 						</ol>
 				</div>
@@ -351,8 +351,21 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">${VacDatalistname} -- 员工的所有休假数据</h3>
-					
+					<c:if test="${AnPaiDatalistname=='10'}">
+					<h3 class="panel-title"> 采购部--所有未工作员工</h3>
+					</c:if>
+					<c:if test="${AnPaiDatalistname=='11'}">
+					<h3 class="panel-title"> 市场部--所有未工作员工</h3>
+					</c:if>
+					<c:if test="${AnPaiDatalistname=='12'}">
+					<h3 class="panel-title"> 后勤部--所有未工作员工</h3>
+					</c:if>
+					<c:if test="${AnPaiDatalistname=='13'}">
+					<h3 class="panel-title"> 财务部--所有未工作员工</h3>
+					</c:if>
+					<c:if test="${AnPaiDatalistname=='14'}">
+					<h3 class="panel-title"> 生产部--所有未工作员工</h3>
+					</c:if>
 					<div class="panel-options">
 						<a href="#" data-toggle="panel">
 							<span class="collapse-icon">&ndash;</span>
@@ -379,14 +392,12 @@
 					<table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead>
 							 <tr>
-								<tr>
 								<th>记录条数</th>
 								<th>员工工号</th>
-								<th>休假开始时间</th>
-								<th>休假结束时间</th>
-								<th>休假理由</th>
+								<th>员工姓名</th>
+								<th>联系电话</th>
+								<th>家庭地址</th>
 								<th>操作</th>
-							</tr>
 							</tr>
 						</thead>
 					
@@ -394,22 +405,22 @@
 							 <tr>
 								<th>记录条数</th>
 								<th>员工工号</th>
-								<th>休假开始时间</th>
-								<th>休假结束时间</th>
-								<th>休假理由</th>
+								<th>员工姓名</th>
+								<th>联系电话</th>
+								<th>家庭地址</th>
 								<th>操作</th>
 							</tr>
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${moreVacDatalist}' var="i" varStatus="k">  
+							<c:forEach items='${moreAnPaiDatalist}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
-				                    <td>${i.usernumber }</td> 
-				                   	<td>${i.attdVactionBegintime }</td>
-				                    <td>${i.attdVactionEndtime }</td>
-				                    <td>${i.attdVactionRemark }</td>
-				                    <td><input type='button' value='返回' onclick="FindUserByUid()"></td> 
+				                    <td>${i.userNumber }</td> 
+				                    <td>${i.userUsername }</td>
+				                    <td>${i.userPhone }</td>
+				                    <td>${i.userAddress }</td>
+				                    <td><input type='button' value='派遣' onclick="FindUserByUid(${i.userNumber })"></td> 
 				                </tr>  
 			           		</c:forEach>  
 						</tbody>
@@ -419,9 +430,16 @@
 			</div>
 		
 		<script type="text/javascript">
-			function FindUserByUid() {
+			function FindUserByUid(date) {
 				
-				window.location.href='<%=basePath%>manager/toXiuJiaUser';
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					url : '<%=basePath%>manager/toAnPaiUserHistorypai?user_id=' + date,
+					error : function(data) {	
+						window.location.href='<%=basePath%>manager/toAnPaiUser';
+					}
+				});
 			}
 		</script>
 		<footer class="main-footer sticky footer-type-1">

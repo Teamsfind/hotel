@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kcsj.entitl.AnPaiUser;
 import com.kcsj.entitl.AttdData;
+import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.Manager;
 import com.kcsj.pojo.Opertion;
@@ -579,12 +581,141 @@ public class ManagerController {
 		session.setAttribute("TraDatalistname", u.getUserUsername());
 	}
 	
+	/*
+	 * 人员安排
+	 */
+	@RequestMapping("/toAnPaiUser")
+	public ModelAndView  toAnPaiUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新缺勤表格
+		List<AnPaiUser> list = userservice.findApplByApp_type1();
+		
+		//管理员操作留痕
+		 String opretion_type = "人员安排";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 
+		opretionservice.inserOpretion(o);
+		session.setAttribute("AnPaiDatalist", list);
+		
+		return new ModelAndView("newjsp/anpaiuser");
+	}
+	
+	/*
+	 * 人员安排:查询该部门的其它人员
+	 */
+	@RequestMapping("/toAnPaiUserHistorymore")
+	public ModelAndView  toAnPaiUserHistorymore(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		return new ModelAndView("newjsp/moreanpaiuser");
+	}
+	
+	/*
+	 * 人员安排:查询该部门的其他人员
+	 */
+	@RequestMapping("/toAnPaiUserHistory")
+	public void  toAnPaiUserHistory(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新部门表格
+		List<AnPaiUser> list = userservice.findUserByUser_dpt(request.getParameter("user_id"));
+		session.setAttribute("anpaiuser_id", request.getParameter("user_id"));
+		session.setAttribute("moreAnPaiDatalist", list);
+		User u = new User();
+		try {
+			u = userservice.lookuserByUid(Integer.valueOf( request.getParameter("user_id")));
+		} catch (Exception e) {
+			u=null;
+		}
+		session.setAttribute("AnPaiDatalistname", u.getUserDpt());
+	}
+	
+	/*
+	 * 人员安排:派遣该部门的其他人员
+	 */
+	@RequestMapping("/toAnPaiUserHistorypai")
+	public void  toAnPaiUserHistorypai(HttpServletRequest request ){
+		Manager m = (Manager) session.getAttribute("manager");
+		String user_id = (String) session.getAttribute("anpaiuser_id");
+		//to 修改appl_jijue
+		applservice.UpApplByUid(Integer.valueOf(user_id));
+		// to 修改派遣员工的工作状态
+		userservice.UpUserWorktypeByUsernumber(Integer.valueOf(user_id));
+		//管理员操作留痕
+		 String opretion_type = "人员安排派遣";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 o.setUserNumber(Integer.valueOf(user_id));
+		opretionservice.inserOpretion(o);
+	}
+	
+	/*
+	 * 差旅报销:查询差旅报销未通过的
+	 */
+	@RequestMapping("/toBaoXiaoUser")
+	public ModelAndView  toBaoXiaoUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//查询数据
+		List<TravelcostNew> list = userservice.FindCountTravelCost();
+		//管理员操作留痕
+		 String opretion_type = "差旅报销";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 opretionservice.inserOpretion(o);
+		 
+		session.setAttribute("Travelcost", list);
+		return new ModelAndView("newjsp/baoxiaouser");
+	}
+	
+	/*
+	 * 差旅报销:审核差旅报销
+	 */
+	@ResponseBody
+	@RequestMapping("/toCheckBaoXiaoUser")
+	public void  toCheckBaoXiaoUser(HttpServletRequest request ){
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		int uid = Integer.valueOf(request.getParameter("user_id"));
+		
+		int type = Integer.valueOf(request.getParameter("type"));
+		
+		//管理员操作留痕
+		 String opretion_type = "差旅报销";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 o.setUserNumber(uid);
+		 opretionservice.inserOpretion(o);
+		
+		userservice.UpTravelCost(uid,type);
+	}
+	
 	/**
 	 * 
 	 * 刷新邮件和消息
 	 */
 	public void Refreshmessage(String login){
 		session.setMaxInactiveInterval(600);
+		session.setAttribute("travelcostcount", userservice.FindCountTravelCost().size());
 		session.setAttribute("message", applservice.findAllApplByApp_type1(login));
 		session.setAttribute("messagesize", applservice.findAllApplByApp_type1(login).size());
 		session.setAttribute("info", applservice.findAllApplByApp_type2(login));
