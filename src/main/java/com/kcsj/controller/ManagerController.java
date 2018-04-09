@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kcsj.entitl.AnPaiUser;
 import com.kcsj.entitl.AttdData;
+import com.kcsj.entitl.Award1;
 import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.Manager;
@@ -663,7 +664,7 @@ public class ManagerController {
 	}
 	
 	/*
-	 * 差旅报销:查询差旅报销未通过的
+	 * 差旅报销:查询差旅报销未审核的
 	 */
 	@RequestMapping("/toBaoXiaoUser")
 	public ModelAndView  toBaoXiaoUser(HttpServletRequest request ){
@@ -674,7 +675,7 @@ public class ManagerController {
 		//查询数据
 		List<TravelcostNew> list = userservice.FindCountTravelCost();
 		//管理员操作留痕
-		 String opretion_type = "差旅报销";
+		 String opretion_type = "差旅报销查询";
 		 Opertion o = new Opertion();
 		 o.setManagerName(m.getManagername());
 		 o.setManagerId(m.getManagerid());
@@ -707,6 +708,75 @@ public class ManagerController {
 		 opretionservice.inserOpretion(o);
 		
 		userservice.UpTravelCost(uid,type);
+	}
+	
+	/*
+	 * 员工奖励:查询所有员工的当月的奖励
+	 */
+	@RequestMapping("/toJiangLiUser")
+	public ModelAndView  toJiangLiUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//查询数据
+		List<Award1> list = userservice.findall();
+		//管理员操作留痕
+		 String opretion_type = "员工奖励查询";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 opretionservice.inserOpretion(o);
+		 
+		session.setAttribute("Awardcost", list);
+		return new ModelAndView("newjsp/JiangLiuser");
+	}
+	
+	/*
+	 * 员工奖励:查询单个员工的历史员工奖励
+	 */
+	@RequestMapping("/toJiangLiUsermorehistory")
+	public ModelAndView  toJiangLiUsermorehistory(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		return new ModelAndView("newjsp/morejiangliuser");
+	}
+	
+	/*
+	 * 员工奖励:查询所有员工的当月的奖励
+	 */
+	@ResponseBody
+	@RequestMapping("/toJiangLiUsermore")
+	public void  toJiangLiUsermore(HttpServletRequest request ){
+		//to 刷新邮件
+			session = request.getSession();
+			Manager m = (Manager) session.getAttribute("manager");
+			Refreshmessage(m.getManagerid());
+		//查询数据
+		List<Award1> list = userservice.findall2(Integer.valueOf(request.getParameter("user_id")));
+		
+		//管理员操作留痕
+		 String opretion_type = "员工奖励查询:更多历史";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 o.setUserNumber(Integer.valueOf(request.getParameter("user_id")));
+		 opretionservice.inserOpretion(o);
+		 
+		session.setAttribute("Awardcostall", list);
+		User u = new User();
+		try {
+			u = userservice.LiZhiUserByUid(request.getParameter("user_id"));
+		} catch (Exception e) {
+			u=null;
+		}
+		session.setAttribute("Awardcostallname", u.getUserUsername());
+		
 	}
 	
 	/**

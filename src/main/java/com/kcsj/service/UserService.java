@@ -3,6 +3,7 @@ package com.kcsj.service;
 import java.util.List;
 
 import com.kcsj.entitl.AnPaiUser;
+import com.kcsj.entitl.Award1;
 import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.Travelcost;
@@ -93,5 +94,13 @@ public interface UserService {
      */
     public int UpTravelCost(int uid,int type);
     
-   
+    /*
+     * 员工奖励
+     */
+    List<Award1> findall();
+    
+    /*
+     * 员工奖励:单个历史记录
+     */
+    List<Award1> findall2(int uid);
 }

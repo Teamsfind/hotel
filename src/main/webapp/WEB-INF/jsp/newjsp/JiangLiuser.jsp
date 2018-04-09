@@ -331,8 +331,8 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">出差数据</h1>
-					<p class="description">记载每个员工的出差情况，方便及时安排工作调动，提高管理效率</p>
+					<h1 class="title">员工奖励</h1>
+					<p class="description">记录每个员工当月的奖励：个人奖金、部门奖金、生日红包</p>
 				</div>
 				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
@@ -340,10 +340,10 @@
 							 	<a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
 							</li>
 							<li>
-								考勤管理
+								薪酬管理
 							</li>
 							<li class="active">
-								<strong>出差数据</strong>
+								<strong>员工奖励</strong>
 							</li>
 						</ol>
 				</div>
@@ -351,7 +351,7 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">所有员工出差数据</h3>
+					<h3 class="panel-title">所有员工的奖励数据</h3>
 					
 					<div class="panel-options">
 						<a href="#" data-toggle="panel">
@@ -383,10 +383,10 @@
 								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>所属部门</th>
-								<th>出差开始时间</th>
-								<th>出差结束时间</th>
-								<th>出差地方</th>
-								<th>出差原因</th>
+								<th>部门奖金</th>
+								<th>个人奖金</th>
+								<th>生日红包</th>
+								<th>员工奖励时间</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -397,26 +397,27 @@
 								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>所属部门</th>
-								<th>出差开始时间</th>
-								<th>出差结束时间</th>
-								<th>出差地方</th>
-								<th>出差原因</th>
+								<th>部门奖金</th>
+								<th>个人奖金</th>
+								<th>生日红包</th>
+								<th>员工奖励时间</th>
 								<th>操作</th>
 							</tr>
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${TraDatalist}' var="i" varStatus="k">  
+							<c:forEach items='${Awardcost}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
-				                    <td>${i.usernumber }</td> 
+				                    <td>${i.userNumber }</td> 
 				                    <td>${i.username }</td>
 				                    <td>${i.userdpt }---${i.userdptjob }</td>
-				                    <td>${i.attdTravelBegintime }</td>
-				                    <td>${i.attdTravelEndtime }</td>
-				                    <td>${i.attdTravelPlace }</td>
-				                    <td>${i.attdTravelRemark }</td>
-				                    <td><input type='button' value='更多' onclick="FindUserByUid(${i.usernumber })"></td> 
+				                    <td>${i.awardDptCost }</td>
+				                    <td>${i.awardPersonalCost }</td>
+				                    <td>${i.awardBirthRedb }</td>
+				                    <td>${i.awardTime }</td>
+				                    <td><input type='button' value='更多' onclick="sureTravel(${i.userNumber })">
+				                    	  </td> 
 				                </tr>  
 			           		</c:forEach>  
 						</tbody>
@@ -426,18 +427,20 @@
 			</div>
 		
 		<script type="text/javascript">
-			function FindUserByUid(date) {
+			function sureTravel(date) {
 				
 				$.ajax({
 					type : 'post',
 					dataType : 'json',
-					url : '<%=basePath%>manager/toChuChaiUserHistory?user_id=' + date,
+					data:{"user_id":date},
+					url : '<%=basePath%>manager/toJiangLiUsermore',
 					error : function(data) {	
+						
 						window.location.href='<%=basePath%>manager/toJiangLiUsermorehistory';
 					}
 				});
 				
-			}
+			}	
 		</script>
 		<footer class="main-footer sticky footer-type-1">
 				

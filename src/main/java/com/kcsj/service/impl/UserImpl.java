@@ -11,9 +11,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.kcsj.dao.ApplMapper;
+import com.kcsj.dao.AwardMapper;
 import com.kcsj.dao.TravelcostMapper;
 import com.kcsj.dao.UserMapper;
 import com.kcsj.entitl.AnPaiUser;
+import com.kcsj.entitl.Award1;
 import com.kcsj.entitl.Travelcost2;
 import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.UpAppl;
@@ -33,6 +35,8 @@ public class UserImpl implements UserService{
 	private ApplMapper appldao;
 	@Resource
 	private TravelcostMapper traveldao;
+	@Resource
+	private AwardMapper awarddao;
 
 	@Override
 	public List<User> FindAllUser() {
@@ -286,6 +290,20 @@ public class UserImpl implements UserService{
 			traveldao.UpTravelCost2(uid);
 		}
 		return 0;
+	}
+
+
+	@Override
+	public List<Award1> findall() {
+		
+		return awarddao.findall();
+	}
+
+
+	@Override
+	public List<Award1> findall2(int uid) {
+		
+		return awarddao.findall2(uid);
 	}
 
 
