@@ -813,7 +813,7 @@ public class ManagerController {
 		Manager m = (Manager) session.getAttribute("manager");
 		Refreshmessage(m.getManagerid());
 		//添加数据
-		int i = userservice.InsertWage();
+		 userservice.InsertWage();
 		//管理员操作留痕
 		 String opretion_type = "批量生成当月员工工资";
 		 Opertion o = new Opertion();
@@ -822,7 +822,77 @@ public class ManagerController {
 		 o.setOperatingType(opretion_type);
 		 opretionservice.inserOpretion(o);
 		 
-		 return new ModelAndView("newjsp/gerenuser");
+		//查询数据
+			List<Wage1> list = userservice.findallWage();
+			session.setAttribute("Wagecost", list);
+			return new ModelAndView("newjsp/gerenuser");
+	}
+	
+	/*
+	 * 薪酬汇总:发放工资
+	 */
+	@ResponseBody
+	@RequestMapping("/toFaGongZi")
+	public void  toFaGongZi(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//修改工资状态
+		userservice.UpdateWage(Integer.valueOf(request.getParameter("user_id")));
+		//管理员操作留痕
+		 String opretion_type = "给员工发放工资";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 o.setUserNumber(Integer.valueOf(request.getParameter("user_id")));
+		 opretionservice.inserOpretion(o);
+		 
+	}
+	
+	/*
+	 * 薪酬汇总:查看最近半年的历史数据(页面跳转)
+	 */
+	@RequestMapping("/toZhuanmoreGongZi")
+	public ModelAndView  toZhuanmoreGongZi(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		return new ModelAndView("newjsp/moregerenuser"); 
+	}
+	
+	/*
+	 * 薪酬汇总:查看最近半年的历史数据
+	 */
+	@ResponseBody
+	@RequestMapping("/tomoreGongZi")
+	public void  tomoreGongZi(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//查找该员工最近半年工资状态
+		List<Wage1> list = userservice.SelectWage(Integer.valueOf(request.getParameter("user_id")));
+		session.setAttribute("moreWagecost", list);
+		User u = new User();
+		try {
+			u = userservice.LiZhiUserByUid(request.getParameter("user_id"));
+		} catch (Exception e) {
+			u=null;
+		}
+		session.setAttribute("moreWagename", u.getUserUsername());
+		//管理员操作留痕
+		 String opretion_type = "查看员工最近半年工资状况";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 o.setUserNumber(Integer.valueOf(request.getParameter("user_id")));
+		 opretionservice.inserOpretion(o);
+		 
 	}
 	
 	/**

@@ -351,12 +351,10 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">所有员工汇总薪酬数据</h3>
+					<h3 class="panel-title">${moreWagename}--员工汇总薪酬数据</h3>
 					
 					<div class="panel-options">
-						<a href="<%=basePath%>manager/toPiliangGeRenUser" title="批量生成当月员工工资薪酬">
-							+<span>批量操作</span>
-						</a>
+						
 						<a href="#" data-toggle="remove">
 							&times;
 						</a>
@@ -421,7 +419,7 @@
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${Wagecost}' var="i" varStatus="k">  
+							<c:forEach items='${moreWagecost}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
 				                    <td>${i.userNumber }</td> 
@@ -444,8 +442,7 @@
 				                     <c:if test="${i.wageTobank=='0'}">
 				                    	<td>否</td>
 				                    </c:if>
-				                    <td><input type='button' value='发放' onclick="sureTravel(${i.userNumber })">
-				                    	<input type='button' value='更多' onclick="morewage(${i.userNumber })">
+				                    <td><input type='button' value='返回' onclick="morewage(${i.userNumber })">
 				                    </td> 
 				                </tr>  
 			           		</c:forEach>  
@@ -456,34 +453,9 @@
 			</div>
 		
 		<script type="text/javascript">
-			function sureTravel(date) {
-				
-				$.ajax({
-					type : 'post',
-					dataType : 'json',
-					data:{"user_id":date},
-					url : '<%=basePath%>manager/toFaGongZi',
-					error : function(data) {	
-						
-						window.location.href='<%=basePath%>manager/toGeRenUser';
-					}
-				});
-				
-			}
+			
 			function morewage(date) {
-				
-				$.ajax({
-					type : 'post',
-					dataType : 'json',
-					data:{"user_id":date},
-					url : '<%=basePath%>manager/tomoreGongZi',
-					error : function(data) {	
-						
-						window.location.href='<%=basePath%>manager/toZhuanmoreGongZi';
-					}
-					
-				});
-				
+				window.location.href='<%=basePath%>manager/toGeRenUser';
 			}	
 		</script>
 		<footer class="main-footer sticky footer-type-1">

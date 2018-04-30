@@ -435,7 +435,14 @@ public class UserImpl implements UserService{
 							wage.setWageAttdcost(Double.valueOf(400));
 						}
 						wage.setWageNotattd(notattd);
-						double allwage = basewage.getBasewageWage()+travlecost+award.getAwardBirthRedb()+award.getAwardPersonalCost()+award.getAwardDptCost()+wage.getWageAttdcost();
+
+						Award award22 = awarddao.findallAward(user2.getUserNumber());
+						double allwage;
+						if (award22!=null) {
+							 allwage = basewage.getBasewageWage()+travlecost+award.getAwardBirthRedb()+award.getAwardPersonalCost()+award.getAwardDptCost()+wage.getWageAttdcost();
+						}else {
+							 allwage = basewage.getBasewageWage()+travlecost+wage.getWageAttdcost();
+						}
 						wage.setWageAllwage(allwage);
 						wage.setWageTobank(0);
 						wage.setWageRemark("");
@@ -446,6 +453,19 @@ public class UserImpl implements UserService{
 		return i;
 	}
 
+
+	@Override
+	public int UpdateWage(int uid) {
+		
+		return wagedao.UpdateWage(uid);
+	}
+
+
+	@Override
+	public List<Wage1> SelectWage(int uid) {
+		
+		return wagedao.SelectWage(uid);
+	}
 
 	
 	

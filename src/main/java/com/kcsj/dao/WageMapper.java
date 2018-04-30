@@ -58,4 +58,14 @@ public interface WageMapper {
      * 员工薪酬汇总查询
      */
     List<Wage1> findall();
+    
+    /*
+     * 员工薪酬汇总(发放员工工资)
+     */
+    int UpdateWage(int userNumber);
+    
+    /*
+     * 员工薪酬汇总(查看员工最近半年工资状况)
+     */
+    List<Wage1> SelectWage(int uid);
 }
