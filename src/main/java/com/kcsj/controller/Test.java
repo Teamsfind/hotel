@@ -21,6 +21,13 @@ public class Test {
 //		MonthDay mothdate = new MonthDay();
 //		int date = mothdate.getdate(year, month);
 //		System.out.println(date);
-		System.out.println(Integer.valueOf(-100));
+//		System.out.println(Integer.valueOf(-100));
+		
+		int year = Integer.valueOf(new SimpleDateFormat("MM").format(new Date()));//获取月份
+		int month = Integer.valueOf(new SimpleDateFormat("yyyy").format(new Date()));//获取年份
+		MonthDay mothdate = new MonthDay();
+		System.out.println(year);
+		System.out.println(month);
+		System.out.println(mothdate.getdate(year, month));
 	}
 }

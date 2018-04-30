@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.enterprise.inject.New;
 
 import org.springframework.stereotype.Service;
 
@@ -386,19 +385,20 @@ public class UserImpl implements UserService{
 				//查询考勤天数
 					List<preAttdData> preattd = attddao.findUserAttdayAllMonth(user2.getUserNumber());
 					wage.setWageAttd(preattd.size());
-					System.out.println(preattd.size());
+					
 				//查询出差天数
 					List<preAttdData> preattd2 = attddao.findUserTravelAllMonth(user2.getUserNumber());
 					wage.setWageTravel(preattd2.size());
-					System.out.println(preattd2.size());
+					
 				//查询休假天数
 					List<preAttdData> preattd3 = attddao.findUserVacationdayAllMonth(user2.getUserNumber());
 					wage.setWageVacation(preattd3.size());
-					System.out.println(preattd3.size());
+					
 				//查询差旅总报销
 					Double travlecost = traveldao.selectAllCost(user2.getUserNumber());
 					wage.setWageTravelcostall(travlecost);
-					System.out.println(travlecost);
+					
+					
 				//查询员工奖励
 					Award award = awarddao.findallAward(user2.getUserNumber());
 					if (award!=null) {
@@ -410,22 +410,20 @@ public class UserImpl implements UserService{
 						wage.setWagePersonal(0.00);
 						wage.setWageDpt(0.00);
 					}
-					System.out.println(award.getAwardBirthRedb());
-					System.out.println(award.getAwardPersonalCost());
-					System.out.println(award.getAwardDptCost());
+					
 				//查询员工基础工资
 					Basewage basewage2 = new Basewage();
 					basewage2.setBasewageDptId(user2.getUserDpt());
 					basewage2.setBasewageDptJbname(user2.getUserDptJbn());
+					
 					Basewage basewage = basewagedao.selectByDept(basewage2);
 					wage.setWageBasswage(basewage.getBasewageWage());
-					System.out.println(basewage.getBasewageWage());
 				//员工总工资汇总
 					/*
 					 * 满勤+400,没缺勤一天扣100，最多扣500 
 					 */
-						int year = Integer.valueOf(new SimpleDateFormat("MM").format(new Date()));//获取月份
-						int month = Integer.valueOf(new SimpleDateFormat("yyyy").format(new Date()));//获取年份
+						int year = Integer.valueOf(new SimpleDateFormat("yyyy").format(new Date()));//获取月份
+						int month = Integer.valueOf(new SimpleDateFormat("MM").format(new Date()));//获取年份
 						MonthDay mothdate = new MonthDay();
 						int date = mothdate.getdate(year, month); 
 						int notattd = date-preattd.size()-preattd2.size()-preattd3.size();
@@ -441,7 +439,7 @@ public class UserImpl implements UserService{
 						wage.setWageAllwage(allwage);
 						wage.setWageTobank(0);
 						wage.setWageRemark("");
-						System.out.println(wage.toString());
+						
 					//添加员工记录
 						i = wagedao.insert(wage);
 			}

@@ -1,5 +1,8 @@
 package com.kcsj.dao;
 
+import java.util.List;
+
+import com.kcsj.entitl.Award1;
 import com.kcsj.pojo.Award;
 
 public interface AwardMapper {
@@ -50,4 +53,7 @@ public interface AwardMapper {
      * @mbggenerated Mon Apr 30 13:30:07 CST 2018
      */
     int updateByPrimaryKey(Award record);
+    List<Award1>  findall();
+    List<Award1>  findall2(int uid);
+    Award  findallAward(int uid);
 }

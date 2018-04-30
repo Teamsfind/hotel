@@ -147,9 +147,9 @@
   
   <select id="selectByDept" parameterType="com.kcsj.pojo.Basewage"  resultMap="BaseResultMap" >
   	select 
-    <include refid="Base_Column_List" />
+   	*
     from basewage
-    where basewage_dpt_id = #{basewageDptId,jdbcType=INTEGER} and basewage_dpt_jbname=#{basewageDptName,jdbcType=VARCHAR}
+    where basewage_dpt_id =#{basewageDptId,jdbcType=INTEGER} and basewage_dpt_jbname= #{basewageDptJbname,jdbcType=VARCHAR}
  
   </select>
   

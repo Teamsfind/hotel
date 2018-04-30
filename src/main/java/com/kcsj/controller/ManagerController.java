@@ -822,7 +822,7 @@ public class ManagerController {
 		 o.setOperatingType(opretion_type);
 		 opretionservice.inserOpretion(o);
 		 
-		return new ModelAndView("manager/toGeRenUser");
+		 return new ModelAndView("newjsp/gerenuser");
 	}
 	
 	/**

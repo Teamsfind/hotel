@@ -70,7 +70,7 @@
       #{wageNotattd,jdbcType=INTEGER}, #{wageVacation,jdbcType=INTEGER}, #{wageTravel,jdbcType=INTEGER}, 
       #{wageTravelcostall,jdbcType=DOUBLE}, #{wageBirth,jdbcType=DOUBLE}, #{wagePersonal,jdbcType=DOUBLE}, 
       #{wageDpt,jdbcType=DOUBLE}, #{wageBasswage,jdbcType=DOUBLE}, #{wageAttdcost,jdbcType=DOUBLE}, 
-      #{wageAllwage,jdbcType=DOUBLE}, #{wageTobank,jdbcType=INTEGER}, #{wageAllwagetime,jdbcType=TIMESTAMP}, 
+      #{wageAllwage,jdbcType=DOUBLE}, #{wageTobank,jdbcType=INTEGER}, now(), 
       #{wageRemark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kcsj.pojo.Wage" >

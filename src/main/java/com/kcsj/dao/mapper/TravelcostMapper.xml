@@ -176,6 +176,6 @@
   <select id="selectAllCost"  parameterType="java.lang.Integer" resultType="java.lang.Double">
     select sum(IFNULL(travelcost_cost,0))
     from travelcost
-    where user_number = #{usernumber,jdbcType=INTEGER} and DATE_FORMAT(travelcost_time, '%Y%m') = DATE_FORMAT( now() , '%Y%m') 
+    where user_number = #{usernumber,jdbcType=INTEGER} and DATE_FORMAT(travelcost_time, '%Y%m') = DATE_FORMAT( now() , '%Y%m') and travelcost_status = '1'
   </select>
 </mapper>
