@@ -4,7 +4,6 @@ package com.kcsj.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -583,6 +582,33 @@ public class UserImpl implements UserService{
 		listall.add(bumn14);
 		
 		return listall;
+	}
+
+
+	@Override
+	public List<Wage1> findallBumenWageBydpt(int udpt) {
+		List<Wage1> list = findallWage();
+		List<Wage1> listdpt = new ArrayList<Wage1>();
+		String udptname;
+		if (udpt==10) {
+			udptname="采购部";
+		}else if (udpt==11) {
+			udptname="市场部";
+		}else if (udpt==12) {
+			udptname="后勤部";
+		}else if (udpt==13) {
+			udptname="财务部";
+		}else{
+			udptname="生产部";
+		}
+		
+		for (Wage1 wage1 : list) {
+			if (wage1.getUserdpt().equals(udptname)) {
+				listdpt.add(wage1);
+			}
+		}
+		
+		return listdpt;
 	}
 
 	

@@ -129,4 +129,9 @@ public interface UserService {
      * 部门薪酬汇总查询
      */
     List<Bumen> findallBumenWage();
+    
+    /*
+     * 部门薪酬汇总查询
+     */
+    List<Wage1> findallBumenWageBydpt(int udpt );
 }

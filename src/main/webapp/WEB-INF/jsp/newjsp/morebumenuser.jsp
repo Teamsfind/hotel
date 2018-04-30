@@ -351,7 +351,7 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">所有部门当月发放的总工资</h3>
+					<h3 class="panel-title">${moreBumenWagecostname} --部门下个员工当月发工资发放情况</h3>
 					
 					<div class="panel-options">
 						<a href="#" data-toggle="panel">
@@ -378,13 +378,14 @@
 					
 					<table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead>
-							 <tr>
+							  <tr>
 								<th>记录条数</th>
-								<th>部门编号</th>
-								<th>部门名称</th>
-								<th>部门成员人数</th>
-								<th>部门总发放薪酬</th>
-								<th>发放时间</th>
+								<th><a title="员工工号">员工工号</a></th>
+								<th>员工姓名</th>
+								<th>所属部门</th>
+								<th>时间</th>
+								<th>薪酬汇总</th>
+								<th>是否发放</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -392,28 +393,40 @@
 						<tfoot>
 							<tr>
 								<th>记录条数</th>
-								<th>部门编号</th>
-								<th>部门名称</th>
-								<th>部门成员人数</th>
-								<th>部门总发放薪酬</th>
-								<th>发放时间</th>
+								<th><a title="员工工号">员工工号</a></th>
+								<th>员工姓名</th>
+								<th>所属部门</th>
+								<th>时间</th>
+								<th>薪酬汇总</th>
+								<th>是否发放</th>
 								<th>操作</th>
 							</tr>
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${BumenWagecost}' var="i" varStatus="k">  
+							<c:forEach items='${moreBumenWagecost}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
-				                    <td>${i.dptid }</td> 
-				                    <td>${i.name }</td>
-				                    <td>${i.acount }</td>
-				                    <td>${i.money }</td>
-				                    <td>${i.time }</td>
-				                    <td><input type='button' value='查看成员' onclick="sureTravel(${i.dptid })">
-				                    	  </td> 
+				                    <td>${i.userNumber }</td> 
+				                    <td>${i.username }</td>
+				                    <td>${i.userdpt }</td>
+				                    <td>${i.wageAllwagetime }</td>
+				                    <td>${i.wageAllwage }</td>
+				                    <c:if test="${i.wageTobank=='1'}">
+				                    	<td>是</td>
+				                    	 <td>
+				                    	<input type='button' value='返回' onclick="morewage()">
+				                    </td>
+				                    </c:if>
+				                     <c:if test="${i.wageTobank=='0'}">
+				                    	<td>否</td>
+				                    	<td>
+				                    	<input type='button' value='返回' onclick="morewage()">
+				                    </td>
+				                    </c:if>
+				                    
 				                </tr>  
-			           		</c:forEach>  
+			           		</c:forEach>   
 						</tbody>
 					</table>
 					
@@ -421,19 +434,8 @@
 			</div>
 		
 		<script type="text/javascript">
-			function sureTravel(date) {
-				
-				$.ajax({
-					type : 'post',
-					dataType : 'json',
-					data:{"user_dpt":date},
-					url : '<%=basePath%>manager/tomoreBuMenUser',
-					error : function(data) {	
-						
-						window.location.href='<%=basePath%>manager/tomoreBuMenUserjsp';
-					}
-				});
-				
+			function morewage() {
+				window.location.href='<%=basePath%>manager/toBuMenUser';
 			}	
 		</script>
 		<footer class="main-footer sticky footer-type-1">

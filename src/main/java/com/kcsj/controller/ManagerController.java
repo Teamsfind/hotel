@@ -919,6 +919,44 @@ public class ManagerController {
 		return new ModelAndView("newjsp/bumenuser");
 	}
 	
+	/*
+	 * 部门薪酬汇总:查询该部门下的所有员工工资
+	 */
+	@RequestMapping("/tomoreBuMenUser")
+	public void  tomoreBuMenUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//查询数据
+		List<Wage1> list = userservice.findallBumenWageBydpt(Integer.valueOf(request.getParameter("user_dpt")));
+		//管理员操作留痕
+		 String opretion_type = "部门发放总工资:查看部门成员";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 opretionservice.inserOpretion(o);
+		
+		session.setAttribute("moreBumenWagecostname", list.get(1).getUserdpt());
+		session.setAttribute("moreBumenWagecost", list);
+		
+	}
+	
+	/*
+	 * 部门薪酬汇总:查询该部门下的所有员工工资(页面跳转)
+	 */
+	@RequestMapping("/tomoreBuMenUserjsp")
+	public ModelAndView  tomoreBuMenUserjsp(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		return new ModelAndView("newjsp/morebumenuser");
+		
+	}
+	
 	/**
 	 * 
 	 * 刷新邮件和消息
