@@ -158,7 +158,7 @@
   <select id="FindCountTravelCost" resultType="com.kcsj.entitl.Travelcost2">
   	select  t.travelcost_type as travelcostType,t.travelcost_time as travelcostTime,t.travelcost_cost as travelcostCost,u.user_username as userName,u.user_dpt as userDpt,u.user_dpt_jbn as userDptJbn,u.user_number as userNumber
   	from travelcost t,user u 
-  	where travelcost_status='0' and t.user_number=u.user_number and DATE_FORMAT( t.travelcost_time , '%Y%m' )=DATE_FORMAT( CURDATE( ) , '%Y%m' ) order by travelcostCost;
+  	where travelcost_status='0' and t.user_number=u.user_number and DATE_FORMAT( t.travelcost_time , '%Y%m' )=DATE_FORMAT( now( ) , '%Y%m' ) order by travelcostCost;
   </select>
   
   <update id="UpTravelCost1" parameterType="java.lang.Integer">
@@ -172,4 +172,10 @@
   		set travelcost_status = '2'
   		where user_number = #{userNumber,jdbcType=INTEGER} and travelcost_status='0'
   </update>
+  
+  <select id="selectAllCost"  parameterType="java.lang.Integer" resultType="java.lang.Double">
+    select sum(IFNULL(travelcost_cost,0))
+    from travelcost
+    where user_number = #{usernumber,jdbcType=INTEGER} and DATE_FORMAT(travelcost_time, '%Y%m') = DATE_FORMAT( now() , '%Y%m') 
+  </select>
 </mapper>

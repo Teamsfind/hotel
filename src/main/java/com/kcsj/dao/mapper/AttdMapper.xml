@@ -266,6 +266,13 @@
 	  	WHERE  a.attd_begintime !='' and a.user_number=u.user_number  and a.user_number= #{usernumber,jdbcType=VARCHAR} order by attdBegintime  desc
   	</select>
   	
+  	<select id="findUserAttdayAllMonth" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		 select 
+   	 <include refid="Base_Column_List" />
+    from attd
+    where user_number = #{usernumber,jdbcType=INTEGER} and attd_begintime !='' and DATE_FORMAT(attd_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m') 
+  	</select>
+  	
   	<!-- 休假信息 -->
   	<select id="findvacationdayAll" resultType="com.kcsj.entitl.preAttdData" >
 	  	SELECT u.user_username as username,a.user_number as usernumber,u.user_dpt as userdpt,user_dpt_jbn as userdptjob,a.attd_vaction_remark as attdVactionRemark,a.attd_vaction_begintime as attdVactionBegintime,a.attd_vaction_endtime as attdVactionEndtime
@@ -279,6 +286,13 @@
 	  	WHERE  attd_vaction_begintime !='' and a.user_number=u.user_number  and a.user_number= #{usernumber,jdbcType=VARCHAR} order by attdVactionBegintime  desc
   	</select>
   	
+  	<select id="findUserVacationdayAllMonth" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		 select 
+   	 <include refid="Base_Column_List" />
+    from attd
+    where user_number = #{usernumber,jdbcType=INTEGER} and attd_vaction_begintime !='' and DATE_FORMAT(attd_vaction_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m') 
+  	</select>
+  	
   	<!-- 出差信息 -->
   	<select id="findTraveldayAll" resultType="com.kcsj.entitl.preAttdData" >
 	  	SELECT u.user_username as username,a.user_number as usernumber,u.user_dpt as userdpt,user_dpt_jbn as userdptjob,a.attd_travel_begintime as attdTravelBegintime,a.attd_travel_endtime as attdTravelEndtime,a.attd_travel_place as attdTravelPlace,a.attd_travel_remark as attdTravelRemark
@@ -290,5 +304,12 @@
 	  	SELECT u.user_username as username,a.user_number as usernumber,u.user_dpt as userdpt,user_dpt_jbn as userdptjob,a.attd_travel_begintime as attdTravelBegintime,a.attd_travel_endtime as attdTravelEndtime,a.attd_travel_place as attdTravelPlace,a.attd_travel_remark as attdTravelRemark
 	  	FROM attd a,user u
 	  	WHERE  attd_travel_begintime !='' and a.user_number=u.user_number  and a.user_number= #{usernumber,jdbcType=VARCHAR} order by attdTravelBegintime  desc
+  	</select>
+  	
+  	<select id="findUserTravelAllMonth" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		 select 
+   	 <include refid="Base_Column_List" />
+    from attd
+    where user_number = #{usernumber,jdbcType=INTEGER} and attd_travel_begintime !='' and DATE_FORMAT(attd_travel_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m') 
   	</select>
 </mapper>

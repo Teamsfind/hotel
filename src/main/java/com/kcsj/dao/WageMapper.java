@@ -1,5 +1,8 @@
 package com.kcsj.dao;
 
+import java.util.List;
+
+import com.kcsj.entitl.Wage1;
 import com.kcsj.pojo.Wage;
 
 public interface WageMapper {
@@ -50,4 +53,9 @@ public interface WageMapper {
      * @mbggenerated Fri Apr 06 22:05:22 CST 2018
      */
     int updateByPrimaryKey(Wage record);
+    
+    /*
+     * 员工薪酬汇总查询
+     */
+    List<Wage1> findall();
 }

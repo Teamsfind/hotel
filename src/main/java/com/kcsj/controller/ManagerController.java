@@ -18,6 +18,7 @@ import com.kcsj.entitl.AnPaiUser;
 import com.kcsj.entitl.AttdData;
 import com.kcsj.entitl.Award1;
 import com.kcsj.entitl.TravelcostNew;
+import com.kcsj.entitl.Wage1;
 import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.Manager;
 import com.kcsj.pojo.Opertion;
@@ -777,6 +778,51 @@ public class ManagerController {
 		}
 		session.setAttribute("Awardcostallname", u.getUserUsername());
 		
+	}
+	
+	/*
+	 * 薪酬汇总:查询所有员工的当月工资
+	 */
+	@RequestMapping("/toGeRenUser")
+	public ModelAndView  toGeRenUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//查询数据
+		List<Wage1> list = userservice.findallWage();
+		//管理员操作留痕
+		 String opretion_type = "员工工资查看";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 opretionservice.inserOpretion(o);
+		 
+		session.setAttribute("Wagecost", list);
+		return new ModelAndView("newjsp/gerenuser");
+	}
+	
+	/*
+	 * 薪酬汇总:批量生成当月员工工资
+	 */
+	@RequestMapping("/toPiliangGeRenUser")
+	public ModelAndView  toPiliangGeRenUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//添加数据
+		int i = userservice.InsertWage();
+		//管理员操作留痕
+		 String opretion_type = "批量生成当月员工工资";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 opretionservice.inserOpretion(o);
+		 
+		return new ModelAndView("manager/toGeRenUser");
 	}
 	
 	/**

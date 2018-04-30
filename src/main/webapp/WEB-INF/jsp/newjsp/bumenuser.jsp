@@ -331,8 +331,8 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">职员入职</h1>
-					<p class="description">记录每个新员工的基本信息</p>
+					<h1 class="title">员工奖励</h1>
+					<p class="description">记录每个员工当月的奖励：个人奖金、部门奖金、生日红包</p>
 				</div>
 				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
@@ -340,245 +340,108 @@
 							 	<a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
 							</li>
 							<li>
-								人事档案管理
+								薪酬管理
 							</li>
 							<li class="active">
-								<strong>职员入职</strong>
+								<strong>员工奖励</strong>
 							</li>
 						</ol>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<form  class="form-horizontal" method="post"  action="<%=basePath %>manager/toCheckRuZhiUser" onsubmit="return check()">
-								<div class="form-group">
-										<label class="col-sm-2 control-label" for="field-1">员工姓名</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control"  id="username" name="username">
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label" for="field-2">员工身份证</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control" id="idCard" name="idCard" onblur="checkid()" maxlength="18" >
-										</div>
-										<div class="col-sm-2">
-											<span class="label label-success" id="idCardsuccess"></span>
-											<span class="label label-danger" id="idCarderror"></span>
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label" for="field-3">员工银行工资卡</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control"  id="bankidCard" name="bankidCard" onblur="checkbankid()" maxlength="19">
-										</div>
-										<div class="col-sm-2">
-											<span class="label label-success" id="bankidCardsuccess"></span>
-											<span class="label label-danger" id="bankidCarderror"></span>
-										</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">性别</label>
-										<div class="col-sm-8">
-											<div class="form-block">
-												<label>
-													<input type="radio" name="radio1" class="cbr" value="1" checked>
-													男
-												</label>
-												<br />
-												<label>
-													<input type="radio" name="radio1" class="cbr" value="2">
-													女 
-												</label>
-											</div>
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label">部门职位</label>
-										<div class="col-sm-4">
-											<select class="form-control" id="select1" name="select1">
-												<option value="10">采购部</option>
-			                                    <option value="11">市场部</option>
-			                                    <option value="12">后勤部</option>
-			                                    <option value="13">财务部</option>
-			                                    <option value="14">生产部</option>
-											</select>
-										</div>
-										<div class="col-sm-4">
-											<select class="form-control" id="select2" name="select2" onblur="productid()">
-												<option value="普通员工">普通员工</option>
-			                                	<option value="组长">组长</option>
-			                               		<option value="部门经理">部门经理</option>
-											</select>
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label">员工工号</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control" placeholder="自动填写" id="user_id" name="user_id" readonly="readonly">
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label">教育背景</label>
-										<div class="col-sm-8">
-											<select class="form-control" id="select3" name="select3">
-												<option value="博士">博士</option>
-			                                    <option value="硕士">硕士</option>
-			                                   	<option value="本科">本科</option>
-			                                    <option value="高中">高中</option>
-			                                    <option value="初中">初中</option>
-											</select>
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label">入职状态</label>
-										<div class="col-sm-8">
-											<select class="form-control" id="select4" name="select4">
-												<option value="1">实习期</option>
-			                                    <option value="2">试用期</option>
-											</select>
-										</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">电话号码</label>
-										<div class="col-sm-8">
-											<div class="input-group input-group-sm input-group-minimal">
-												<span class="input-group-addon">
-													<i class="linecons-mobile"></i>
-												</span>
-												<input type="text" class="form-control" id="user_phone" name="user_phone"  maxlength="11" onblur="checkphone()"/>
-											</div>
-										</div>
-										<div class="col-sm-2">
-											<span class="label label-success" id="user_phonesuccess"></span>
-											<span class="label label-danger" id="#user_phoneerror"></span>
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label">地址</label>
-										<div class="col-sm-8">
-											<div class="input-group input-group-sm input-group-minimal">
-												<span class="input-group-addon">
-													<i class="linecons-location"></i>
-												</span>
-												<input type="text" class="form-control" placeholder="Current city" id="city" name="city">
-											</div>
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label">生日</label>
-										<div class="col-sm-8">
-											<div class="input-group input-group-sm input-group-minimal">
-												<span class="input-group-addon">
-													<i class="fa-calendar"></i>
-												</span>
-												<input type="text" class="form-control" data-mask="date" id="datebirth" name="datebirth"/>
-											</div>
-										</div>
-								</div>
-								<div class="form-group">
-									<center>
-										<div class="input-group">
-											<input type="submit" value="确定" >
-											<input type="reset" value="重置" >
-										</div>
-										<div>
-											<span class="label label-danger" id="subeerror"></span>
-										</div>
-									</center>
-								</div>
-							</form>
-						</div>
+			<!-- Basic Setup -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">所有员工的奖励数据</h3>
+					
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">&ndash;</span>
+							<span class="expand-icon">+</span>
+						</a>
+						<a href="#" data-toggle="remove">
+							&times;
+						</a>
 					</div>
 				</div>
+				<div class="panel-body">
+					
+					<script type="text/javascript">
+					jQuery(document).ready(function($)
+					{
+						$("#example-1").dataTable({
+							aLengthMenu: [
+								[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]
+							]
+						});
+					});
+					</script>
+					
+					<table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+						<thead>
+							 <tr>
+								<th>记录条数</th>
+								<th>员工工号</th>
+								<th>员工姓名</th>
+								<th>所属部门</th>
+								<th>部门奖金</th>
+								<th>个人奖金</th>
+								<th>生日红包</th>
+								<th>员工奖励时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+					
+						<tfoot>
+							 <tr>
+								<th>记录条数</th>
+								<th>员工工号</th>
+								<th>员工姓名</th>
+								<th>所属部门</th>
+								<th>部门奖金</th>
+								<th>个人奖金</th>
+								<th>生日红包</th>
+								<th>员工奖励时间</th>
+								<th>操作</th>
+							</tr>
+						</tfoot>
+					
+						<tbody >
+							<c:forEach items='${Awardcost}' var="i" varStatus="k">  
+				                <tr>  
+				                	<td>${k.count}</td> 
+				                    <td>${i.userNumber }</td> 
+				                    <td>${i.username }</td>
+				                    <td>${i.userdpt }---${i.userdptjob }</td>
+				                    <td>${i.awardDptCost }</td>
+				                    <td>${i.awardPersonalCost }</td>
+				                    <td>${i.awardBirthRedb }</td>
+				                    <td>${i.awardTime }</td>
+				                    <td><input type='button' value='更多' onclick="sureTravel(${i.userNumber })">
+				                    	  </td> 
+				                </tr>  
+			           		</c:forEach>  
+						</tbody>
+					</table>
+					
+				</div>
 			</div>
+		
 		<script type="text/javascript">
-			function productid() {
-				var dpt = jQuery("#select1  option:selected").text();
+			function sureTravel(date) {
+				
 				$.ajax({
 					type : 'post',
 					dataType : 'json',
-					url : '<%=basePath%>manager/autusernumber?userDpt=' + dpt,
-					success : function(data) {	
-						if (data != "") {
-							$("#user_id").val(data);
-						}
+					data:{"user_id":date},
+					url : '<%=basePath%>manager/toJiangLiUsermore',
+					error : function(data) {	
+						
+						window.location.href='<%=basePath%>manager/toJiangLiUsermorehistory';
 					}
 				});
+				
 			}	
-		
-			function  checkid() {
-				var idCard = $("#idCard").val();
-				if(!(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(idCard))){ 
-					$("#idCardsuccess").html("");
-					$("#idCarderror").html("× 身份证格式有误，请重填"); 
-				}else {
-					$.ajax({
-						type : 'post',
-						dataType : 'json',
-						url : '<%=basePath%>manager/CheckIdCard?idCard=' + idCard,
-						success : function(data) {	
-							if (data == "1") {
-								
-								$("#idCardsuccess").html("");
-								$("#idCarderror").html("× 身份证重复，该员工已经入职"); 
-							}
-							else {
-								$("#idCarderror").html(""); 
-								$("#idCardsuccess").html("✔ 该身份证可以使用");
-							}
-			            }
-					});
-				} 
-			}
-	
-			function  checkbankid() {
-				var bankidCard = $("#bankidCard").val();
-				if(!(/^([1-9]{1})(\d{14}|\d{18})$/.test(bankidCard))){ 
-					$("#bankidCardsuccess").html("");
-					$("#bankidCarderror").html("× 银行卡位数不正确，请仔细填写"); 
-				}else {
-					$("#bankidCarderror").html("");
-					$("#bankidCardsuccess").html("✔ 银行卡位数正确，可以使用");
-				} 
-			}
-			
-			function  checkphone() {
-				var user_phone = $("#user_phone").val();
-				if(!(/^1[34578]\d{9}$/.test(user_phone))){ 
-					$("#user_phonesuccess").html("");
-				  	$("#user_phoneerror").html("× 手机号码格式有误，请重填");
-				}else {
-					$("#user_phoneerror").html("");
-					$("#user_phonesuccess").html("✔ 手机号码格式正确，可以使用");
-				} 
-			}
-			
-			function check() {
-				var username = $("#username").val();
-				var idCard = $("#idCard").val();
-				var bankidCard = $("#bankidCard").val();
-				var sex = $("input[name='radio1']:checked").val();
-				var dpt = jQuery("#select1  option:selected").text();
-				var jbn = jQuery("#select2  option:selected").text();
-				var usernumber = $("#user_id").val();
-				var edu = jQuery("#select3  option:selected").text();
-				var jobtype = jQuery("#select4  option:selected").text();
-				var user_phone = $("#user_phone").val();
-				var city = $("#city").val();
-				var date_picker = $("#datebirth").val();
-				if (usernumber!=""&&bankidCard!=""&&username!=""&&idCard!=""&&user_phone!=""&&city!=""&&date_picker!=""&&jobtype!="") {
-					return true;
-				}else {
-					$('#subeerror').html("");
-					$('#subeerror').html('× 提交的数据不能为空，请仔细检查');
-					return false;
-				}
-			}
 		</script>
-			
 		<footer class="main-footer sticky footer-type-1">
 				
 				<div class="footer-inner">
@@ -656,7 +519,7 @@
 								</c:if>
 								<c:if test="${i.applStatus=='0'}">
 									<span style="position:relative;left: 400">
-										<button type="button" class="btn btn-success" onclick="sure(${i.userNumber})">同意</button>
+										<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
 										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
 									</span>
 								</c:if>
@@ -691,7 +554,7 @@
 				dataType : 'json',
 				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
 				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toWorkManager';
+					window.location.href='<%=basePath%>manager/toKaoQingUser';
 				}
 			});
 		}
@@ -702,30 +565,7 @@
 				dataType : 'json',
 				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
 				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toWorkManager';
-				}
-			});
-		}
-	</script>
-	<script type="text/javascript">
-		function sure(date){
-			$.ajax({
-				type : 'post',
-				dataType : 'json',
-				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
-				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toRuZhiUser';
-				}
-			});
-		}
-		
-		function refuse(date){
-			$.ajax({
-				type : 'post',
-				dataType : 'json',
-				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
-				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toRuZhiUser';
+					window.location.href='<%=basePath%>manager/toKaoQingUser';
 				}
 			});
 		}

@@ -5,8 +5,8 @@ import java.util.List;
 import com.kcsj.entitl.AnPaiUser;
 import com.kcsj.entitl.Award1;
 import com.kcsj.entitl.TravelcostNew;
+import com.kcsj.entitl.Wage1;
 import com.kcsj.entitl.updateUser;
-import com.kcsj.pojo.Travelcost;
 import com.kcsj.pojo.User;
 
 public interface UserService {
@@ -103,4 +103,14 @@ public interface UserService {
      * 员工奖励:单个历史记录
      */
     List<Award1> findall2(int uid);
+    
+    /*
+     * 员工薪酬汇总查询
+     */
+    List<Wage1> findallWage();
+    
+    /*
+     * 员工薪酬汇总(批量操作)
+     */
+    int InsertWage();
 }

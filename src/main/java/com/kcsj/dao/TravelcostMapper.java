@@ -68,4 +68,9 @@ public interface TravelcostMapper {
      * 差旅报销：拒绝修改状态
      */
     public int UpTravelCost2(int uid);
+    
+    /*
+     * 查询员工当月总报销
+     */
+    public double selectAllCost(int uid);
 }

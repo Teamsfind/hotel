@@ -7,23 +7,32 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.enterprise.inject.New;
 
 import org.springframework.stereotype.Service;
 
 import com.kcsj.dao.ApplMapper;
+import com.kcsj.dao.AttdMapper;
 import com.kcsj.dao.AwardMapper;
+import com.kcsj.dao.BasewageMapper;
 import com.kcsj.dao.TravelcostMapper;
 import com.kcsj.dao.UserMapper;
+import com.kcsj.dao.WageMapper;
 import com.kcsj.entitl.AnPaiUser;
 import com.kcsj.entitl.Award1;
 import com.kcsj.entitl.Travelcost2;
 import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.UpAppl;
+import com.kcsj.entitl.Wage1;
+import com.kcsj.entitl.preAttdData;
 import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.Appl;
-import com.kcsj.pojo.Travelcost;
+import com.kcsj.pojo.Award;
+import com.kcsj.pojo.Basewage;
 import com.kcsj.pojo.User;
+import com.kcsj.pojo.Wage;
 import com.kcsj.service.UserService;
+import com.kcsj.util.MonthDay;
 
 
 @Service("userService")
@@ -37,7 +46,13 @@ public class UserImpl implements UserService{
 	private TravelcostMapper traveldao;
 	@Resource
 	private AwardMapper awarddao;
-
+	@Resource
+	private WageMapper wagedao;
+	@Resource
+	private AttdMapper attddao;
+	@Resource
+	private BasewageMapper basewagedao;
+	
 	@Override
 	public List<User> FindAllUser() {
 		
@@ -296,14 +311,141 @@ public class UserImpl implements UserService{
 	@Override
 	public List<Award1> findall() {
 		
-		return awarddao.findall();
+		List<Award1> list2 = awarddao.findall();
+		for (Award1 travelcost2 : list2) {
+		
+			if (travelcost2.getUserdpt().equals("10")) {
+				travelcost2.setUserdpt("采购部");
+			}else if (travelcost2.getUserdpt().equals("11")) {
+				travelcost2.setUserdpt("市场部");
+			}else if (travelcost2.getUserdpt().equals("12")) {
+				travelcost2.setUserdpt("后勤部");
+			}else if (travelcost2.getUserdpt().equals("13")) {
+				travelcost2.setUserdpt("财务部");
+			}else{
+				travelcost2.setUserdpt("生产部");
+			}
+			
+		}
+		return list2;
 	}
 
 
 	@Override
 	public List<Award1> findall2(int uid) {
+		List<Award1> list2 = awarddao.findall2(uid);
+		for (Award1 travelcost2 : list2) {
 		
-		return awarddao.findall2(uid);
+			if (travelcost2.getUserdpt().equals("10")) {
+				travelcost2.setUserdpt("采购部");
+			}else if (travelcost2.getUserdpt().equals("11")) {
+				travelcost2.setUserdpt("市场部");
+			}else if (travelcost2.getUserdpt().equals("12")) {
+				travelcost2.setUserdpt("后勤部");
+			}else if (travelcost2.getUserdpt().equals("13")) {
+				travelcost2.setUserdpt("财务部");
+			}else{
+				travelcost2.setUserdpt("生产部");
+			}
+			
+		}
+		return list2;
+	}
+
+
+	@Override
+	public List<Wage1> findallWage() {
+		List<Wage1> list2 = wagedao.findall();
+		for (Wage1 travelcost2 : list2) {
+		
+			if (travelcost2.getUserdpt().equals("10")) {
+				travelcost2.setUserdpt("采购部");
+			}else if (travelcost2.getUserdpt().equals("11")) {
+				travelcost2.setUserdpt("市场部");
+			}else if (travelcost2.getUserdpt().equals("12")) {
+				travelcost2.setUserdpt("后勤部");
+			}else if (travelcost2.getUserdpt().equals("13")) {
+				travelcost2.setUserdpt("财务部");
+			}else{
+				travelcost2.setUserdpt("生产部");
+			}
+			
+		}
+		return list2;
+	}
+
+
+	@Override
+	public int InsertWage() {
+		int i = 0;
+		//查询所有员工usernumber
+			List<User> user = userdao.FindAllUser();
+			for (User user2 : user) {
+				Wage wage = new Wage();
+				wage.setUserNumber(user2.getUserNumber());
+				//查询考勤天数
+					List<preAttdData> preattd = attddao.findUserAttdayAllMonth(user2.getUserNumber());
+					wage.setWageAttd(preattd.size());
+					System.out.println(preattd.size());
+				//查询出差天数
+					List<preAttdData> preattd2 = attddao.findUserTravelAllMonth(user2.getUserNumber());
+					wage.setWageTravel(preattd2.size());
+					System.out.println(preattd2.size());
+				//查询休假天数
+					List<preAttdData> preattd3 = attddao.findUserVacationdayAllMonth(user2.getUserNumber());
+					wage.setWageVacation(preattd3.size());
+					System.out.println(preattd3.size());
+				//查询差旅总报销
+					Double travlecost = traveldao.selectAllCost(user2.getUserNumber());
+					wage.setWageTravelcostall(travlecost);
+					System.out.println(travlecost);
+				//查询员工奖励
+					Award award = awarddao.findallAward(user2.getUserNumber());
+					if (award!=null) {
+						wage.setWageBirth(award.getAwardBirthRedb());
+						wage.setWagePersonal(award.getAwardPersonalCost());
+						wage.setWageDpt(award.getAwardDptCost());
+					}else {
+						wage.setWageBirth(0.00);
+						wage.setWagePersonal(0.00);
+						wage.setWageDpt(0.00);
+					}
+					System.out.println(award.getAwardBirthRedb());
+					System.out.println(award.getAwardPersonalCost());
+					System.out.println(award.getAwardDptCost());
+				//查询员工基础工资
+					Basewage basewage2 = new Basewage();
+					basewage2.setBasewageDptId(user2.getUserDpt());
+					basewage2.setBasewageDptJbname(user2.getUserDptJbn());
+					Basewage basewage = basewagedao.selectByDept(basewage2);
+					wage.setWageBasswage(basewage.getBasewageWage());
+					System.out.println(basewage.getBasewageWage());
+				//员工总工资汇总
+					/*
+					 * 满勤+400,没缺勤一天扣100，最多扣500 
+					 */
+						int year = Integer.valueOf(new SimpleDateFormat("MM").format(new Date()));//获取月份
+						int month = Integer.valueOf(new SimpleDateFormat("yyyy").format(new Date()));//获取年份
+						MonthDay mothdate = new MonthDay();
+						int date = mothdate.getdate(year, month); 
+						int notattd = date-preattd.size()-preattd2.size()-preattd3.size();
+						if (notattd<=5&&notattd>0) {
+							wage.setWageAttdcost(Double.valueOf(-notattd*100));
+						}else if(notattd>5){
+							wage.setWageAttdcost(Double.valueOf(-500));
+						}else{
+							wage.setWageAttdcost(Double.valueOf(400));
+						}
+						wage.setWageNotattd(notattd);
+						double allwage = basewage.getBasewageWage()+travlecost+award.getAwardBirthRedb()+award.getAwardPersonalCost()+award.getAwardDptCost()+wage.getWageAttdcost();
+						wage.setWageAllwage(allwage);
+						wage.setWageTobank(0);
+						wage.setWageRemark("");
+						System.out.println(wage.toString());
+					//添加员工记录
+						i = wagedao.insert(wage);
+			}
+		return i;
 	}
 
 

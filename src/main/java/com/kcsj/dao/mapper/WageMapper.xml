@@ -261,4 +261,10 @@
       wage_remark = #{wageRemark,jdbcType=VARCHAR}
     where wage_id = #{wageId,jdbcType=INTEGER}
   </update>
+  
+  <select id="findall" resultType="com.kcsj.entitl.Wage1">
+  	select w.wage_id as wageId, w.user_number as userNumber,u.user_dpt as userdpt,user_dpt_jbn as userdptjob,u.user_username as username,w.wage_attd as wageAttd,w.wage_vacation as wageVacation,w.wage_travel as wageTravel,w.wage_travelcostall as wageTravelcostall,w.wage_birth as wageBirth,w.wage_personal as wagePersonal,w.wage_dpt as wageDpt,w.wage_basswage as wageBasswage,w.wage_attdcost as wageAttdcost,w.wage_allwagetime as wageAllwagetime,w.wage_allwage as wageAllwage,w.wage_tobank as wageTobank
+  	from wage w ,user u 
+  	where  w.user_number=u.user_number and DATE_FORMAT( w.wage_Allwagetime , '%Y%m' )=DATE_FORMAT( CURDATE( ) , '%Y%m' ) and w.wage_tobank='0' order by userdpt;
+  </select>
 </mapper>
