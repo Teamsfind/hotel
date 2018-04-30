@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kcsj.entitl.AnPaiUser;
 import com.kcsj.entitl.Award1;
+import com.kcsj.entitl.Bumen;
 import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.Wage1;
 import com.kcsj.entitl.updateUser;
@@ -123,4 +124,9 @@ public interface UserService {
      * 员工薪酬汇总(查看员工最近半年工资状况)
      */
     List<Wage1> SelectWage(int uid);
+    
+    /*
+     * 部门薪酬汇总查询
+     */
+    List<Bumen> findallBumenWage();
 }

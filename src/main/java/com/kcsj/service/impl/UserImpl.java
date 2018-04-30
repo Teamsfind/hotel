@@ -4,6 +4,7 @@ package com.kcsj.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,6 +20,7 @@ import com.kcsj.dao.UserMapper;
 import com.kcsj.dao.WageMapper;
 import com.kcsj.entitl.AnPaiUser;
 import com.kcsj.entitl.Award1;
+import com.kcsj.entitl.Bumen;
 import com.kcsj.entitl.Travelcost2;
 import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.UpAppl;
@@ -465,6 +467,122 @@ public class UserImpl implements UserService{
 	public List<Wage1> SelectWage(int uid) {
 		
 		return wagedao.SelectWage(uid);
+	}
+
+
+	@Override
+	public List<Bumen> findallBumenWage() {
+		List<Wage1> list2 = wagedao.findall();
+		List<Bumen> listall = new  ArrayList<Bumen>();
+		List<Bumen> list10 = new  ArrayList<Bumen>();
+		List<Bumen> list11 = new  ArrayList<Bumen>();
+		List<Bumen> list12 = new  ArrayList<Bumen>();
+		List<Bumen> list13 = new  ArrayList<Bumen>();
+		List<Bumen> list14 = new  ArrayList<Bumen>();
+		for (Wage1 travelcost2 : list2) {
+			Bumen bumen = new Bumen();
+			
+			if (travelcost2.getUserdpt().equals("10")) {
+				bumen.setAcount(1);
+				bumen.setDptid(Integer.valueOf(travelcost2.getUserdpt()));
+				bumen.setMoney(travelcost2.getWageAllwage());
+				bumen.setTime(travelcost2.getWageAllwagetime());
+				bumen.setName("采购部");
+				list10.add(bumen);
+			}else if (travelcost2.getUserdpt().equals("11")) {
+				bumen.setAcount(1);
+				bumen.setDptid(Integer.valueOf(travelcost2.getUserdpt()));
+				bumen.setMoney(travelcost2.getWageAllwage());
+				bumen.setTime(travelcost2.getWageAllwagetime());
+				bumen.setName("市场部");
+				list11.add(bumen);
+			}else if (travelcost2.getUserdpt().equals("12")) {
+				bumen.setAcount(1);
+				bumen.setDptid(Integer.valueOf(travelcost2.getUserdpt()));
+				bumen.setMoney(travelcost2.getWageAllwage());
+				bumen.setTime(travelcost2.getWageAllwagetime());
+				bumen.setName("后勤部");
+				list12.add(bumen);
+				
+			}else if (travelcost2.getUserdpt().equals("13")) {
+				bumen.setAcount(1);
+				bumen.setDptid(Integer.valueOf(travelcost2.getUserdpt()));
+				bumen.setMoney(travelcost2.getWageAllwage());
+				bumen.setTime(travelcost2.getWageAllwagetime());
+				bumen.setName("财务部");
+				list13.add(bumen);
+				
+			}else{
+				bumen.setAcount(1);
+				bumen.setDptid(Integer.valueOf(travelcost2.getUserdpt()));
+				bumen.setMoney(travelcost2.getWageAllwage());
+				bumen.setTime(travelcost2.getWageAllwagetime());
+				bumen.setName("生产部");
+				list14.add(bumen);
+				
+			}
+		}
+		Bumen bumn10 = new Bumen();
+		Double i  = 0.0;
+		bumn10.setAcount(list10.size());
+		bumn10.setDptid(10);
+		for (Bumen bumen1010 : list10) {
+			i+=bumen1010.getMoney();
+			bumn10.setTime(bumen1010.getTime());
+		}
+		bumn10.setMoney(i);
+		bumn10.setName("采购部");
+		listall.add(bumn10);
+		
+		Bumen bumn11 = new Bumen();
+		Double j  = 0.0;
+		bumn11.setAcount(list11.size());
+		bumn11.setDptid(11);
+		for (Bumen bumen1010 : list11) {
+			j+=bumen1010.getMoney();
+			bumn11.setTime(bumen1010.getTime());
+		}
+		bumn11.setMoney(j);
+		bumn11.setName("市场部");
+		listall.add(bumn11);
+		
+		Bumen bumn12 = new Bumen();
+		Double k  = 0.0;
+		bumn12.setAcount(list12.size());
+		bumn12.setDptid(12);
+		for (Bumen bumen1010 : list12) {
+			k+=bumen1010.getMoney();
+			bumn12.setTime(bumen1010.getTime());
+		}
+		bumn12.setMoney(k);
+		bumn12.setName("后勤部");
+		listall.add(bumn12);
+		
+		Bumen bumn13 = new Bumen();
+		Double l  = 0.0;
+		bumn13.setAcount(list13.size());
+		bumn13.setDptid(13);
+		for (Bumen bumen1010 : list13) {
+			l+=bumen1010.getMoney();
+			bumn13.setTime(bumen1010.getTime());
+		}
+		bumn13.setMoney(l);
+		bumn13.setName("财务部");
+		listall.add(bumn13);
+		
+		Bumen bumn14 = new Bumen();
+		Double m  = 0.0;
+		bumn14.setAcount(list14.size());
+		bumn14.setDptid(14);
+		for (Bumen bumen1010 : list14) {
+			m+=bumen1010.getMoney();
+			bumn14.setTime(bumen1010.getTime());
+		}
+		bumn14.setMoney(m);
+		bumn14.setName("生产部");
+		listall.add(bumn14);
+		
+		return listall;
 	}
 
 	

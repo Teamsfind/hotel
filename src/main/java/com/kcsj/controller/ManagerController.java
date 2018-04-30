@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kcsj.entitl.AnPaiUser;
 import com.kcsj.entitl.AttdData;
 import com.kcsj.entitl.Award1;
+import com.kcsj.entitl.Bumen;
 import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.Wage1;
 import com.kcsj.entitl.updateUser;
@@ -893,6 +894,29 @@ public class ManagerController {
 		 o.setUserNumber(Integer.valueOf(request.getParameter("user_id")));
 		 opretionservice.inserOpretion(o);
 		 
+	}
+	
+	/*
+	 * 部门薪酬汇总:查询所有部门的当月发放的工资
+	 */
+	@RequestMapping("/toBuMenUser")
+	public ModelAndView  toBuMenUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//查询数据
+		List<Bumen> list = userservice.findallBumenWage();
+		//管理员操作留痕
+		 String opretion_type = "部门发放总工资查看";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 opretionservice.inserOpretion(o);
+		 
+		session.setAttribute("BumenWagecost", list);
+		return new ModelAndView("newjsp/bumenuser");
 	}
 	
 	/**

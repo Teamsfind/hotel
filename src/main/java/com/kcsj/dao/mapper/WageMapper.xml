@@ -278,6 +278,6 @@
   <select id="SelectWage" resultType="com.kcsj.entitl.Wage1" parameterType="java.lang.Integer">
   	select w.wage_id as wageId, w.user_number as userNumber,u.user_dpt as userdpt,user_dpt_jbn as userdptjob,u.user_username as username,w.wage_attd as wageAttd,w.wage_vacation as wageVacation,w.wage_travel as wageTravel,w.wage_travelcostall as wageTravelcostall,w.wage_birth as wageBirth,w.wage_personal as wagePersonal,w.wage_dpt as wageDpt,w.wage_basswage as wageBasswage,w.wage_attdcost as wageAttdcost,w.wage_allwagetime as wageAllwagetime,w.wage_allwage as wageAllwage,w.wage_tobank as wageTobank
   	from wage w ,user u 
-  	where  w.user_number=u.user_number and  (w.wage_Allwagetime between date_sub(now(),interval 6 month) and now()) and w.wage_tobank='0' and w.user_number = #{userNumber,jdbcType=INTEGER} order by wageAllwagetime desc;
+  	where  w.user_number=u.user_number and  (w.wage_Allwagetime between date_sub(now(),interval 6 month) and now())  and w.user_number = #{userNumber,jdbcType=INTEGER} order by wageAllwagetime desc;
   </select>
 </mapper>

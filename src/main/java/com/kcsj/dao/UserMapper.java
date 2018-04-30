@@ -114,5 +114,5 @@ public interface UserMapper {
      */
     public int UpUserWorktypeByUsernumber(int uid);
     
-    
+  
 }

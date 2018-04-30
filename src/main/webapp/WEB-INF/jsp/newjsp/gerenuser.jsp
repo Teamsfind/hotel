@@ -440,13 +440,17 @@
 				                    <td>${i.wageAllwage }</td>
 				                    <c:if test="${i.wageTobank=='1'}">
 				                    	<td>是</td>
+				                    	 <td><input type='button' value='已发放' ">
+				                    	<input type='button' value='更多' onclick="morewage(${i.userNumber })">
+				                    </td>
 				                    </c:if>
 				                     <c:if test="${i.wageTobank=='0'}">
 				                    	<td>否</td>
-				                    </c:if>
-				                    <td><input type='button' value='发放' onclick="sureTravel(${i.userNumber })">
+				                    	<td><input type='button' value='发放' onclick="sureTravel(${i.userNumber })">
 				                    	<input type='button' value='更多' onclick="morewage(${i.userNumber })">
-				                    </td> 
+				                    </td>
+				                    </c:if>
+				                    
 				                </tr>  
 			           		</c:forEach>  
 						</tbody>

@@ -331,8 +331,8 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">员工奖励</h1>
-					<p class="description">记录每个员工当月的奖励：个人奖金、部门奖金、生日红包</p>
+					<h1 class="title">部门汇总薪酬</h1>
+					<p class="description">记录每个部门当月的发放的总薪酬以及该部门下各个员工发放的总薪酬</p>
 				</div>
 				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
@@ -343,7 +343,7 @@
 								薪酬管理
 							</li>
 							<li class="active">
-								<strong>员工奖励</strong>
+								<strong>部门汇总薪酬</strong>
 							</li>
 						</ol>
 				</div>
@@ -351,7 +351,7 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">所有员工的奖励数据</h3>
+					<h3 class="panel-title">所有部门当月发放的总工资</h3>
 					
 					<div class="panel-options">
 						<a href="#" data-toggle="panel">
@@ -380,43 +380,37 @@
 						<thead>
 							 <tr>
 								<th>记录条数</th>
-								<th>员工工号</th>
-								<th>员工姓名</th>
-								<th>所属部门</th>
-								<th>部门奖金</th>
-								<th>个人奖金</th>
-								<th>生日红包</th>
-								<th>员工奖励时间</th>
+								<th>部门编号</th>
+								<th>部门名称</th>
+								<th>部门成员人数</th>
+								<th>部门总发放薪酬</th>
+								<th>发放时间</th>
 								<th>操作</th>
 							</tr>
 						</thead>
 					
 						<tfoot>
-							 <tr>
+							<tr>
 								<th>记录条数</th>
-								<th>员工工号</th>
-								<th>员工姓名</th>
-								<th>所属部门</th>
-								<th>部门奖金</th>
-								<th>个人奖金</th>
-								<th>生日红包</th>
-								<th>员工奖励时间</th>
+								<th>部门编号</th>
+								<th>部门名称</th>
+								<th>部门成员人数</th>
+								<th>部门总发放薪酬</th>
+								<th>发放时间</th>
 								<th>操作</th>
 							</tr>
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${Awardcost}' var="i" varStatus="k">  
+							<c:forEach items='${BumenWagecost}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
-				                    <td>${i.userNumber }</td> 
-				                    <td>${i.username }</td>
-				                    <td>${i.userdpt }---${i.userdptjob }</td>
-				                    <td>${i.awardDptCost }</td>
-				                    <td>${i.awardPersonalCost }</td>
-				                    <td>${i.awardBirthRedb }</td>
-				                    <td>${i.awardTime }</td>
-				                    <td><input type='button' value='更多' onclick="sureTravel(${i.userNumber })">
+				                    <td>${i.dptid }</td> 
+				                    <td>${i.name }</td>
+				                    <td>${i.acount }</td>
+				                    <td>${i.money }</td>
+				                    <td>${i.time }</td>
+				                    <td><input type='button' value='查看成员' onclick="sureTravel(${i.dptid })">
 				                    	  </td> 
 				                </tr>  
 			           		</c:forEach>  

@@ -1,5 +1,7 @@
 package com.kcsj.dao;
 
+import java.util.List;
+
 import com.kcsj.pojo.Basewage;
 
 public interface BasewageMapper {
@@ -55,4 +57,6 @@ public interface BasewageMapper {
      * 查询员工的基础工资
      */
     Basewage selectByDept(Basewage basswage);
+    
+   
 }
