@@ -1,6 +1,5 @@
 package com.kcsj.dao;
 
-import java.util.List;
 
 import com.kcsj.pojo.Manager;
 
@@ -57,4 +56,14 @@ public interface ManagerMapper {
      * 根据username和password查找manager所有信息
      */
     Manager selectManagerByUsernamePassword(Manager m);
+    
+    /**
+     *管理员密码修改
+     */
+    public int UpdateManagerpassword(Manager m); 
+    
+    /**
+     *管理员最近时间登入时间更改
+     */
+    public int UpdateManagerlogintime(Manager m); 
 }

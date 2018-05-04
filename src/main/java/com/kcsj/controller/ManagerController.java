@@ -86,6 +86,8 @@ public class ManagerController {
 		m.setManagerid(login);
 		m.setManagerpassword(MD5.MD5Encode(pwd));
 		Manager manager = managerservice.findAllManager(m);
+		
+		managerservice.UpdateManagerlogintime(manager);
 		session.setAttribute("manager", manager);
 		Refreshmessage(login);
 		if (manager!=null) {
@@ -954,6 +956,66 @@ public class ManagerController {
 		Refreshmessage(m.getManagerid());
 		
 		return new ModelAndView("newjsp/morebumenuser");
+		
+	}
+	
+	/*
+	 * 密码修改(查找身份证是否正确)
+	 */
+	@ResponseBody
+	@RequestMapping("/toCheckManagerIdCard")
+	public int  toCheckManagerIdCard(HttpServletRequest request ){
+		int i  = -1;
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//查找身份证
+		Manager manager = managerservice.findAllManager(m);
+		
+		if (manager.getManageridcard().equals(request.getParameter("idCard"))) {
+			i = 1;
+		}
+		return i;
+		
+	}
+	
+	/*
+	 * 密码修改(查找密码是否原密码一样)
+	 */
+	@ResponseBody
+	@RequestMapping("/toCheckManagerPassword")
+	public int  toCheckManagerPassword(HttpServletRequest request ){
+		int i  = -1;
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//查找原密码
+		Manager manager = managerservice.findAllManager(m);
+		
+		if (manager.getManagerpassword().equals(MD5.MD5Encode(request.getParameter("password")))) {
+			i = 1;
+		}
+		return i;
+		
+	}
+	
+	/*
+	 * 密码修改
+	 */
+	@ResponseBody
+	@RequestMapping("/toUpdateManager")
+	public ModelAndView  toUpdateManager(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//密码修改
+		Manager manager = managerservice.findAllManager(m);
+		manager.setManagerpassword(MD5.MD5Encode(request.getParameter("newpassword")));
+		managerservice.UpdateManagerpassword(manager);
+		return new ModelAndView("newjsp/workmanager");
 		
 	}
 	

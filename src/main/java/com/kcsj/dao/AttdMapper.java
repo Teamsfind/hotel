@@ -99,4 +99,14 @@ public interface AttdMapper {
      * 查找单个员工的所有出差信息(考勤管理，当月)
      */
     List<preAttdData> findUserTravelAllMonth (int usernumber);
+    
+    /**
+     * 增加员工出差信息
+     */
+   int InsertTravelAllMonth (Attd record);
+    
+    /**
+     * 增加员工休假信息
+     */
+   int InsertVacationAllMonth (Attd record);
 }

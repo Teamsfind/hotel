@@ -92,7 +92,7 @@
 							</li>
 							<li>
 								<a href="<%=basePath%>manager/toDeleteUser">
-									<span class="title">员工离职</span>
+									<span class="title">职员离职</span>
 								</a>
 							</li>
 						</ul>
@@ -188,11 +188,15 @@
 												<c:if test="${not empty i.applRemark}">
 													<span class="line desc small">
 														申请原因：${i.applRemark}
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														申请类别：${i.applType}
 													</span>
 												</c:if>
 												<c:if test="${i.applRemark==''}">
 													<span class="line desc small">
 														申请原因：暂无
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														申请类别：${i.applType}
 													</span>
 												</c:if>
 												<c:if test="${i.applStatus=='0'}">
@@ -314,6 +318,12 @@
 								</a>
 							</li>
 							<li>
+								<a href="javascript:;" onclick="jQuery('#modal-9').modal('show', {backdrop: 'static'});" title="修改默认密码">
+									<i class="fa-wrench"></i>
+									密码设置
+								</a>
+							</li>
+							<li>
 								<a href="#">
 									<i class="fa-info"></i>
 									帮助引导
@@ -349,29 +359,30 @@
 			// Calendar Initialization
 			jQuery(document).ready(function($)
 			{
+				
 				var data = [
 					{
 						title: '开会',
 						url: '',
-						start: '2018-03-15',
+						start: '2018-05-01',
 						end: ''
 					},
 					{
 						title: '休息',
 						url: '',
-						start: '2018-03-16T20:00:00',
-						end: '2018-03-17T20:00:00'
+						start: '2018-05-01T20:00:00',
+						end: '2018-05-02T20:00:00'
 					},
 					{
 						title: '休息2',
 						url: '',
-						start: '2018-03-17T20:00:00',
-						end: '2018-03-18T19:00:00'
+						start: '2018-05-02T20:00:00',
+						end: '2018-05-03T19:00:00'
 					},
 					{
 						title: '检查今天工作是否出错',
 						url: '<%=basePath%>manager/toHistory',
-						start: '2018-03-19',
+						start: '2018-05-04',
 						end: ''
 					}
 				]
@@ -386,7 +397,7 @@
 						prev: 'prev fa-angle-left',
 						next: 'next fa-angle-right',
 					},
-					defaultDate: '2018-03-16',
+					defaultDate: '2018-05-01',
 					editable: true,
 					eventLimit: true,
 					events:  data,
@@ -492,11 +503,11 @@
 						<div class="col-md-12" >
 							<div class="form-group">
 								<c:if test="${not empty i.applRemark}">
-									<label for="field-2" class="control-label">申请原因</label>
+									<label for="field-2" class="control-label">申请原因&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请类别：${i.applType}</label>
 									<textarea class="form-control autogrow" id="field-7" readonly="readonly">${i.applRemark}</textarea>
 								</c:if>
 								<c:if test="${i.applRemark==''}">
-									<label for="field-2" class="control-label" readonly="readonly">申请原因</label>
+									<label for="field-2" class="control-label" readonly="readonly">申请原因&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请类别：${i.applType}</label>
 									<textarea class="form-control autogrow" id="field-7" readonly="readonly">暂无</textarea>
 								</c:if>
 								<c:if test="${i.applStatus=='0'}">
@@ -529,6 +540,82 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Modal 9 (Long Modal)-->
+	<div class="modal fade" id="modal-9">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">密码修改</h4>
+				</div>
+				
+				<div class="modal-body">
+					<form  class="form-horizontal" method="post"  action="<%=basePath %>manager/toUpdateManager" onsubmit="return check()">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+										<label class="col-sm-2 control-label" for="field-2">新密码</label>
+										<div class="col-sm-8">
+											<input type="password" class="form-control" id="oldpassword" name="oldpassword"  >
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+										<label class="col-sm-2 control-label" for="field-2">确认新密码</label>
+										<div class="col-sm-8">
+											<input type="password" class="form-control" id="newpassword" name="newpassword" onblur="checkpassword()">
+										</div>
+										<div class="col-sm-2">
+											<span class="label label-success" id="passwordsuccess"></span>
+											<span class="label label-danger" id="passworderror"></span>
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+										<label class="col-sm-2 control-label" for="field-2">身份证</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" id="idCard" name="idCard" onblur="checkid()" maxlength="18" >
+										</div>
+										<div class="col-sm-2">
+											<span class="label label-success" id="idCardsuccess"></span>
+											<span class="label label-danger" id="idCarderror"></span>
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<center>
+										<div class="input-group">
+											<input type="submit" value="提交" >
+											<input type="reset" value="重置" >
+										</div>
+										<div>
+											<span class="label label-danger" id="subeerror"></span>
+										</div>
+									</center>
+								</div>
+							</div>
+						</div>
+					</form>	
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<script type="text/javascript">
 		function sure(date){
 			$.ajax({
@@ -550,6 +637,74 @@
 					window.location.href='<%=basePath%>manager/toWorkManager';
 				}
 			});
+		}
+		
+		function checkpassword() {
+			var oldpassword = $("#oldpassword").val();
+			var newpassword = $("#newpassword").val();
+			if (oldpassword==newpassword) {
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					url : '<%=basePath%>manager/toCheckManagerPassword?password=' + newpassword,
+					success : function(data) {	
+						var data2 = JSON.stringify(data);
+						
+						if (data2 == "1") {
+							$("#passwordsuccess").html("");
+							$("#passworderror").html("× 与原密码相同"); 
+						}
+						else {
+							$("#passwordsuccess").html("✔");
+							$("#passworderror").html(""); 
+						}
+		            }
+				});
+			}else{
+				$("#passwordsuccess").html("");
+				$("#passworderror").html("× 两次密码输入不一致"); 
+			}
+		}
+		
+		function  checkid() {
+			var idCard = $("#idCard").val();
+			if(!(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(idCard))){ 
+				$("#idCardsuccess").html("");
+				$("#idCarderror").html("× 身份证格式有误，请重填"); 
+			}else {
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					url : '<%=basePath%>manager/toCheckManagerIdCard?idCard=' + idCard,
+					success : function(data) {	
+						var data2 = JSON.stringify(data);
+						
+						if (data2 == "1") {
+							$("#idCarderror").html(""); 
+							$("#idCardsuccess").html("✔ ");
+						}
+						else {
+							$("#idCardsuccess").html("");
+							$("#idCarderror").html("× 身份证不正确"); 
+						}
+		            }
+				});
+			} 
+		}
+		
+		function check() {
+			
+			var idCard = $("#idCard").val();
+			var oldpassword = $("#oldpassword").val();
+			var newpassword = $("#newpassword").val();
+			
+			if (idCard!=""&&oldpassword!=""&&newpassword!="") {
+				return true;
+			}else {
+				$('#subeerror').html("");
+				$('#subeerror').html('× 提交的数据不能为空，请仔细检查');
+				return false;
+			}
 		}
 	</script>
 	<div class="modal fade" id="modal-7">

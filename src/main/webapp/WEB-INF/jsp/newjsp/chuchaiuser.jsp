@@ -92,7 +92,7 @@
 							</li>
 							<li>
 								<a href="<%=basePath%>manager/toDeleteUser">
-									<span class="title">员工离职</span>
+									<span class="title">职员离职</span>
 								</a>
 							</li>
 						</ul>
@@ -188,11 +188,15 @@
 												<c:if test="${not empty i.applRemark}">
 													<span class="line desc small">
 														申请原因：${i.applRemark}
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														申请类别：${i.applType}
 													</span>
 												</c:if>
 												<c:if test="${i.applRemark==''}">
 													<span class="line desc small">
 														申请原因：暂无
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														申请类别：${i.applType}
 													</span>
 												</c:if>
 												<c:if test="${i.applStatus=='0'}">
@@ -507,11 +511,11 @@
 						<div class="col-md-12" >
 							<div class="form-group">
 								<c:if test="${not empty i.applRemark}">
-									<label for="field-2" class="control-label">申请原因</label>
+									<label for="field-2" class="control-label">申请原因&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请类别：${i.applType}</label>
 									<textarea class="form-control autogrow" id="field-7" readonly="readonly">${i.applRemark}</textarea>
 								</c:if>
 								<c:if test="${i.applRemark==''}">
-									<label for="field-2" class="control-label" readonly="readonly">申请原因</label>
+									<label for="field-2" class="control-label" readonly="readonly">申请原因&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请类别：${i.applType}</label>
 									<textarea class="form-control autogrow" id="field-7" readonly="readonly">暂无</textarea>
 								</c:if>
 								<c:if test="${i.applStatus=='0'}">

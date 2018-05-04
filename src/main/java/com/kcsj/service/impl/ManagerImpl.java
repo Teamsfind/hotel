@@ -1,6 +1,5 @@
 package com.kcsj.service.impl;
 
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -21,6 +20,18 @@ public class ManagerImpl implements ManagerService{
 	public Manager findAllManager(Manager m) {
 		Manager manager = managerdao.selectManagerByUsernamePassword(m);
 		return manager;
+	}
+
+	@Override
+	public int UpdateManagerpassword(Manager m) {
+		
+		return managerdao.UpdateManagerpassword(m);
+	}
+
+	@Override
+	public int UpdateManagerlogintime(Manager m) {
+		
+		return managerdao.UpdateManagerlogintime(m);
 	}
 	
 	

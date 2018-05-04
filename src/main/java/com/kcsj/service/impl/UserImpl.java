@@ -1,6 +1,7 @@
 package com.kcsj.service.impl;
 
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,7 @@ import com.kcsj.entitl.Wage1;
 import com.kcsj.entitl.preAttdData;
 import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.Appl;
+import com.kcsj.pojo.Attd;
 import com.kcsj.pojo.Award;
 import com.kcsj.pojo.Basewage;
 import com.kcsj.pojo.User;
@@ -193,10 +195,31 @@ public class UserImpl implements UserService{
 		app2.setUserNumber(app1.getUserNumber());
 		
 		if (app1.getApplType().equals("请假")) {
+			Attd at = new Attd();
+			at.setUserNumber(app1.getUserNumber());
+			at.setAttdVactionBegintime(app1.getApplTime());
+			at.setAttdVactionEndtime(null);
+			at.setAttdVactionRemark(app1.getApplRemark());
+			attddao.InsertVacationAllMonth(at);
+			
 			app2.setApplType(2);
 		}else if(app1.getApplType().equals("出差")){
+			Attd at = new Attd();
+			at.setUserNumber(app1.getUserNumber());
+			at.setAttdTravelBegintime(app1.getApplTime());
+			at.setAttdTravelEndtime(null);
+			at.setAttdTravelPlace(app1.getApplRemark());
+			attddao.InsertVacationAllMonth(at);
+			
 			app2.setApplType(3);
 		}else if(app1.getApplType().equals("休假")){
+			Attd at = new Attd();
+			at.setUserNumber(app1.getUserNumber());
+			at.setAttdVactionBegintime(app1.getApplTime());
+			at.setAttdVactionEndtime(null);
+			at.setAttdVactionRemark(app1.getApplRemark());
+			attddao.InsertVacationAllMonth(at);
+			
 			app2.setApplType(2);
 		}else if(app1.getApplType().equals("缺勤")){
 			app2.setApplType(4);
@@ -231,6 +254,9 @@ public class UserImpl implements UserService{
 			u2.setUserDptJbn(u.getUserDptJbn());
 			u2.setUserAddress(u.getUserAddress());
 			u2.setUserDangerphone(u.getUserDangerphone());
+			System.out.println(u.getUserPhone());
+			BigDecimal bd = new BigDecimal(String.valueOf(u.getUserPhone()));
+			u2.setUserPhone(bd.toString());
 			listan.add(u2);
 		}
 		return listan;
@@ -248,6 +274,8 @@ public class UserImpl implements UserService{
 			u2.setUserNumber(Appl.getUserNumber());
 			u2.setUserDptJbn(Appl.getUserDptJbn());
 			u2.setUserAddress(Appl.getUserAddress());
+			BigDecimal bd = new BigDecimal(String.valueOf(Appl.getUserPhone()));
+			u2.setUserPhone(bd.toString());
 			u2.setUserDangerphone(Appl.getUserDangerphone());
 			listan.add(u2);
 		}

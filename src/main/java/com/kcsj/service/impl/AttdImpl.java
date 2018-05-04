@@ -109,7 +109,8 @@ public class AttdImpl implements AttdService{
 			Date date2 = preattdData.getAttdEndtime();
 			String dateStr2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date2);
 			String dateStr22 = new SimpleDateFormat("HH").format(date2);
-			String dateStr222 = new SimpleDateFormat("mm").format(date);
+			String dateStr222 = new SimpleDateFormat("mm").format(date2);
+			
 			
 			if ((Integer.valueOf(dateStr1)*60+(Integer.valueOf(dateStr11)))>570){
 				pre.setAtttype("迟到");
