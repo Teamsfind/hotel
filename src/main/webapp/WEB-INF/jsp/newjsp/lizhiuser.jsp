@@ -334,12 +334,12 @@
 					</li>
 				</ul>
 			</nav>
-			<div class="page-title">
+			<div class="page-title" >
 				<div class="title-env">
 					<h1 class="title">职员离职</h1>
 					<p class="description">当员工提出离职申请时，通过该功能实现员工离职</p>
 				</div>
-				<div class="breadcrumb-env">
+				<div class="breadcrumb-env" >
 						<ol class="breadcrumb bc-1">
 							<li>
 							 	<a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
@@ -353,11 +353,11 @@
 						</ol>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" >
 				<div class="col-sm-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<form  class="form-horizontal" method="post"  action="<%=basePath %>manager/toSurelizhiUser" onsubmit="return check()">
+							<form  class="form-horizontal style="font-size: 20px;font-family:'微软雅黑';font-weight:bold"" method="post"  action="<%=basePath %>manager/toSurelizhiUser" onsubmit="return check()">
 								<div class="form-group">
 										<label class="col-sm-2 control-label" for="field-1">员工工号或者员工身份证</label>
 										<div class="col-sm-8">

@@ -107,7 +107,12 @@ public interface UserMapper {
     /*
      * 人员安排：查找该部门的其它人
      */
-    public List<User> findUserByUser_dpt(int dpt);
+    public List<User> findUserByUser_dpt(User dpt);
+    
+    /*
+     * 人员安排：查找在休假的所有员工
+     */
+    public List<User> findUserByUser_dpt2();
     
     /*
      * 人员安排：修改员工的工作状态

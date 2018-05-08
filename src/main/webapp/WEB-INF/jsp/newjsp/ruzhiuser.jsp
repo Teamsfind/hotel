@@ -354,7 +354,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<div class="panel panel-default">
+					<div class="panel panel-default" style="font-size: 20px;font-family:'微软雅黑';font-weight:bold">
 						<div class="panel-body">
 							<form  class="form-horizontal" method="post"  action="<%=basePath %>manager/toCheckRuZhiUser" onsubmit="return check()">
 								<div class="form-group">

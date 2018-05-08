@@ -18,8 +18,6 @@
     <result column="attd_travel_endtime" property="attdTravelEndtime" jdbcType="TIMESTAMP" />
     <result column="attd_travel_place" property="attdTravelPlace" jdbcType="VARCHAR" />
     <result column="attd_travel_remark" property="attdTravelRemark" jdbcType="VARCHAR" />
-    <result column="attd_cost" property="attdCost" jdbcType="VARCHAR" />
-    <result column="attd_costtime" property="attdCosttime" jdbcType="TIMESTAMP" />
     <result column="attd_remark" property="attdRemark" jdbcType="VARCHAR" />
     <result column="attd_status" property="attdStatus" jdbcType="INTEGER" />
   </resultMap>
@@ -31,7 +29,7 @@
     -->
     attd_id, user_number, attd_begintime, attd_endtime, attd_vaction_begintime, attd_vaction_endtime, 
     attd_vaction_remark, attd_travel_begintime, attd_travel_endtime, attd_travel_place, 
-    attd_travel_remark, attd_cost, attd_costtime, attd_remark, attd_status
+    attd_travel_remark,  attd_remark, attd_status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     <!--
@@ -63,15 +61,13 @@
       attd_endtime, attd_vaction_begintime, 
       attd_vaction_endtime, attd_vaction_remark, 
       attd_travel_begintime, attd_travel_endtime, 
-      attd_travel_place, attd_travel_remark, attd_cost, 
-      attd_costtime, attd_remark, attd_status
+      attd_travel_place, attd_travel_remark, attd_remark, attd_status
       )
     values (#{attdId,jdbcType=INTEGER}, #{userNumber,jdbcType=INTEGER}, #{attdBegintime,jdbcType=TIMESTAMP}, 
       #{attdEndtime,jdbcType=TIMESTAMP}, #{attdVactionBegintime,jdbcType=TIMESTAMP}, 
       #{attdVactionEndtime,jdbcType=TIMESTAMP}, #{attdVactionRemark,jdbcType=VARCHAR}, 
       #{attdTravelBegintime,jdbcType=TIMESTAMP}, #{attdTravelEndtime,jdbcType=TIMESTAMP}, 
-      #{attdTravelPlace,jdbcType=VARCHAR}, #{attdTravelRemark,jdbcType=VARCHAR}, #{attdCost,jdbcType=VARCHAR}, 
-      #{attdCosttime,jdbcType=TIMESTAMP}, #{attdRemark,jdbcType=VARCHAR}, #{attdStatus,jdbcType=INTEGER}
+      #{attdTravelPlace,jdbcType=VARCHAR}, #{attdTravelRemark,jdbcType=VARCHAR}, #{attdRemark,jdbcType=VARCHAR}, #{attdStatus,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kcsj.pojo.Attd" >
@@ -115,12 +111,7 @@
       <if test="attdTravelRemark != null" >
         attd_travel_remark,
       </if>
-      <if test="attdCost != null" >
-        attd_cost,
-      </if>
-      <if test="attdCosttime != null" >
-        attd_costtime,
-      </if>
+      
       <if test="attdRemark != null" >
         attd_remark,
       </if>
@@ -162,12 +153,7 @@
       <if test="attdTravelRemark != null" >
         #{attdTravelRemark,jdbcType=VARCHAR},
       </if>
-      <if test="attdCost != null" >
-        #{attdCost,jdbcType=VARCHAR},
-      </if>
-      <if test="attdCosttime != null" >
-        #{attdCosttime,jdbcType=TIMESTAMP},
-      </if>
+      
       <if test="attdRemark != null" >
         #{attdRemark,jdbcType=VARCHAR},
       </if>
@@ -214,12 +200,6 @@
       <if test="attdTravelRemark != null" >
         attd_travel_remark = #{attdTravelRemark,jdbcType=VARCHAR},
       </if>
-      <if test="attdCost != null" >
-        attd_cost = #{attdCost,jdbcType=VARCHAR},
-      </if>
-      <if test="attdCosttime != null" >
-        attd_costtime = #{attdCosttime,jdbcType=TIMESTAMP},
-      </if>
       <if test="attdRemark != null" >
         attd_remark = #{attdRemark,jdbcType=VARCHAR},
       </if>
@@ -246,8 +226,6 @@
       attd_travel_endtime = #{attdTravelEndtime,jdbcType=TIMESTAMP},
       attd_travel_place = #{attdTravelPlace,jdbcType=VARCHAR},
       attd_travel_remark = #{attdTravelRemark,jdbcType=VARCHAR},
-      attd_cost = #{attdCost,jdbcType=VARCHAR},
-      attd_costtime = #{attdCosttime,jdbcType=TIMESTAMP},
       attd_remark = #{attdRemark,jdbcType=VARCHAR},
       attd_status = #{attdStatus,jdbcType=INTEGER}
     where attd_id = #{attdId,jdbcType=INTEGER}
@@ -270,7 +248,7 @@
   		 select 
    	 <include refid="Base_Column_List" />
     from attd
-    where user_number = #{usernumber,jdbcType=INTEGER} and attd_begintime !='' and DATE_FORMAT(attd_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m') 
+    where user_number = #{usernumber,jdbcType=INTEGER} and attd_begintime !='' and DATE_FORMAT(attd_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m')
   	</select>
   	
   	<!-- 休假信息 -->
@@ -310,7 +288,7 @@
   		 select 
    	 <include refid="Base_Column_List" />
     from attd
-    where user_number = #{usernumber,jdbcType=INTEGER} and attd_travel_begintime !='' and DATE_FORMAT(attd_travel_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m') 
+    where user_number = #{usernumber,jdbcType=INTEGER} and attd_travel_begintime !='' and DATE_FORMAT(attd_travel_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m')
   	</select>
   	
   	<insert id="InsertTravelAllMonth" parameterType="com.kcsj.pojo.Attd" >

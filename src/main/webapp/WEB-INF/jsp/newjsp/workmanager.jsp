@@ -391,7 +391,7 @@
 					header: {
 						left: 'title',
 						center: '',
-						right: 'month,agendaWeek,agendaDay prev,next'
+						right: 'agendaDay,agendaWeek,month prev,next'
 					},
 					buttonIcons: {
 						prev: 'prev fa-angle-left',

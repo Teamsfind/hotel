@@ -364,8 +364,12 @@
     where user_number = #{userNumber,jdbcType=INTEGER}
   </update>
   
-   <select id="findUserByUser_dpt" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-  		select * from user where  user_dpt = #{userDpt,jdbcType=INTEGER} and user_worktype ='2';
+   <select id="findUserByUser_dpt" parameterType="com.kcsj.pojo.User" resultMap="BaseResultMap">
+  		select * from user where  user_dpt = #{userDpt,jdbcType=INTEGER} and user_worktype ='2' and user_number != #{userNumber,jdbcType=INTEGER};
+  </select>
+  
+   <select id="findUserByUser_dpt2" resultMap="BaseResultMap">
+  		select * from user where  user_worktype ='2';
   </select>
   
   <update id="UpUserWorktypeByUsernumber" parameterType="java.lang.Integer">

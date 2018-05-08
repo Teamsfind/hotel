@@ -266,18 +266,33 @@ public class UserImpl implements UserService{
 	@Override
 	public List<AnPaiUser> findUserByUser_dpt(String uid) {
 		User u = userdao.LiZhiUserByUid(uid);
-		List<User> ap = userdao.findUserByUser_dpt(u.getUserDpt());
+		List<User> ap = userdao.findUserByUser_dpt(u);
 		List<AnPaiUser> listan =  new ArrayList<AnPaiUser>();
-		for (User Appl : ap) {
-			AnPaiUser u2= new AnPaiUser();
-			u2.setUserUsername(Appl.getUserUsername());
-			u2.setUserNumber(Appl.getUserNumber());
-			u2.setUserDptJbn(Appl.getUserDptJbn());
-			u2.setUserAddress(Appl.getUserAddress());
-			BigDecimal bd = new BigDecimal(String.valueOf(Appl.getUserPhone()));
-			u2.setUserPhone(bd.toString());
-			u2.setUserDangerphone(Appl.getUserDangerphone());
-			listan.add(u2);
+		if (ap!=null) {
+			for (User Appl : ap) {
+				AnPaiUser u2= new AnPaiUser();
+				u2.setUserUsername(Appl.getUserUsername());
+				u2.setUserNumber(Appl.getUserNumber());
+				u2.setUserDptJbn(Appl.getUserDptJbn());
+				u2.setUserAddress(Appl.getUserAddress());
+				BigDecimal bd = new BigDecimal(String.valueOf(Appl.getUserPhone()));
+				u2.setUserPhone(bd.toString());
+				u2.setUserDangerphone(Appl.getUserDangerphone());
+				listan.add(u2);
+			}
+		}else {
+			List<User> ap1 = userdao.findUserByUser_dpt2();
+			for (User Appl : ap1) {
+				AnPaiUser u2= new AnPaiUser();
+				u2.setUserUsername(Appl.getUserUsername());
+				u2.setUserNumber(Appl.getUserNumber());
+				u2.setUserDptJbn(Appl.getUserDptJbn());
+				u2.setUserAddress(Appl.getUserAddress());
+				BigDecimal bd = new BigDecimal(String.valueOf(Appl.getUserPhone()));
+				u2.setUserPhone(bd.toString());
+				u2.setUserDangerphone(Appl.getUserDangerphone());
+				listan.add(u2);
+			}
 		}
 		return listan;
 	}
