@@ -74,11 +74,9 @@
 	  <p>认证中...</p>
 	</div>
 	<div class="OverWindows"></div>
-    <link href="<%=basePath %>layui/css/layui.css" rel="stylesheet" type="text/css" />
 	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="<%=basePath %>houcss/loginjs/jquery-ui.min.js"></script>
-	<script type="text/javascript" src='<%=basePath %>hougcss/loginjs/stopExecutionOnTimeout.js?t=1'></script>
-    <script src="<%=basePath %>layui/layui.js" type="text/javascript"></script>
+	 <script src="<%=basePath %>layui/layui.js" type="text/javascript"></script>
     <script src="<%=basePath %>houcss/loginjs/Particleground.js" type="text/javascript"></script>
     <script src="<%=basePath %>houcss/loginjs/Treatment.js" type="text/javascript"></script>
     <script src="<%=basePath %>houcss/loginjs/jquery.mockjax.js" type="text/javascript"></script>
@@ -162,6 +160,8 @@
 	                ErroAlert('请输入密码');
 	            } else if (code == '' || code.length != 4) {
 	                ErroAlert('输入验证码');
+	            } else if(code.toUpperCase() != CodeVal.toUpperCase()){
+	            	ErroAlert('验证码输入错误');
 	            } else {
 	                //认证中..
 	                fullscreen();

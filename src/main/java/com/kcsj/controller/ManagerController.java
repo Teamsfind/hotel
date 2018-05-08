@@ -75,6 +75,15 @@ public class ManagerController {
 	}
 	
 	/*
+	 * 主界面
+	 */
+	
+	@RequestMapping("/tomain")
+	public ModelAndView tomain( ){
+		return new ModelAndView("newjsp/main");
+	}
+	
+	/*
 	 * 登录
 	 */
 	@RequestMapping("/tochecklogin")
