@@ -65,13 +65,14 @@ public class ManagerController {
 		return new ModelAndView("newjsp/index");
 	}
 	
+	
 	/*
 	 * 登入界面
 	 */
 	
 	@RequestMapping("/tologin")
-	public ModelAndView tologin( ){
-		return new ModelAndView("newjsp/login");
+	public ModelAndView toexit( ){
+		return new ModelAndView("newjsp/exit");
 	}
 	
 	/*

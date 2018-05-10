@@ -19,6 +19,40 @@
     <link href="<%=basePath %>houcss/logincss/styles.css" rel="stylesheet" type="text/css" />
     <link href="<%=basePath %>houcss/logincss/demo.css" rel="stylesheet" type="text/css" />
     <link href="<%=basePath %>houcss/logincss/loaders.css" rel="stylesheet" type="text/css" />
+    		<style type="text/css">
+		.title2 {
+		  position: absolute;
+		  left: 30px;
+		  top: 0px;
+		}
+		
+		.title3 {
+		  position: absolute;
+		  left: 30px;
+		  top: 380px;
+		}
+		
+		.addImg1 {
+			width: 80px;
+			height: 80px;
+		  position: absolute;
+		  left: 70px;
+		  top: 100px;
+		}
+		.addImg2 {
+			width: 80px;
+			height: 80px;
+		  position: absolute;
+		  left: 180px;
+		  top: 100px;
+		}
+		.alttitle {
+		 position:absolute;
+		  left:20px;
+		  top:200px;
+		  color: green;
+		}
+		</style>
 </head>
 <body>
 	<div class='login'>
@@ -182,7 +216,7 @@
 	                }, 500);
 
 	                //登陆
-	                var JsonData = { login: login, pwd: pwd, code: code };
+	                var JsonData = { login: login, pwd: pwd};
 					//此处做为ajax内部判断
 					var url = '<%=basePath%>manager/tochecklogin';
 					
@@ -207,13 +241,32 @@
 	                                        $('.login').removeClass('test');
 	                                        	var data2 = JSON.stringify(data);
 	                                        if (data2 != -1) {
+	                                        	
+	                                        	 var tableContent = "";
+	                                             tableContent += '<div class="article">';
+	                                             tableContent += ' <div class="title2">';
+	                                             tableContent += ' <h2>欢迎  ${manager.managername} 登录<br></h2>';
+	                                             tableContent += ' <h6>&nbsp;&nbsp;请选择以下系统进行登录</h6>';
+	                                           	 tableContent += ' </div>';
+	                                             tableContent += ' <div class="item">';
+	                                             tableContent += ' <img class="icon addImg1" onclick="clickImg(this);" src="<%=basePath%>assets/images/test.png" title="酒店人事管理后台系统"';
+	                                             tableContent += ' </div>';
+	                                             tableContent += ' <div class="item">';
+	                                             tableContent += ' <img class="icon addImg2" onclick="clickImg2(this);" src="<%=basePath%>assets/images/addImg.png" title="等待开发"';
+	                                             tableContent += ' </div>';
+	                                             tableContent += ' <div class="title3">';
+	                                             tableContent += ' <p>欢迎登录酒店人事管理系统&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=basePath%>manager/tomain">退出</a></p>';
+	                                           	 tableContent += ' </div>';
+	                                             tableContent += ' </div>';
 	                                            //登录成功
 		                                       var index2 = layer.alert('登陆成功<br /><br />欢迎回来', { icon: 6, time: 4000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });  
 													layer.style(index2, {
 														color: '#777'
 													}); 
+													$('.login div').fadeOut(100);
+		                                            $('.success').fadeIn(1000);
+		                                            $('.success').html(tableContent);
 												//跳转操作
-	                                           window.location.href='<%=basePath%>manager/toWorkManager';
 	                                        } else {
 	                                        	ErroAlert("账号名或密码或验证码有误");
 	                                        }
@@ -234,6 +287,12 @@
 	            //浏览器不支持全屏API或已被禁用  
 	        }
 	    }  
+	    function clickImg() {
+	    	window.location.href='<%=basePath%>manager/toWorkManager';
+		}
+	    function clickImg2() {
+	    	ErroAlert("后续功能开发中......");
+		}
 		if(ajaxmockjax == 1){
 			$.mockjax({  
 				url: 'Ajax/Login',  
