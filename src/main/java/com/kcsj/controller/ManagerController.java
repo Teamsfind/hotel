@@ -55,18 +55,6 @@ public class ManagerController {
 	
 	
 	/*
-	 * 查找所有员工
-	 */
-	@RequestMapping(value="/toindex")
-	@ResponseBody
-	public ModelAndView toFindAllUser(HttpServletRequest request){
-		session = request.getSession();
-		session.setAttribute("list", userservice.FindAllUser());
-		return new ModelAndView("newjsp/index");
-	}
-	
-	
-	/*
 	 * 登入界面
 	 */
 	
@@ -115,7 +103,7 @@ public class ManagerController {
 		session = request.getSession();
 		Manager m = (Manager) session.getAttribute("manager");
 		Refreshmessage(m.getManagerid());
-		return new ModelAndView("newjsp/workmanager");
+		return new ModelAndView("newjsp/daohang");
 	}
 	
 	/*

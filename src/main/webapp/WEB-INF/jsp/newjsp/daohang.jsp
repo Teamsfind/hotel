@@ -11,7 +11,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="description" content="Xenon Boostrap Admin Panel" />
 	<meta name="author" content="" />
 	
 	<title>酒店人事管理系统</title>
@@ -25,16 +24,28 @@
 	<link rel="stylesheet" href="<%=basePath%>assets/css/xenon-components.css">
 	<link rel="stylesheet" href="<%=basePath%>assets/css/xenon-skins.css">
 	<link rel="stylesheet" href="<%=basePath%>assets/css/custom.css">
+	<link href="<%=basePath%>houcss/logincss/introjs.css" rel="stylesheet">
 
 	<script src="<%=basePath%>assets/js/jquery-1.11.1.min.js"></script>
-
-
+	<style type="text/css">
+		.steptiter{
+			 color: green;
+			 font-family: STCaiyun;
+			 font-size: 25px;
+		}
+		.stepspan{
+			color: red;
+				 font-family: FangSong;
+				 font-size: 18px;
+		}
+	
+	</style>
 </head>
 <body class="page-body">
 
 	<div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
 			
-		<div class="sidebar-menu toggle-others fixed">
+		<div class="sidebar-menu toggle-others fixed" id="step5">
 			
 			<div class="sidebar-menu-inner">	
 				
@@ -54,7 +65,7 @@
 					<div class="mobile-menu-toggle visible-xs">
 						<a href="#" data-toggle="user-info-menu">
 							<i class="fa-bell-o"></i>
-							<span class="badge badge-success">7</span>
+							
 						</a>
 						
 						<a href="#" data-toggle="mobile-menu">
@@ -70,14 +81,14 @@
 					</div>
 				</header>
 				<ul id="main-menu" class="main-menu">
-					<li>
+					<li class="active opened active" >
 						<a href="#">
 							<i class="linecons-cog"></i>
 							<span class="title">人事档案管理</span>
 						</a>
-						<ul>
-							<li>
-								<a href="<%=basePath%>manager/toRuZhiUser">
+						<ul >
+							<li >
+								<a href="<%=basePath%>manager/toRuZhiUser" >
 									<span class="title">职员入职</span>
 								</a>
 							</li>
@@ -172,7 +183,7 @@
 					</li>
 					
 					<li class="dropdown hover-line">
-						<a href="#" data-toggle="dropdown">
+						<a href="#" data-toggle="dropdown" id="step2">
 							<i class="fa-envelope-o"></i>
 							<span >${messagesize}</span>
 						</a>
@@ -202,8 +213,8 @@
 												</c:if>
 												<c:if test="${i.applStatus=='0'}">
 													<span style="position:relative;left: 150">
-														<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
-														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
+														<button type="button" class="btn btn-success" onclick="sure(${i.userNumber})">同意</button>
+														&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="refuse(${i.userNumber})">拒绝</button>
 													</span>
 												</c:if>
 													<c:if test="${i.applStatus=='1'}">
@@ -232,7 +243,7 @@
 					</li>
 					
 					<li class="dropdown hover-line">
-						<a href="#" data-toggle="dropdown">
+						<a href="#" data-toggle="dropdown" id="step3">
 							<i class="fa-bell-o"></i>
 							<span>${infosize} </span>
 						</a>
@@ -296,7 +307,7 @@
 						
 					</li>
 					
-					<li class="dropdown user-profile">
+					<li class="dropdown user-profile" id="step1">
 						<a href="#" data-toggle="dropdown">
 							<img src="<%=basePath%>assets/images/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
 							<span>
@@ -319,6 +330,12 @@
 								</a>
 							</li>
 							<li>
+								<a href="javascript:;" onclick="jQuery('#modal-9').modal('show', {backdrop: 'static'});" title="修改默认密码">
+									<i class="fa-wrench"></i>
+									密码设置
+								</a>
+							</li>
+							<li>
 								<a href="#">
 									<i class="fa-info"></i>
 									帮助引导
@@ -334,246 +351,101 @@
 					</li>
 				</ul>
 			</nav>
-			<div class="page-title" >
-				<div class="title-env">
-					<h1 class="title">职员离职</h1>
-					<p class="description">当员工提出离职申请时，通过该功能实现员工离职</p>
+			<div class="page-title" id="step4">
+				
+				<div class="title-env" >
+					<h1 class="title">工作计划安排表</h1>
+					<p class="description">详细的记录一天工作计划安排，提高管理效率</p>
 				</div>
-				<div class="breadcrumb-env" >
+				
+					<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
 							<li>
-							 	<a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
-							</li>
-							<li>
-								人事档案管理
-							</li>
-							<li class="active">
-								<strong>职员离职</strong>
+							 <a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
 							</li>
 						</ol>
 				</div>
 			</div>
-			<div class="row" >
-				<div class="col-sm-12">
-					<div class="panel panel-default" style="font-size: 20px;font-family:'微软雅黑';font-weight:bold">
-						<div class="panel-body">
-							<form  class="form-horizontal style="font-size: 20px;font-family:'微软雅黑';font-weight:bold"" method="post"  action="<%=basePath %>manager/toSurelizhiUser" onsubmit="return check()">
-								<div class="form-group">
-										<label class="col-sm-2 control-label" for="field-1">员工工号或者员工身份证</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control"  id="username" name="username" onblur="checkid()">
-										</div>
-										<div class="col-sm-2">
-											<span class="label label-success" id="idCardsuccess"></span>
-											<span class="label label-danger" id="idCarderror"></span>
-										</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">性别</label>
-										<div class="col-sm-8">
-											<div class="form-block">
-												<label>
-													<input type="radio" name="radio1" id="r1" readonly="readonly" value="1">
-													男
-												</label>
-												<br />
-												<label>
-													<input type="radio" name="radio1" id="r2" readonly="readonly" value="2">
-													女 
-												</label>
-											</div>
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label">部门职位</label>
-										<div class="col-sm-4">
-											<select class="form-control" id="select1" name="select1" readonly="readonly">
-												<option value="10">采购部</option>
-			                                    <option value="11">市场部</option>
-			                                    <option value="12">后勤部</option>
-			                                    <option value="13">财务部</option>
-			                                    <option value="14">生产部</option>
-											</select>
-										</div>
-										<div class="col-sm-4">
-											<select class="form-control" id="select2" name="select2" readonly="readonly">
-												<option value="普通员工">普通员工</option>
-			                               		<option value="部门经理">部门经理</option>
-			                                	<option value="组长">组长</option>
-											</select>
-										</div>
-								</div>	
-								<div class="form-group">
-									<label class="col-sm-2 control-label">电话号码</label>
-										<div class="col-sm-8">
-											<div class="input-group input-group-sm input-group-minimal">
-												<span class="input-group-addon">
-													<i class="linecons-mobile"></i>
-												</span>
-												<input type="text" class="form-control" id="user_phone" name="user_phone"  maxlength="11" readonly="readonly"/>
-											</div>
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label">地址</label>
-										<div class="col-sm-8">
-											<div class="input-group input-group-sm input-group-minimal">
-												<span class="input-group-addon">
-													<i class="linecons-location"></i>
-												</span>
-												<input type="text" class="form-control" placeholder="Current city" id="city" name="city" readonly="readonly">
-											</div>
-										</div>
-								</div>
-								<div class="form-group">
-										<label class="col-sm-2 control-label">在职状态</label>
-										<div class="col-sm-8">
-											<div class="input-group input-group-sm input-group-minimal">
-												<input type="text" class="form-control"  id="workjobtype" name="workjobtype" readonly="readonly">
-											</div>
-										</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">离职材料是否交完</label>
-										<div class="col-sm-8">
-											<div class="form-block">
-												<label>
-													<input type="radio" name="radio2"  class="cbr" value="1" >
-													是
-												</label>
-												<br />
-												<label>
-													<input type="radio" name="radio2"  class="cbr" value="0" checked>
-													否
-												</label>
-											</div>
-										</div>
-								</div>
-								<div class="form-group">
-									<center>
-										<div class="input-group">
-											<input type="submit" value="确定" >
-											<input type="reset" value="重置" onclick="deletetip()">
-										</div>
-										<div>
-											<span class="label label-danger" id="subeerror"></span>
-										</div>
-									</center>
-								</div>
-							</form>
-						</div>
+			
+			<script type="text/javascript">
+			// Calendar Initialization
+			jQuery(document).ready(function($)
+			{
+				startIntro();
+				var data = [
+					{
+						title: '开会',
+						url: '',
+						start: '2018-05-01',
+						end: ''
+					},
+					{
+						title: '休息',
+						url: '',
+						start: '2018-05-01T20:00:00',
+						end: '2018-05-02T20:00:00'
+					},
+					{
+						title: '休息2',
+						url: '',
+						start: '2018-05-02T20:00:00',
+						end: '2018-05-03T19:00:00'
+					},
+					{
+						title: '检查今天工作是否出错',
+						url: '<%=basePath%>manager/toHistory',
+						start: '2018-05-04',
+						end: ''
+					}
+				]
+				// Calendar Initialization
+				$('#calendar').fullCalendar({
+					header: {
+						left: 'title',
+						center: '',
+						right: 'agendaDay,agendaWeek,month prev,next'
+					},
+					buttonIcons: {
+						prev: 'prev fa-angle-left',
+						next: 'next fa-angle-right',
+					},
+					defaultDate: '2018-05-01',
+					editable: true,
+					eventLimit: true,
+					events:  data,
+					droppable: true,
+					drop: function(date) {
+						
+						var $event = $(this).find('a'),
+							eventObject = {
+								title: $event.find('.badge').text(),
+								start: date,
+								className: $event.data('event-class')
+							};
+						
+						$('#calendar').fullCalendar('renderEvent', eventObject, true);
+						
+						// Remove event from list
+						$(this).remove();
+					}
+				});
+				
+				// Draggable Events
+				$("#events-list li").draggable({
+					revert: true,
+					revertDuration: 50,
+					zIndex: 999
+				});
+			});
+			</script>
+			
+			<section class="calendar-env" id="step6">
+				<div class="col-sm-12 calendar-right">
+					<div class="calendar-main">
+						<div id="calendar"></div>
 					</div>
 				</div>
-			</div>
-		<script type="text/javascript">
-			
-			function  checkid() {
-				var idCard = $("#username").val();
-				if(!(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(idCard))&&!(/^[1-9]\d{8}$/.test(idCard))){ 
-					$('#subeerror').html("");
-					$("#idCardsuccess").html("");
-					$("#idCarderror").html("× 身份证或者员工工号格式有误，请重填"); 
-				}else {
-					$('#subeerror').html("");
-					$("#idCardsuccess").html("✔");
-					$("#idCarderror").html(""); 
-					$.ajax({
-						type : 'post',
-						dataType : 'json',
-						url : '<%=basePath%>manager/CheckuserByUserNumber?idCard=' + idCard,
-						success : function(data) {	
-							if (data !=null||data!="") {
-								var sex = data.userSex;
-								var sex2 = $("#r1").val();
-								var sex3 = $("#r2").val();
-								if (sex==sex2) {
-									$("#r1").attr("checked",true);
-								}else if(sex==sex3){
-									$("#r2").attr("checked",true);
-								}
-								
-								var userDptnamae = data.userDpt;
-								
-								if (userDptnamae==10) {
-									 $("#select1").val(10);
-									
-								}else if(userDptnamae==11){
-									$("#select1").val(11);
-									
-								}else if(userDptnamae==12){
-									$("#select1").val(12);
-									
-								}else if(userDptnamae==13){
-									$("#select1").val(13);
-									
-								}else if(userDptnamae==14){
-									$("#select1").val(14);
-								}
-								
-								var userDptJbn = data.userDptJbn;
-								
-								if (userDptJbn=="普通员工") {
-									$("#select2").val("普通员工");
-								}else if (userDptJbn=="组长") {
-									$("#select2").val("组长");
-								}else{
-									$("#select2").val("部门经理");
-								}
-								
-								$("#user_phone").val(data.userPhone);
-								$("#city").val(data.userAddress);
-								
-								var userJobtype = data.userJobtype;
-								if (userJobtype==1) {
-									$("#workjobtype").val("实习期");
-								}else if(userJobtype==2){
-									$("#workjobtype").val("试用期");
-								}else if(userJobtype==3){
-									$("#workjobtype").val("正式员工");
-								}else{
-									$("#workjobtype").val("已离职");
-								}
-							}
-			            },
-			            error : function(data) {	
-								$('#subeerror').html("");
-								$("#idCardsuccess").html(""); 
-								$("#idCarderror").html("× 查不到该员工信息，请重新输入");
-						}
-					});
-				} 
-			}
-			
-			function deletetip() {
-				$("#idCardsuccess").html("");
-				$("#idCarderror").html(""); 
-				$('#subeerror').html("");
-				$('#subeerror').html('');
-			}
-			
-			function check() {
-				var username = $("#username").val();
-				var workjobtype = $("#workjobtype").val();
-				var cailiao = $("input[name='radio2']:checked").val();
-				if(username==""){
-					$('#subeerror').html("");
-					$('#subeerror').html('× 还未查询员工信息');
-					return false;
-				}else{
-					if (workjobtype=="已离职") {
-						$('#subeerror').html("");
-						$('#subeerror').html('× 该员工已经离职');
-						return false;
-					}else if(cailiao=="0"){
-						$('#subeerror').html("");
-						$('#subeerror').html('× 该员工的离职材料未交');
-						return false;
-					}else{
-						return true;
-					}
-				}
-			}
-		</script>
+			</section>
 			
 		<footer class="main-footer sticky footer-type-1">
 				
@@ -583,7 +455,7 @@
 					<div class="footer-text">
 						&copy; 2018 
 						<strong>酒店人事管理系统</strong> 
-						theme by <a >Dengfw&nbsp;&nbsp;&nbsp;&nbsp;</a>
+						theme by <a href="http://laborator.co" target="_blank">Dengfw&nbsp;&nbsp;&nbsp;&nbsp;</a>
 						<a id="showtime"> </a>
 					</div>
 					
@@ -652,8 +524,8 @@
 								</c:if>
 								<c:if test="${i.applStatus=='0'}">
 									<span style="position:relative;left: 400">
-										<button type="button" class="btn btn-success"onclick="sure(${i.userNumber})">同意</button>
-										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger"onclick="refuse(${i.userNumber})">拒绝</button>
+										<button type="button" class="btn btn-success" onclick="sure(${i.userNumber})">同意</button>
+										&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="refuse(${i.userNumber})">拒绝</button>
 									</span>
 								</c:if>
 								<c:if test="${i.applStatus=='1'}">
@@ -680,6 +552,82 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Modal 9 (Long Modal)-->
+	<div class="modal fade" id="modal-9">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">密码修改</h4>
+				</div>
+				
+				<div class="modal-body">
+					<form  class="form-horizontal" method="post"  action="<%=basePath %>manager/toUpdateManager" onsubmit="return check()">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+										<label class="col-sm-2 control-label" for="field-2">新密码</label>
+										<div class="col-sm-8">
+											<input type="password" class="form-control" id="oldpassword" name="oldpassword"  >
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+										<label class="col-sm-2 control-label" for="field-2">确认新密码</label>
+										<div class="col-sm-8">
+											<input type="password" class="form-control" id="newpassword" name="newpassword" onblur="checkpassword()">
+										</div>
+										<div class="col-sm-2">
+											<span class="label label-success" id="passwordsuccess"></span>
+											<span class="label label-danger" id="passworderror"></span>
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+										<label class="col-sm-2 control-label" for="field-2">身份证</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" id="idCard" name="idCard" onblur="checkid()" maxlength="18" >
+										</div>
+										<div class="col-sm-2">
+											<span class="label label-success" id="idCardsuccess"></span>
+											<span class="label label-danger" id="idCarderror"></span>
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<center>
+										<div class="input-group">
+											<input type="submit" value="提交" >
+											<input type="reset" value="重置" >
+										</div>
+										<div>
+											<span class="label label-danger" id="subeerror"></span>
+										</div>
+									</center>
+								</div>
+							</div>
+						</div>
+					</form>	
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<script type="text/javascript">
 		function sure(date){
 			$.ajax({
@@ -687,7 +635,7 @@
 				dataType : 'json',
 				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
 				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toDeleteUser';
+					window.location.href='<%=basePath%>manager/toWorkManager';
 				}
 			});
 		}
@@ -698,9 +646,77 @@
 				dataType : 'json',
 				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
 				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toDeleteUser';
+					window.location.href='<%=basePath%>manager/toWorkManager';
 				}
 			});
+		}
+		
+		function checkpassword() {
+			var oldpassword = $("#oldpassword").val();
+			var newpassword = $("#newpassword").val();
+			if (oldpassword==newpassword) {
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					url : '<%=basePath%>manager/toCheckManagerPassword?password=' + newpassword,
+					success : function(data) {	
+						var data2 = JSON.stringify(data);
+						
+						if (data2 == "1") {
+							$("#passwordsuccess").html("");
+							$("#passworderror").html("× 与原密码相同"); 
+						}
+						else {
+							$("#passwordsuccess").html("✔");
+							$("#passworderror").html(""); 
+						}
+		            }
+				});
+			}else{
+				$("#passwordsuccess").html("");
+				$("#passworderror").html("× 两次密码输入不一致"); 
+			}
+		}
+		
+		function  checkid() {
+			var idCard = $("#idCard").val();
+			if(!(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(idCard))){ 
+				$("#idCardsuccess").html("");
+				$("#idCarderror").html("× 身份证格式有误，请重填"); 
+			}else {
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					url : '<%=basePath%>manager/toCheckManagerIdCard?idCard=' + idCard,
+					success : function(data) {	
+						var data2 = JSON.stringify(data);
+						
+						if (data2 == "1") {
+							$("#idCarderror").html(""); 
+							$("#idCardsuccess").html("✔ ");
+						}
+						else {
+							$("#idCardsuccess").html("");
+							$("#idCarderror").html("× 身份证不正确"); 
+						}
+		            }
+				});
+			} 
+		}
+		
+		function check() {
+			
+			var idCard = $("#idCard").val();
+			var oldpassword = $("#oldpassword").val();
+			var newpassword = $("#newpassword").val();
+			
+			if (idCard!=""&&oldpassword!=""&&newpassword!="") {
+				return true;
+			}else {
+				$('#subeerror').html("");
+				$('#subeerror').html('× 提交的数据不能为空，请仔细检查');
+				return false;
+			}
 		}
 	</script>
 	<div class="modal fade" id="modal-7">
@@ -813,11 +829,58 @@
 	<script src="<%=basePath%>assets/js/datatables/tabletools/dataTables.tableTools.min.js"></script>
 	<script src="<%=basePath%>assets/js/fullcalendar/fullcalendar.min.js"></script>
 	<script src="<%=basePath%>assets/js/jquery-ui/jquery-ui.min.js"></script>
-	<script src="<%=basePath%>assets/js/inputmask/jquery.inputmask.bundle.js"></script>
-	<script src="<%=basePath%>assets/js/tocify/jquery.tocify.min.js"></script>
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="<%=basePath%>assets/js/xenon-custom.js"></script>
-	
+	<script type="text/javascript" src="<%=basePath%>houcss/loginjs/intro.js"></script>
+	<script type="text/javascript">
+      function startIntro(){
+        var intro = introJs();
+          intro.setOptions({
+        	  /* 下一步按钮的显示名称 */
+		      nextLabel: '下一步 &rarr;',
+		      /* 上一步按钮的显示名称 */
+		      prevLabel: '&larr; 上一步',
+		      /* 跳过按钮的显示名称 */
+		      skipLabel: '跳过',
+		      /* 结束按钮的显示名称 */
+		      doneLabel: '结束',
+        	  steps: [
+              {
+                element: '#step1',
+                intro: "<a class='steptiter'>引导一</a></br><span class='stepspan'>&nbsp;&nbsp;&nbsp;&nbsp;个人中心，修改默认密码或者查看历史痕迹以及退出该系统</span> ",
+                position: 'left'
+              },
+              {
+                element: '#step2',
+                intro: "<a class='steptiter'>引导二</a></br><span class='stepspan'>&nbsp;&nbsp;&nbsp;&nbsp;最新申请，查看员工的最新申请，以便安排工作</span>",
+                position: 'bottom'
+              },
+              {
+                element: '#step3',
+                intro: "<a class='steptiter'>引导三</a></br><span class='stepspan'>&nbsp;&nbsp;&nbsp;&nbsp;最新消息，查看员工的一些请假，提高员工工作积极性</span>",
+                position: 'bottom'
+              },
+              {
+                element: '#step4',
+                intro: "<a class='steptiter'>引导四</a></br><span class='stepspan'>&nbsp;&nbsp;&nbsp;&nbsp;具体功能展示说明以及所在位置</span>",
+                position: 'bottom'
+              },
+              {
+                  element: '#step5',
+                  intro: "<a class='steptiter'>引导五</a></br><span class='stepspan'>&nbsp;&nbsp;&nbsp;&nbsp;功能菜单</span>",
+                  position: 'right'
+                },
+                {
+                    element: '#step6',
+                    intro: "<a class='steptiter'>引导6</a></br><span class='stepspan'>&nbsp;&nbsp;&nbsp;&nbsp;具体功能展示页面</span>",
+                    position: 'left'
+                  }
+            ]
+          });
+
+          intro.start();
+      }
+    </script>
 </body>
 </html>
