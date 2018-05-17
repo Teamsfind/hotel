@@ -3,7 +3,6 @@ package com.kcsj.service;
 import java.util.List;
 
 import com.kcsj.entitl.AttdData;
-import com.kcsj.entitl.preAttdData;
 
 
 public interface AttdService {

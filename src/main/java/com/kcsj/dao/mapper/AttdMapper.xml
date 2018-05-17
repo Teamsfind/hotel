@@ -248,7 +248,7 @@
   		 select 
    	 <include refid="Base_Column_List" />
     from attd
-    where user_number = #{usernumber,jdbcType=INTEGER} and attd_begintime !='' and DATE_FORMAT(attd_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m')
+    where user_number = #{usernumber,jdbcType=INTEGER} and attd_begintime !='' and DATE_FORMAT(attd_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m')-1
   	</select>
   	
   	<!-- 休假信息 -->
@@ -268,7 +268,7 @@
   		 select 
    	 <include refid="Base_Column_List" />
     from attd
-    where user_number = #{usernumber,jdbcType=INTEGER} and attd_vaction_begintime !='' and DATE_FORMAT(attd_vaction_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m') 
+    where user_number = #{usernumber,jdbcType=INTEGER} and attd_vaction_begintime !='' and DATE_FORMAT(attd_vaction_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m')-1 
   	</select>
   	
   	<!-- 出差信息 -->
@@ -288,7 +288,7 @@
   		 select 
    	 <include refid="Base_Column_List" />
     from attd
-    where user_number = #{usernumber,jdbcType=INTEGER} and attd_travel_begintime !='' and DATE_FORMAT(attd_travel_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m')
+    where user_number = #{usernumber,jdbcType=INTEGER} and attd_travel_begintime !='' and DATE_FORMAT(attd_travel_begintime, '%Y%m') = DATE_FORMAT( now() , '%Y%m')-1
   	</select>
   	
   	<insert id="InsertTravelAllMonth" parameterType="com.kcsj.pojo.Attd" >

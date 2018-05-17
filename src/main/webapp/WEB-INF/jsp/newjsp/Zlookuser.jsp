@@ -335,7 +335,7 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">职员档案</h1>
+					<h1 class="title"><a style="color: green;" href="<%=basePath%>manager/toLookUser">在职</a>/<a href="<%=basePath%>manager/toLLookUser">离职</a>职员档案</h1>
 					<p class="description">记载员工的详细信息，方便及时联系员工和查找员工相关信息</p>
 				</div>
 				<div class="breadcrumb-env">
@@ -355,7 +355,7 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">所有员工信息</h3>
+					<h3 class="panel-title">在职员工所有信息</h3>
 					
 					<div class="panel-options">
 						<a href="#" data-toggle="panel">

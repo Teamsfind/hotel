@@ -55,9 +55,11 @@ public interface UserMapper {
      */
     int updateByPrimaryKey(User record);
     
-    //查找所有员工
+    //查找所有在职员工
     public List<User> FindAllUser( );
     
+  //查找所有离职员工
+    public List<User> FindAllUsernot( );
     
     /*
      * 自动生成员工编号

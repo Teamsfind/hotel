@@ -335,8 +335,8 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">职员汇总薪酬</h1>
-					<p class="description">记录每个员工当月的汇总薪酬</p>
+					<h1 class="title"><a  href="<%=basePath%>manager/toLookUser">在职</a>/<a style="color: green;" href="<%=basePath%>manager/toLLookUser">离职</a>职员档案</h1>
+					<p class="description">记载员工的详细信息，方便及时联系员工和查找员工相关信息</p>
 				</div>
 				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
@@ -344,10 +344,10 @@
 							 	<a href="<%=basePath%>manager/toWorkManager"><i class="fa-home"></i>Home</a>
 							</li>
 							<li>
-								薪酬管理
+								人事档案管理
 							</li>
 							<li class="active">
-								<strong>职员汇总薪酬</strong>
+								<strong>职员档案</strong>
 							</li>
 						</ol>
 				</div>
@@ -355,11 +355,12 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">所有员工汇总薪酬数据</h3>
+					<h3 class="panel-title">离职员工所有信息</h3>
 					
 					<div class="panel-options">
-						<a href="<%=basePath%>manager/toPiliangGeRenUser" title="批量生成当月员工工资薪酬">
-							+<span>批量操作</span>
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">&ndash;</span>
+							<span class="expand-icon">+</span>
 						</a>
 						<a href="#" data-toggle="remove">
 							&times;
@@ -383,21 +384,11 @@
 						<thead>
 							 <tr>
 								<th>记录条数</th>
-								<th><a title="员工工号">员工工号</a></th>
+								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>所属部门</th>
-								<th>时间</th>
-								<th>考勤天数</th>
-								<th>休假天数</th>
-								<th>出差天数</th>
-								<th>差旅报销</th>
-								<th>生日红包</th>
-								<th>个人业绩提成</th>
-								<th>部门业绩提成</th>
-								<th>基础工资</th>
-								<th><a title="满勤奖励400&#10;缺勤一天扣100，最多扣400">考勤奖罚</a></th>
-								<th>薪酬汇总</th>
-								<th>是否发放</th>
+								<th>工作状态</th>
+								<th>职务状态</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -405,56 +396,25 @@
 						<tfoot>
 							 <tr>
 								<th>记录条数</th>
-								<th><a title="员工工号">员工工号</a></th>
+								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>所属部门</th>
-								<th>时间</th>
-								<th>考勤天数</th>
-								<th>休假天数</th>
-								<th>出差天数</th>
-								<th>差旅报销</th>
-								<th>生日红包</th>
-								<th>个人业绩提成</th>
-								<th>部门业绩提成</th>
-								<th>基础工资</th>
-								<th>考勤奖罚</th>
-								<th>薪酬汇总</th>
-								<th>是否发放</th>
+								<th>工作状态</th>
+								<th>职务状态</th>
 								<th>操作</th>
 							</tr>
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${Wagecost}' var="i" varStatus="k">  
+							<c:forEach items='${lookuserlist}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
 				                    <td>${i.userNumber }</td> 
-				                    <td>${i.username }</td>
-				                    <td>${i.userdpt }---${i.userdptjob }</td>
-				                    <td>${i.wageAllwagetime }</td>
-				                    <td>${i.wageAttd }</td>
-				                    <td>${i.wageVacation }</td>
-				                    <td>${i.wageTravel }</td>
-				                    <td>${i.wageTravelcostall }</td>
-				                    <td>${i.wageBirth }</td>
-				                    <td>${i.wagePersonal }</td>
-				                    <td>${i.wageDpt }</td>
-				                    <td>${i.wageBasswage }</td>
-				                    <td>${i.wageAttdcost }</td>
-				                    <td>${i.wageAllwage }</td>
-				                    <c:if test="${i.wageTobank=='1'}">
-				                    	<td>是</td>
-				                    	 <td><input type='button' value='已发放' ">
-				                    	<input type='button' value='更多' onclick="morewage(${i.userNumber })">
-				                    </td>
-				                    </c:if>
-				                     <c:if test="${i.wageTobank=='0'}">
-				                    	<td>否</td>
-				                    	<td><input type='button' value='发放' onclick="sureTravel(${i.userNumber })">
-				                    	<input type='button' value='更多' onclick="morewage(${i.userNumber })">
-				                    </td>
-				                    </c:if>
-				                    
+				                    <td>${i.userUsername }</td>
+				                    <td>${i.userDpt }-${i.userDptJbn }</td>
+				                    <td>${i.userWorktype }</td>
+				                    <td>${i.userJobtype }</td>
+				                    <td><input type='button' value='更多' onclick="FindUserByUid(${i.userNumber })"></td> 
 				                </tr>  
 			           		</c:forEach>  
 						</tbody>
@@ -464,35 +424,50 @@
 			</div>
 		
 		<script type="text/javascript">
-			function sureTravel(date) {
-				
+			function FindUserByUid(date) {
 				$.ajax({
 					type : 'post',
 					dataType : 'json',
-					data:{"user_id":date},
-					url : '<%=basePath%>manager/toFaGongZi',
-					error : function(data) {	
-						
-						window.location.href='<%=basePath%>manager/toGeRenUser';
+					url : '<%=basePath%>manager/toLookUserByuserId?user_id=' + date,
+					success : function(data) {	
+						if (data!=null) {
+		        			
+		        			var unixTimestamp = new Date(data.userWorktime) ;
+	     	            	var commonTime = unixTimestamp.getFullYear();
+	     	            	var commonTimefull = unixTimestamp.toLocaleString();
+	     	            	var myDate = new Date();
+	     	            	var mytime=myDate.getFullYear();
+	     	            
+	     	            	var chayear = mytime-commonTime
+	     	            	$("#user_worktime2").val(commonTimefull);
+	     	            	$("#user_worktime").val(chayear+"年");
+	     	            	
+	     	            	var unixTimestamp2 = new Date(data.userBirth) ;
+	     	            	var commonTime2 = unixTimestamp2.toLocaleString();
+	     	            	$("#user_birth").val(commonTime2);
+	     	            	
+	     	            	
+	     	            	$("#user_phone").val(data.userPhone);
+	     	            	$("#user_address").val(data.userAddress);
+	     	            	if (data.userDangerphone==null) {
+	     	            		$("#user_dangerphone").val("该员工暂未填写");
+							}else{
+								$("#user_dangerphone").val(data.userDangerphone);
+							}
+	     	            	
+	     	            	$("#user_edu").val(data.userEdu);
+	     	            	$("#user_idcard").val(data.userIdcard);
+	     	            	if (data.userNikename==null) {
+	     	            		$("#user_nichen").val("该员工暂未填写");
+							}else{
+								$("#user_nichen").val(data.userNikename);
+							}
+	     	            	jQuery('#modal-9').modal('show', {backdrop: 'static'});
+						}
 					}
 				});
 				
 			}
-			function morewage(date) {
-				
-				$.ajax({
-					type : 'post',
-					dataType : 'json',
-					data:{"user_id":date},
-					url : '<%=basePath%>manager/tomoreGongZi',
-					error : function(data) {	
-						
-						window.location.href='<%=basePath%>manager/toZhuanmoreGongZi';
-					}
-					
-				});
-				
-			}	
 		</script>
 		<footer class="main-footer sticky footer-type-1">
 				
@@ -606,7 +581,7 @@
 				dataType : 'json',
 				url : '<%=basePath%>manager/sureappl?usernumber=' + date,
 				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toKaoQingUser';
+					window.location.href='<%=basePath%>manager/toLookUser';
 				}
 			});
 		}
@@ -617,7 +592,7 @@
 				dataType : 'json',
 				url : '<%=basePath%>manager/refuseappl?usernumber=' + date,
 				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toKaoQingUser';
+					window.location.href='<%=basePath%>manager/toLookUser';
 				}
 			});
 		}
@@ -711,6 +686,118 @@
 			</div>
 		</div>
 	</div>	
+	
+	<!-- Modal 9 (Long Modal)-->
+	<div class="modal fade" id="modal-9">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">职员拓展信息</h4>
+				</div>
+				
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="field-1" class="control-label">昵称</label>
+										
+										<input type="text" class="form-control" id="user_nichen" disabled="disabled">
+									</div>	
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="field-2" class="control-label">身份证号码</label>
+								
+										<input type="text" class="form-control" id="user_idcard" disabled="disabled">
+									</div>	
+						
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<center>
+									<img src="<%=basePath%>assets/images/user-4.png" alt="员工图片" class="img-circle img-inline userpic-32" width="100" />
+								</center>
+							</div>	
+							
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-1" class="control-label">手机号码</label>
+										
+								<input type="text" class="form-control" id="user_phone" disabled="disabled">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-2" class="control-label">生日</label>
+								
+								<input type="text" class="form-control" id="user_birth" disabled="disabled">
+							</div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">第二联系人电话</label>
+								
+								<input type="text" class="form-control" id="user_dangerphone" disabled="disabled">
+							</div>	
+							
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">家庭地址</label>
+								
+								<input type="text" class="form-control" id="user_address" disabled="disabled">
+							</div>	
+							
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">学历</label>
+								
+								<input type="text" class="form-control" id="user_edu" disabled="disabled">
+							</div>	
+							
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">入职时间</label>
+								
+								<input type="text" class="form-control" id="user_worktime2" disabled="disabled">
+							</div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="field-4" class="control-label">工龄</label>
+								
+								<input type="text" class="form-control" id="user_worktime" disabled="disabled">
+							</div>	
+						</div>
+						
+					</div>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<!-- Imported styles on this page -->
 	<link rel="stylesheet" href="<%=basePath%>assets/js/datatables/dataTables.bootstrap.css">

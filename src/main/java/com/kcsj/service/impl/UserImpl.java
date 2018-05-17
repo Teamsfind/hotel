@@ -439,9 +439,14 @@ public class UserImpl implements UserService{
 					wage.setWageVacation(preattd3.size());
 					
 				//查询差旅总报销
-					Double travlecost = traveldao.selectAllCost(user2.getUserNumber());
-					wage.setWageTravelcostall(travlecost);
-					
+					Double travlecost;
+					try {
+						 travlecost = traveldao.selectAllCost(user2.getUserNumber());
+						wage.setWageTravelcostall(travlecost);
+					} catch (Exception e) {
+						travlecost=0.00;
+						wage.setWageTravelcostall(travlecost);
+					}
 					
 				//查询员工奖励
 					Award award = awarddao.findallAward(user2.getUserNumber());
@@ -652,6 +657,101 @@ public class UserImpl implements UserService{
 		}
 		
 		return listdpt;
+	}
+
+
+	@Override
+	public List<updateUser> updatausernot() {
+		List<User> list = userdao.FindAllUser();
+		List<updateUser> list2 = new ArrayList<updateUser>();
+		for (User u:list ) {
+			updateUser u2 = new updateUser();
+			u2.setUserId(u.getUserId());
+			u2.setUserNumber(u.getUserNumber());
+			if (u.getUserDpt()==10) {
+				u2.setUserDpt("采购部");
+			}else if (u.getUserDpt()==11) {
+				u2.setUserDpt("市场部");
+			}else if (u.getUserDpt()==12) {
+				u2.setUserDpt("后勤部");
+			}else if (u.getUserDpt()==13) {
+				u2.setUserDpt("财务部");
+			}else{
+				u2.setUserDpt("生产部");
+			}
+			u2.setUserDptJbn(u.getUserDptJbn());
+			u2.setUserUsername(u.getUserUsername());
+			u2.setUserWorktime(u.getUserWorktime());
+			if (u.getUserJobtype()==1) {
+				u2.setUserJobtype("实习期");
+			}else if(u.getUserJobtype()==2){
+				u2.setUserJobtype("试用期");
+			}else if(u.getUserJobtype()==3){
+				u2.setUserJobtype("正式员工");
+			}
+			if (u.getUserWorktype()==1) {
+				u2.setUserWorktype("上班");
+			}else if(u.getUserJobtype()==2){
+				u2.setUserWorktype("休假");
+			}else if(u.getUserJobtype()==3){
+				u2.setUserWorktype("出差");
+			}else {
+				u2.setUserWorktype("缺勤");
+			}
+			if (u.getUserJobtype()!=3) {
+				list2.add(u2);	
+			}
+		}
+		return list2;
+	}
+
+
+	@Override
+	public List<updateUser> notupdatauser() {
+		List<User> list = userdao.FindAllUsernot();
+		
+		List<updateUser> list2 = new ArrayList<updateUser>();
+		for (User u:list ) {
+			updateUser u2 = new updateUser();
+			u2.setUserId(u.getUserId());
+			u2.setUserNumber(u.getUserNumber());
+			if (u.getUserDpt()==10) {
+				u2.setUserDpt("采购部");
+			}else if (u.getUserDpt()==11) {
+				u2.setUserDpt("市场部");
+			}else if (u.getUserDpt()==12) {
+				u2.setUserDpt("后勤部");
+			}else if (u.getUserDpt()==13) {
+				u2.setUserDpt("财务部");
+			}else{
+				u2.setUserDpt("生产部");
+			}
+			u2.setUserDptJbn(u.getUserDptJbn());
+			u2.setUserUsername(u.getUserUsername());
+			u2.setUserWorktime(u.getUserWorktime());
+			if (u.getUserJobtype()==1) {
+				u2.setUserJobtype("实习期");
+			}else if(u.getUserJobtype()==2){
+				u2.setUserJobtype("试用期");
+			}else if(u.getUserJobtype()==3){
+				u2.setUserJobtype("正式员工");
+			}else{
+				u2.setUserJobtype("已离职");
+			}
+			if (u.getUserWorktype()==1) {
+				u2.setUserWorktype("上班");
+			}else if(u.getUserJobtype()==2){
+				u2.setUserWorktype("休假");
+			}else if(u.getUserJobtype()==3){
+				u2.setUserWorktype("出差");
+			}else {
+				u2.setUserWorktype("缺勤");
+			}
+			if (u.getUserJobtype()!=3) {
+				list2.add(u2);	
+			}
+		}
+		return list2;
 	}
 
 	

@@ -186,7 +186,7 @@
     select 
     <include refid="Base_Column_List" />
     from award
-    where user_number = #{user_number,jdbcType=INTEGER} and DATE_FORMAT(award__time , '%Y%m' )=DATE_FORMAT( CURDATE( ) , '%Y%m' )
+    where user_number = #{user_number,jdbcType=INTEGER} and DATE_FORMAT(award__time , '%Y%m' )=DATE_FORMAT( CURDATE( ) , '%Y%m' )-1
   </select>
   
 </mapper>

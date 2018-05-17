@@ -374,28 +374,28 @@
 				startIntro();
 				var data = [
 					{
-						title: '开会',
+						title: '查看昨天下班后或者今天未处理的事情',
 						url: '',
-						start: '2018-05-01',
-						end: ''
+						start: '2018-05-16T09:30:00',
+						end: '2018-05-16T09:45:00'
 					},
 					{
-						title: '休息',
-						url: '',
-						start: '2018-05-01T20:00:00',
-						end: '2018-05-02T20:00:00'
+						title: '新职员入职',
+						url: '<%=basePath%>manager/toRuZhiUser',
+						start: '2018-05-16T09:50:00',
+						end: '2018-05-16T10:10:10'
 					},
 					{
-						title: '休息2',
-						url: '',
-						start: '2018-05-02T20:00:00',
-						end: '2018-05-03T19:00:00'
+						title: '考勤数据',
+						url: '<%=basePath%>manager/toKaoQingUser',
+						start: '2018-05-16T10:15:00',
+						end: '2018-05-16T10:30:10'
 					},
 					{
-						title: '检查今天工作是否出错',
-						url: '<%=basePath%>manager/toHistory',
-						start: '2018-05-04',
-						end: ''
+						title: '休假数据',
+						url: '<%=basePath%>manager/toXiuJiaUser',
+						start: '2018-05-16T10:35:00',
+						end: '2018-05-16T10:50:10'
 					}
 				]
 				// Calendar Initialization
@@ -409,7 +409,7 @@
 						prev: 'prev fa-angle-left',
 						next: 'next fa-angle-right',
 					},
-					defaultDate: '2018-05-01',
+					defaultDate: '2018-05-16',
 					editable: true,
 					eventLimit: true,
 					events:  data,

@@ -355,7 +355,7 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">${moreWagename}--员工汇总薪酬数据</h3>
+					<h3 class="panel-title">${moreWagename}--员工最近半年汇总薪酬</h3>
 					
 					<div class="panel-options">
 						
@@ -415,7 +415,7 @@
 								<th>个人业绩提成</th>
 								<th>部门业绩提成</th>
 								<th>基础工资</th>
-								<th>考勤奖罚</th>
+								<th><a title="满勤奖励400&#10;缺勤一天扣100，最多扣400"></th>
 								<th>薪酬汇总</th>
 								<th>是否发放</th>
 								<th>操作</th>

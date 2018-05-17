@@ -301,6 +301,10 @@
   		select * from user where user_jobtype != '4';
   </select>
   
+  <select id="FindAllUsernot" resultMap="BaseResultMap">
+  		select * from user where user_jobtype = '4';
+  </select>
+  
   <select id="FindAllUserByUidUname" resultMap="BaseResultMap" parameterType="java.lang.String">
   		select * from user where user_number = #{text,jdbcType=VARCHAR} ;
   </select>

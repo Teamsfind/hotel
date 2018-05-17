@@ -41,6 +41,16 @@ public interface UserService {
     public List<updateUser> updatauser();
     
     /*
+     * 职员转正:查询所有未转正的员工
+     */
+    public List<updateUser> updatausernot();
+    
+    /*
+     * 职员档案:查询已经离职的职员
+     */
+    public List<updateUser> notupdatauser();
+    
+    /*
      * 职员转正:查询单个员工
      */
     public updateUser updatauserByUser_number(int usernumber);

@@ -248,7 +248,7 @@ public class ManagerController {
 		Manager m = (Manager) session.getAttribute("manager");
 		Refreshmessage(m.getManagerid());
 		// to 刷新员工表格
-		List<updateUser> list = userservice.updatauser();
+		List<updateUser> list = userservice.updatausernot();
 		session.setAttribute("updatelist", list);
 		
 		return new ModelAndView("newjsp/updateuser");
@@ -264,9 +264,6 @@ public class ManagerController {
 		Manager m = (Manager) session.getAttribute("manager");
 		Refreshmessage(m.getManagerid());
 		
-		List<updateUser> list = userservice.updatauser();
-		session.setAttribute("updatelist", list);
-		
 		int usernumber = Integer.valueOf(request.getParameter("user_id"));
 		
 		return userservice.updatauserByUser_number(usernumber);
@@ -281,9 +278,6 @@ public class ManagerController {
 		session = request.getSession();
 		Manager m = (Manager) session.getAttribute("manager");
 		Refreshmessage(m.getManagerid());
-		
-		List<updateUser> list = userservice.updatauser();
-		session.setAttribute("updatelist", list);
 		
 		int usernumber = Integer.valueOf(request.getParameter("user_number"));
 		
@@ -317,7 +311,7 @@ public class ManagerController {
 	
 	
 	/*
-	 * 职员档案
+	 * 职员档案，在职
 	 */
 	@RequestMapping("/toLookUser")
 	public ModelAndView  toLookUser(HttpServletRequest request ){
@@ -329,7 +323,23 @@ public class ManagerController {
 		List<updateUser> list = userservice.updatauser();
 		session.setAttribute("lookuserlist", list);
 		
-		return new ModelAndView("newjsp/lookuser");
+		return new ModelAndView("newjsp/Zlookuser");
+	}
+	
+	/*
+	 * 职员档案,离职
+	 */
+	@RequestMapping("/toLLookUser")
+	public ModelAndView  toLLookUser(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<updateUser> list = userservice.notupdatauser();
+		session.setAttribute("lookuserlist", list);
+		
+		return new ModelAndView("newjsp/Llookuser");
 	}
 	
 	/*
