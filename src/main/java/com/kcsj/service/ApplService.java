@@ -16,7 +16,7 @@ public interface ApplService {
     /**
      *同意appl
      */
-    public int agreeappl(int usernumber); 
+    public int agreeappl(int usernumber,String managerid); 
     
     /**
      *拒绝appl

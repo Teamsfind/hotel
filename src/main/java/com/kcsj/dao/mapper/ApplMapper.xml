@@ -181,7 +181,11 @@
   </update>
   
   <select id="findAllApplByApp_type1" parameterType="java.lang.String" resultMap="BaseResultMap">
-  		select * from appl where appl_type="休假" or appl_type="出差" or appl_type="请假" and  appl_managerid  =#{managerid,jdbcType=VARCHAR} ORDER BY appl_time DESC
+  		select * from appl where (appl_type="休假" or appl_type="出差" or appl_type="请假") and  appl_managerid  =#{managerid,jdbcType=VARCHAR} ORDER BY appl_time DESC
+  </select>
+  
+  <select id="findAllApplByApp_type11" parameterType="com.kcsj.pojo.Appl" resultMap="BaseResultMap">
+  		select * from appl where (appl_type="休假" or appl_type="出差" or appl_type="请假") and  appl_managerid  =#{applManagerid,jdbcType=VARCHAR} and user_number = #{userNumber,jdbcType=INTEGER} 
   </select>
   
   <select id="findAllApplByApp_type2" parameterType="java.lang.String" resultMap="BaseResultMap">

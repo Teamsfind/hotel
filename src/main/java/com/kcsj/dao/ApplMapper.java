@@ -53,8 +53,11 @@ public interface ApplMapper {
      */
     int updateByPrimaryKey(Appl record);
     
-  //通知查找（appl_type="请假" or 休假  or出差 ）
+    //通知查找（appl_type="请假" or 休假  or出差 ）
     List<Appl> findAllApplByApp_type1(String managerid);
+    
+    //通知查找（appl_type="请假" or 休假  or出差 ）
+    Appl findAllApplByApp_type11(Appl appl);
     
     //消息查找（appl_type="请示"）
     List<Appl> findAllApplByApp_type2(String managerid);

@@ -28,7 +28,6 @@ import com.kcsj.entitl.Wage1;
 import com.kcsj.entitl.preAttdData;
 import com.kcsj.entitl.updateUser;
 import com.kcsj.pojo.Appl;
-import com.kcsj.pojo.Attd;
 import com.kcsj.pojo.Award;
 import com.kcsj.pojo.Basewage;
 import com.kcsj.pojo.User;
@@ -195,30 +194,12 @@ public class UserImpl implements UserService{
 		app2.setUserNumber(app1.getUserNumber());
 		
 		if (app1.getApplType().equals("请假")) {
-			Attd at = new Attd();
-			at.setUserNumber(app1.getUserNumber());
-			at.setAttdVactionBegintime(app1.getApplTime());
-			at.setAttdVactionEndtime(null);
-			at.setAttdVactionRemark(app1.getApplRemark());
-			attddao.InsertVacationAllMonth(at);
 			
 			app2.setApplType(2);
 		}else if(app1.getApplType().equals("出差")){
-			Attd at = new Attd();
-			at.setUserNumber(app1.getUserNumber());
-			at.setAttdTravelBegintime(app1.getApplTime());
-			at.setAttdTravelEndtime(null);
-			at.setAttdTravelPlace(app1.getApplRemark());
-			attddao.InsertVacationAllMonth(at);
-			
+		
 			app2.setApplType(3);
 		}else if(app1.getApplType().equals("休假")){
-			Attd at = new Attd();
-			at.setUserNumber(app1.getUserNumber());
-			at.setAttdVactionBegintime(app1.getApplTime());
-			at.setAttdVactionEndtime(null);
-			at.setAttdVactionRemark(app1.getApplRemark());
-			attddao.InsertVacationAllMonth(at);
 			
 			app2.setApplType(2);
 		}else if(app1.getApplType().equals("缺勤")){

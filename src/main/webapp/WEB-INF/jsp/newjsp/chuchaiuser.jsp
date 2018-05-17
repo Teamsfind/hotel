@@ -437,7 +437,7 @@
 					dataType : 'json',
 					url : '<%=basePath%>manager/toChuChaiUserHistory?user_id=' + date,
 					error : function(data) {	
-						window.location.href='<%=basePath%>manager/toJiangLiUsermorehistory';
+						window.location.href='<%=basePath%>manager/toChuChaiUserHistorymore';
 					}
 				});
 				

@@ -432,9 +432,9 @@
 				                    <td>${i.username }</td>
 				                    <td>${i.userdpt }---${i.userdptjob }</td>
 				                    <td>${i.wageAllwagetime }</td>
-				                    <td>${i.wageAttd }</td>
-				                    <td>${i.wageVacation }</td>
-				                    <td>${i.wageTravel }</td>
+				                    <td><a onclick="findattday(${i.userNumber})" style="color: green;">${i.wageAttd }</a></td>
+				                    <td><a onclick="findvacday(${i.userNumber})" style="color: green;">${i.wageVacation }</a></td>
+				                    <td><a onclick="findtravelday(${i.userNumber})"style="color: green;">${i.wageTravel }</a></td>
 				                    <td>${i.wageTravelcostall }</td>
 				                    <td>${i.wageBirth }</td>
 				                    <td>${i.wagePersonal }</td>
@@ -493,6 +493,44 @@
 				});
 				
 			}	
+			
+			function findattday(date) {
+				
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					url : '<%=basePath%>manager/toKaoQingUserHistorydang?user_id=' + date,
+					error : function(data) {	
+						window.location.href='<%=basePath%>manager/toKaoQingUserHistorymore';
+					}
+				});
+				
+			}
+			
+		function findvacday(date) {
+				
+				$.ajax({
+					type : 'post',
+					dataType : 'json',
+					url : '<%=basePath%>manager/toXiuJiaUserHistoryDangdang?user_id=' + date,
+					error : function(data) {	
+						window.location.href='<%=basePath%>manager/toXiuJiaUserHistorymore';
+					}
+				});
+				
+			}
+		function findtravelday(date) {
+			
+			$.ajax({
+				type : 'post',
+				dataType : 'json',
+				url : '<%=basePath%>manager/toChuChaiUserHistorydang?user_id=' + date,
+				error : function(data) {	
+					window.location.href='<%=basePath%>manager/toChuChaiUserHistorymore';
+				}
+			});
+			
+		}
 		</script>
 		<footer class="main-footer sticky footer-type-1">
 				

@@ -325,7 +325,7 @@
       #{userDptJbn,jdbcType=VARCHAR}, #{userUsername,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, 
       #{userBirth,jdbcType=TIMESTAMP}, #{userPhone,jdbcType=DOUBLE}, #{userIdcard,jdbcType=DOUBLE}, 
       #{userBankcard,jdbcType=DOUBLE}, #{userAddress,jdbcType=VARCHAR}, 
-      now(), #{userJobtype,jdbcType=INTEGER}, '1', #{userEdu,jdbcType=VARCHAR})
+      now(), #{userJobtype,jdbcType=INTEGER}, '4', #{userEdu,jdbcType=VARCHAR})
   </insert>
   
   <select id="CheckIdCard" resultMap="BaseResultMap">

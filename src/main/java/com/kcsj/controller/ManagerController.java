@@ -113,9 +113,10 @@ public class ManagerController {
 	@RequestMapping(value="/sureappl")
 	public void sureappl(HttpServletRequest request){	
 		int  usernumber = Integer.valueOf(request.getParameter("usernumber"));
-		
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
 		userservice.SurelizhiUserAndUpUser(usernumber);
-		applservice.agreeappl(usernumber);
+		applservice.agreeappl(usernumber,m.getManagerid());
 	}
 	
 	/*
@@ -478,6 +479,27 @@ public class ManagerController {
 	}
 	
 	/*
+	 * 考勤数据:查询单个员工的当月考勤
+	 */
+	@RequestMapping("/toKaoQingUserHistorydang")
+	public void  toKaoQingUserHistoryDang(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<AttdData> list = attdservice.findUserAttdayAllMonthDang(request.getParameter("user_id"));
+		session.setAttribute("moreAttdDatalist", list);
+		User u = new User();
+		try {
+			u = userservice.LiZhiUserByUid(request.getParameter("user_id"));
+		} catch (Exception e) {
+			u=null;
+		}
+		session.setAttribute("AttdDatalistname", u.getUserUsername());
+	}
+	
+	/*
 	 * 休假数据
 	 */
 	@RequestMapping("/toXiuJiaUser")
@@ -537,6 +559,27 @@ public class ManagerController {
 	}
 	
 	/*
+	 * 休假数据:查询单个员工当月的休假
+	 */
+	@RequestMapping("/toXiuJiaUserHistoryDangdang")
+	public void  toXiuJiaUserHistoryDang(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<AttdData> list = attdservice.findUserVacationdayAllMonthDang(request.getParameter("user_id"));
+		session.setAttribute("moreVacDatalist", list);
+		User u = new User();
+		try {
+			u = userservice.LiZhiUserByUid(request.getParameter("user_id"));
+		} catch (Exception e) {
+			u=null;
+		}
+		session.setAttribute("VacDatalistname", u.getUserUsername());
+	}
+	
+	/*
 	 * 出差数据
 	 */
 	@RequestMapping("/toChuChaiUser")
@@ -584,6 +627,27 @@ public class ManagerController {
 		Refreshmessage(m.getManagerid());
 		// to 刷新员工表格
 		List<AttdData> list = attdservice.findUserTravelAll(request.getParameter("user_id"));
+		session.setAttribute("moreTraDatalist", list);
+		User u = new User();
+		try {
+			u = userservice.LiZhiUserByUid(request.getParameter("user_id"));
+		} catch (Exception e) {
+			u=null;
+		}
+		session.setAttribute("TraDatalistname", u.getUserUsername());
+	}
+	
+	/*
+	 * 出差数据:查询单个员工的休假
+	 */
+	@RequestMapping("/toChuChaiUserHistorydang")
+	public void  toChuChaiUserHistoryDnag(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		// to 刷新员工表格
+		List<AttdData> list = attdservice.findUserTravelAllMonthDang(request.getParameter("user_id"));
 		session.setAttribute("moreTraDatalist", list);
 		User u = new User();
 		try {
