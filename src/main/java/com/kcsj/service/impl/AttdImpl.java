@@ -77,9 +77,9 @@ public class AttdImpl implements AttdService{
 							}else {
 								
 								if ((Integer.valueOf(dateStr22)*60+(Integer.valueOf(dateStr222)))<1050) {
-									pre.setAtttype("早退");
-								}else{
 									pre.setAtttype("正常");
+								}else{
+									pre.setAtttype("早退");
 								}
 							}
 							pre.setAttdEndtime(dateStr2);

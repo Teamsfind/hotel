@@ -60,6 +60,12 @@ public interface TravelcostMapper {
     public List<Travelcost2> FindCountTravelCost();
     
     /*
+     * 职员薪酬汇总：差旅报销：刷新申请以及所有数据
+     */
+    public List<Travelcost2> FindCountTravelCost2(int uid);
+    
+    
+    /*
      * 差旅报销：同意修改状态
      */
     public int UpTravelCost1(int uid);

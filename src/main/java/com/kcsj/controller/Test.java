@@ -40,5 +40,13 @@ public class Test {
 //		System.out.println(dateStr222);
 //		BigDecimal bd = new BigDecimal("4.31228199505191615E17");
 //		System.out.println(bd.toPlainString());
+		int usernumber=201710001;
+		String name = String.valueOf(usernumber);
+		String t = name.substring(name.length()-1,name.length());//个数
+		int t3 = Integer.valueOf(t)+1;
+		String t2 = name.substring(name.length()-5,name.length()-3);//部门号
+		String dpt = "2018".concat(t2) ;
+		System.out.println(dpt.concat("00"+String.valueOf(t3)));
+		
 	}
 }

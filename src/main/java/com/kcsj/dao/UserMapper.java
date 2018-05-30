@@ -2,7 +2,6 @@ package com.kcsj.dao;
 
 import java.util.List;
 
-import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.UpAppl;
 import com.kcsj.pojo.User;
 

@@ -5,6 +5,7 @@ import java.util.List;
 import com.kcsj.entitl.AnPaiUser;
 import com.kcsj.entitl.Award1;
 import com.kcsj.entitl.Bumen;
+import com.kcsj.entitl.Travelcost2;
 import com.kcsj.entitl.TravelcostNew;
 import com.kcsj.entitl.Wage1;
 import com.kcsj.entitl.updateUser;
@@ -94,6 +95,11 @@ public interface UserService {
      * 人员安排：修改员工的工作状态
      */
     public int UpUserWorktypeByUsernumber(int uid);
+    
+    /*
+     * 职员薪酬汇总：差旅报销：刷新申请以及所有数据
+     */
+    public List<TravelcostNew> FindCountTravelCost2(int uid);
     
     /*
      * 差旅报销：刷新申请

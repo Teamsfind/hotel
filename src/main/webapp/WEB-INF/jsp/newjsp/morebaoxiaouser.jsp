@@ -335,8 +335,8 @@
 			</nav>
 			<div class="page-title">
 				<div class="title-env">
-					<h1 class="title">职员汇总薪酬</h1>
-					<p class="description">记录每个员工当月的汇总薪酬</p>
+					<h1 class="title">差旅报销</h1>
+					<p class="description">记录每个员工的出差报销申请，方便及时通过审核，提高员工出差满意度</p>
 				</div>
 				<div class="breadcrumb-env">
 						<ol class="breadcrumb bc-1">
@@ -347,7 +347,7 @@
 								薪酬管理
 							</li>
 							<li class="active">
-								<strong>职员汇总薪酬</strong>
+								<strong>差旅报销</strong>
 							</li>
 						</ol>
 				</div>
@@ -355,11 +355,12 @@
 			<!-- Basic Setup -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">所有员工汇总薪酬数据</h3>
+					<h3 class="panel-title">所有员工出差报销申请</h3>
 					
 					<div class="panel-options">
-						<a href="<%=basePath%>manager/toPiliangGeRenUser" title="批量生成当月员工工资薪酬">
-							+<span>批量操作</span>
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">&ndash;</span>
+							<span class="expand-icon">+</span>
 						</a>
 						<a href="#" data-toggle="remove">
 							&times;
@@ -383,21 +384,12 @@
 						<thead>
 							 <tr>
 								<th>记录条数</th>
-								<th><a title="员工工号">员工工号</a></th>
+								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>所属部门</th>
-								<th>时间</th>
-								<th>考勤天数</th>
-								<th>休假天数</th>
-								<th>出差天数</th>
-								<th>差旅报销</th>
-								<th>生日红包</th>
-								<th>个人业绩提成</th>
-								<th>部门业绩提成</th>
-								<th>基础工资</th>
-								<th><a title="满勤奖励400&#10;缺勤一天扣100，最多扣500">考勤奖罚</a></th>
-								<th>薪酬汇总</th>
-								<th>是否发放</th>
+								<th>报销内容</th>
+								<th>报销时间</th>
+								<th>报销金额</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -405,56 +397,28 @@
 						<tfoot>
 							 <tr>
 								<th>记录条数</th>
-								<th><a title="员工工号">员工工号</a></th>
+								<th>员工工号</th>
 								<th>员工姓名</th>
 								<th>所属部门</th>
-								<th>时间</th>
-								<th>考勤天数</th>
-								<th>休假天数</th>
-								<th>出差天数</th>
-								<th>差旅报销</th>
-								<th>生日红包</th>
-								<th>个人业绩提成</th>
-								<th>部门业绩提成</th>
-								<th>基础工资</th>
-								<th>考勤奖罚</th>
-								<th>薪酬汇总</th>
-								<th>是否发放</th>
+								<th>报销内容</th>
+								<th>报销时间</th>
+								<th>报销金额</th>
 								<th>操作</th>
 							</tr>
 						</tfoot>
 					
 						<tbody >
-							<c:forEach items='${Wagecost}' var="i" varStatus="k">  
+							<c:forEach items='${Travelcostmore}' var="i" varStatus="k">  
 				                <tr>  
 				                	<td>${k.count}</td> 
 				                    <td>${i.userNumber }</td> 
-				                    <td>${i.username }</td>
-				                    <td>${i.userdpt }---${i.userdptjob }</td>
-				                    <td>${i.wageAllwagetime }</td>
-				                    <td><a onclick="findattday(${i.userNumber})" style="color: red;">${i.wageAttd }</a></td>
-				                    <td><a onclick="findvacday(${i.userNumber})" style="color: red;">${i.wageVacation }</a></td>
-				                    <td><a onclick="findtravelday(${i.userNumber})"style="color: red;">${i.wageTravel }</a></td>
-				                    <td><a onclick="findtravelcost(${i.userNumber})"style="color: red;">${i.wageTravelcostall }</a></td>
-				                    <td>${i.wageBirth }</td>
-				                    <td>${i.wagePersonal }</td>
-				                    <td>${i.wageDpt }</td>
-				                    <td>${i.wageBasswage }</td>
-				                    <td>${i.wageAttdcost }</td>
-				                    <td>${i.wageAllwage }</td>
-				                    <c:if test="${i.wageTobank=='1'}">
-				                    	<td>是</td>
-				                    	 <td><input type='button' value='已发放' ">
-				                    	<input type='button' value='更多' onclick="morewage(${i.userNumber })">
-				                    </td>
-				                    </c:if>
-				                     <c:if test="${i.wageTobank=='0'}">
-				                    	<td>否</td>
-				                    	<td><input type='button' value='发放' onclick="sureTravel(${i.userNumber })">
-				                    	<input type='button' value='更多' onclick="morewage(${i.userNumber })">
-				                    </td>
-				                    </c:if>
-				                    
+				                    <td>${i.userName }</td>
+				                    <td>${i.userDpt }---${i.userDptJbn }</td>
+				                    <td>${i.travelcostType }</td>
+				                    <td>${i.travelcostTime }</td>
+				                    <td>${i.travelcostCost }</td>
+				                    <td><input type='button' value='返回' onclick="sureTravel()">
+				                     </td> 
 				                </tr>  
 			           		</c:forEach>  
 						</tbody>
@@ -466,83 +430,10 @@
 		<script type="text/javascript">
 			function sureTravel(date) {
 				
-				$.ajax({
-					type : 'post',
-					dataType : 'json',
-					data:{"user_id":date},
-					url : '<%=basePath%>manager/toFaGongZi',
-					error : function(data) {	
-						
 						window.location.href='<%=basePath%>manager/toGeRenUser';
-					}
-				});
-				
-			}
-			function morewage(date) {
-				
-				$.ajax({
-					type : 'post',
-					dataType : 'json',
-					data:{"user_id":date},
-					url : '<%=basePath%>manager/tomoreGongZi',
-					error : function(data) {	
-						
-						window.location.href='<%=basePath%>manager/toZhuanmoreGongZi';
-					}
-					
-				});
-				
-			}	
-			
-			function findattday(date) {
-				
-				$.ajax({
-					type : 'post',
-					dataType : 'json',
-					url : '<%=basePath%>manager/toKaoQingUserHistorydang?user_id=' + date,
-					error : function(data) {	
-						window.location.href='<%=basePath%>manager/toKaoQingUserHistorymore';
-					}
-				});
 				
 			}
 			
-		function findvacday(date) {
-				
-				$.ajax({
-					type : 'post',
-					dataType : 'json',
-					url : '<%=basePath%>manager/toXiuJiaUserHistoryDangdang?user_id=' + date,
-					error : function(data) {	
-						window.location.href='<%=basePath%>manager/toXiuJiaUserHistorymore';
-					}
-				});
-				
-			}
-		function findtravelday(date) {
-			
-			$.ajax({
-				type : 'post',
-				dataType : 'json',
-				url : '<%=basePath%>manager/toChuChaiUserHistorydang?user_id=' + date,
-				error : function(data) {	
-					window.location.href='<%=basePath%>manager/toChuChaiUserHistorymore';
-				}
-			});
-			
-		}
-		function findtravelcost(date) {
-			
-			$.ajax({
-				type : 'post',
-				dataType : 'json',
-				url : '<%=basePath%>manager/tofindtralcostByNumber?user_id=' + date,
-				error : function(data) {	
-					window.location.href='<%=basePath%>manager/tofindtralcostByNumbermore';
-				}
-			});
-			
-		}
 		</script>
 		<footer class="main-footer sticky footer-type-1">
 				

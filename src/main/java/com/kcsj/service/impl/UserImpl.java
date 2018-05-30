@@ -63,8 +63,13 @@ public class UserImpl implements UserService{
 	
 	@Override
 	public String autousernumber(int m) {
-		String dpt = String.valueOf(userdao.autousernumber(m)+1) ;
-		return dpt;
+		int usernumber = userdao.autousernumber(m);
+		String name = String.valueOf(usernumber);
+		String t = name.substring(name.length()-1,name.length());//个数
+		int t3 = Integer.valueOf(t)+1;
+		String t2 = name.substring(name.length()-5,name.length()-3);//部门号
+		String dpt = "2018".concat(t2) ;
+		return dpt.concat("00"+String.valueOf(t3));
 	}
 
 	@Override
@@ -235,7 +240,7 @@ public class UserImpl implements UserService{
 			u2.setUserDptJbn(u.getUserDptJbn());
 			u2.setUserAddress(u.getUserAddress());
 			u2.setUserDangerphone(u.getUserDangerphone());
-			System.out.println(u.getUserPhone());
+		
 			BigDecimal bd = new BigDecimal(String.valueOf(u.getUserPhone()));
 			u2.setUserPhone(bd.toString());
 			listan.add(u2);
@@ -249,7 +254,9 @@ public class UserImpl implements UserService{
 		User u = userdao.LiZhiUserByUid(uid);
 		List<User> ap = userdao.findUserByUser_dpt(u);
 		List<AnPaiUser> listan =  new ArrayList<AnPaiUser>();
-		if (ap!=null) {
+		
+		if (ap.size()!=0) {
+			
 			for (User Appl : ap) {
 				AnPaiUser u2= new AnPaiUser();
 				u2.setUserUsername(Appl.getUserUsername());
@@ -262,6 +269,7 @@ public class UserImpl implements UserService{
 				listan.add(u2);
 			}
 		}else {
+			
 			List<User> ap1 = userdao.findUserByUser_dpt2();
 			for (User Appl : ap1) {
 				AnPaiUser u2= new AnPaiUser();
@@ -731,6 +739,40 @@ public class UserImpl implements UserService{
 			if (u.getUserJobtype()!=3) {
 				list2.add(u2);	
 			}
+		}
+		return list2;
+	}
+
+
+	@Override
+	public List<TravelcostNew> FindCountTravelCost2(int uid) {
+		List<TravelcostNew> list2 =new ArrayList<TravelcostNew>();
+		List<Travelcost2> list = traveldao.FindCountTravelCost2(uid);
+		
+		for (Travelcost2 travelcost2 : list) {
+			TravelcostNew tra = new TravelcostNew();
+			tra.setTravelcostCost(travelcost2.getTravelcostCost());
+			if (travelcost2.getUserDpt()==10) {
+				tra.setUserDpt("采购部");
+			}else if (travelcost2.getUserDpt()==11) {
+				tra.setUserDpt("市场部");
+			}else if (travelcost2.getUserDpt()==12) {
+				tra.setUserDpt("后勤部");
+			}else if (travelcost2.getUserDpt()==13) {
+				tra.setUserDpt("财务部");
+			}else{
+				tra.setUserDpt("生产部");
+			}
+			tra.setUserName(travelcost2.getUserName());
+			tra.setUserDptJbn(travelcost2.getUserDptJbn());
+			tra.setUserNumber(travelcost2.getUserNumber());
+			
+			tra.setTravelcostType(travelcost2.getTravelcostType());
+			
+			Date date = travelcost2.getTravelcostTime();
+			String dateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+			tra.setTravelcostTime(dateStr);
+			list2.add(tra);
 		}
 		return list2;
 	}

@@ -60,6 +60,7 @@ public class ManagerController {
 	
 	@RequestMapping("/tologin")
 	public ModelAndView toexit( ){
+		
 		return new ModelAndView("newjsp/exit");
 	}
 	
@@ -103,6 +104,7 @@ public class ManagerController {
 		session = request.getSession();
 		Manager m = (Manager) session.getAttribute("manager");
 		Refreshmessage(m.getManagerid());
+		
 		return new ModelAndView("newjsp/daohang");
 	}
 	
@@ -115,6 +117,7 @@ public class ManagerController {
 		int  usernumber = Integer.valueOf(request.getParameter("usernumber"));
 		session = request.getSession();
 		Manager m = (Manager) session.getAttribute("manager");
+		
 		userservice.SurelizhiUserAndUpUser(usernumber);
 		applservice.agreeappl(usernumber,m.getManagerid());
 	}
@@ -760,6 +763,40 @@ public class ManagerController {
 		 
 		session.setAttribute("Travelcost", list);
 		return new ModelAndView("newjsp/baoxiaouser");
+	}
+	
+	/*
+	 * 个人查询记录 差旅报销:查询差旅报销未审核的
+	 */
+	@RequestMapping("/tofindtralcostByNumber")
+	public void  tofindtralcostByNumber(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		//查询数据
+		int uid = Integer.valueOf(request.getParameter("user_id"));
+		List<TravelcostNew> list = userservice.FindCountTravelCost2(uid);
+		//管理员操作留痕
+		 String opretion_type = "员工职员薪酬汇总：差旅报销查询";
+		 Opertion o = new Opertion();
+		 o.setManagerName(m.getManagername());
+		 o.setManagerId(m.getManagerid());
+		 o.setOperatingType(opretion_type);
+		 opretionservice.inserOpretion(o);
+		 
+		session.setAttribute("Travelcostmore", list);
+		
+	}
+	
+	@RequestMapping("/tofindtralcostByNumbermore")
+	public ModelAndView  tofindtralcostByNumbermore(HttpServletRequest request ){
+		//to 刷新邮件
+		session = request.getSession();
+		Manager m = (Manager) session.getAttribute("manager");
+		Refreshmessage(m.getManagerid());
+		
+		return new ModelAndView("newjsp/morebaoxiaouser");
 	}
 	
 	/*

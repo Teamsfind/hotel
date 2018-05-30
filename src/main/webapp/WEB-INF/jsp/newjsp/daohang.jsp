@@ -336,7 +336,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="<%=basePath%>manager/toWorkManager">
 									<i class="fa-info"></i>
 									帮助引导
 								</a>
@@ -371,31 +371,45 @@
 			// Calendar Initialization
 			jQuery(document).ready(function($)
 			{
-				startIntro();
+				
+					  startIntro();
+		          
 				var data = [
+					{
+						title: '公司活动',
+						url: '',
+						start: '2018-05-16T09:30:00',
+						end: '2018-05-17T09:45:00'
+					},
 					{
 						title: '查看昨天下班后或者今天未处理的事情',
 						url: '',
-						start: '2018-05-16T09:30:00',
-						end: '2018-05-16T09:45:00'
+						start: '2018-05-26T09:30:00',
+						end: '2018-05-26T09:45:00'
 					},
 					{
 						title: '新职员入职',
 						url: '<%=basePath%>manager/toRuZhiUser',
-						start: '2018-05-16T09:50:00',
-						end: '2018-05-16T10:10:10'
+						start: '2018-05-26T09:50:00',
+						end: '2018-05-26T10:10:10'
 					},
 					{
 						title: '考勤数据',
 						url: '<%=basePath%>manager/toKaoQingUser',
-						start: '2018-05-16T10:15:00',
-						end: '2018-05-16T10:30:10'
+						start: '2018-05-26T10:15:00',
+						end: '2018-05-26T10:30:10'
 					},
 					{
 						title: '休假数据',
 						url: '<%=basePath%>manager/toXiuJiaUser',
-						start: '2018-05-16T10:35:00',
-						end: '2018-05-16T10:50:10'
+						start: '2018-05-26T10:35:00',
+						end: '2018-05-26T10:50:10'
+					},
+					{
+						title: '开例会',
+						url: '<%=basePath%>manager/toXiuJiaUser',
+						start: '2018-05-28T09:35:00',
+						end: '2018-05-28T10:20:10'
 					}
 				]
 				// Calendar Initialization
@@ -409,7 +423,7 @@
 						prev: 'prev fa-angle-left',
 						next: 'next fa-angle-right',
 					},
-					defaultDate: '2018-05-16',
+					defaultDate: '2018-05-26',
 					editable: true,
 					eventLimit: true,
 					events:  data,
@@ -834,6 +848,7 @@
 	<script src="<%=basePath%>assets/js/xenon-custom.js"></script>
 	<script type="text/javascript" src="<%=basePath%>houcss/loginjs/intro.js"></script>
 	<script type="text/javascript">
+	 
       function startIntro(){
         var intro = introJs();
           intro.setOptions({

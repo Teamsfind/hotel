@@ -161,6 +161,12 @@
   	where travelcost_status='0' and t.user_number=u.user_number and DATE_FORMAT( t.travelcost_time , '%Y%m' )=DATE_FORMAT( now( ) , '%Y%m' ) order by travelcostCost;
   </select>
   
+  <select id="FindCountTravelCost2" resultType="com.kcsj.entitl.Travelcost2" parameterType="java.lang.Integer">
+  	select  t.travelcost_type as travelcostType,t.travelcost_time as travelcostTime,t.travelcost_cost as travelcostCost,u.user_username as userName,u.user_dpt as userDpt,u.user_dpt_jbn as userDptJbn,u.user_number as userNumber
+  	from travelcost t,user u 
+  	where travelcost_status='1' and t.user_number=u.user_number and DATE_FORMAT( t.travelcost_time , '%Y%m' )=DATE_FORMAT( now( ) , '%Y%m' )-1 and t.user_number = #{uid,jdbcType=INTEGER} order by travelcostCost;
+  </select>
+  
   <update id="UpTravelCost1" parameterType="java.lang.Integer">
   		update travelcost
   		set travelcost_status = '1'
